@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorTest">#9c0820</color>
+
+    <color name="c_swipe_refresh_blue">#304ffe</color>
+    <color name="c_swipe_refresh_red">#d50000</color>
+    <color name="c_swipe_refresh_orange">#ffa000</color>
+    <color name="c_swipe_refresh_green">#00c853</color>
+    <color name="colorPrimary">#282341</color>
+    <color name="colorPrimaryDark">#211c39</color>
+    <color name="colorAccent">#009688</color>
+    <color name="c_tab_indicator">#F9C406</color>
+    <color name="layout_background_item">#FFFFFF</color>
+    <color name="progress_bar_active">#FF673E</color>
+    <color name="progress_bar_inactive">#ebebeb</color>
+    <color name="list_parent_select_bg">#ebebeb</color>
+
+    <color name="archive_layout_background">#e8e8e8</color>
+    <color name="main_layout_background">#e8e8e8</color>
+    <color name="c_bookmark_checked">#FF673E</color>
+    <color name="bookmark_unchecked">#AAB3BC</color>
+    <color name="tab_background">#282341</color>
+    <color name="tab_text_selected">#FFFFFF</color>
+    <color name="tab_text_unselected">#9492A0</color>
+    <color name="tab_indicator">#F9C406</color>
+
+    <color name="main_text">#292442</color>
+    <color name="c_list_item_select">#c8dfdfdf</color>
+    <color name="item_select">#43b4a9</color>
+    <color name="c_ripple">#17bfbebe</color>
+    <color name="c_list_item_background">#ffffff</color>
+
+    <color name="file_item_checked">#72BB4D</color>
+    <color name="file_item_unchecked">#ABB4BD</color>
+    <color name="reviews_text">#ABB4BD</color>
+    <color name="files_list_background">#F6F6F6</color>
+    <color name="text_color_dark">#000000</color>
+    <color name="text_color_error">#263238</color>
+    <color name="text_color_light">#F4F4F4</color>
+    <color name="element_background_color">#4F81BB</color>
+    <color name="bright_blue">#0d73df</color>
+    <color name="selection_background_color">#e49797</color>
+    <color name="Gray">#797878</color>
+    <color name="c_app_main_color">#6a56a7</color>
+    <color name="gradient_start">#88383838</color>
+    <color name="gradient_end">#FF000000</color>
+    <color name="gradient_center">#aa262626</color>
+    <color name="button_default">#aab2bc</color>
+    <color name="tb_button_default">#f6f6f6</color>
+    <color name="splash_logo_color">#FFFFFF</color>
+
+    <!--PagerSlideTabStrip-->
+    <color name="psts_background_tab_pressed">#1AFFFFFF</color>
+    <color name="psts_background_tab_pressed_ripple">#AAFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="c_setting_item_title">#404040</color>
+    <color name="c_setting_item_descr">#757575</color>
+    <color name="c_setting_item_divider">#9e9e9e</color>
+    <color name="c_setting_group_text">#b2b2ba</color>
+    <color name="c_text_item_default">#aab2bc</color>
+    <color name="c_bg_zoom_image">#66000000</color>
+    <color name="c_link_text">#1155CC</color>
+
+</resources>

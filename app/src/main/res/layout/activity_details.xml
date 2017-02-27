@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vf_layout_changer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_background">
+
+    <!--loading data layout-->
+    <include layout="@layout/layout_loading" />
+
+    <!--error layout-->
+    <include layout="@layout/layout_error" />
+
+    <FrameLayout
+        android:id="@+id/ll_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/parent_layout_padding"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rnd_corners_gray_bg_gray"
+                android:orientation="vertical">
+
+                <!--poster & title-->
+                <LinearLayout
+                    android:id="@+id/ll_header_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/parent_layout_padding"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_details_poster"
+                        android:layout_width="@dimen/image_width_small"
+                        android:layout_height="@dimen/image_height_small"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:contentDescription="poster"
+                        android:padding="@dimen/little_padding"
+                        app:srcCompat="@drawable/no_picture"
+                        android:scaleType="center"
+                        tools:ignore="HardcodedText" />
+                    <!--app:srcCompat="@drawable/no_picture"-->
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_details_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="@dimen/margin_top"
+                            android:layout_weight="0.9"
+                            android:ellipsize="end"
+                            android:gravity="center|top"
+                            android:maxLines="5"
+                            android:padding="@dimen/little_padding"
+                            android:text="Название фильма на англиском / на русском"
+                            android:textColor="@color/main_text"
+                            android:textSize="@dimen/grid_item_header_text_size"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText,NestedWeights" />
+
+                        <TextView
+                            android:id="@+id/tv_details_create_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/parent_layout_padding"
+                            android:gravity="right"
+                            android:padding="@dimen/little_padding"
+                            android:text="9:58. марта 2016"
+                            android:textColor="@color/reviews_text"
+                            android:textSize="@dimen/size_text_small"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--buttons_panel-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:baselineAligned="false"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <club.bobfilm.app.MaterialRippleLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:mrl_rippleColor="@color/c_ripple"
+                        app:mrl_rippleDelayClick="true"
+                        app:mrl_rippleOverlay="true">
+
+                        <LinearLayout
+                            android:id="@+id/ll_read_quotes"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="2dp">
+
+                            <ImageView
+                                android:id="@+id/iv_details_reviews"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:scaleType="center"
+                                app:srcCompat="@drawable/ic_quote_details"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/tv_details_reviews_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="2036"
+                                android:textSize="@dimen/size_text_small"
+                                tools:ignore="HardcodedText" />
+                        </LinearLayout>
+                    </club.bobfilm.app.MaterialRippleLayout>
+
+                    <club.bobfilm.app.MaterialRippleLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        app:mrl_rippleColor="@color/c_ripple"
+                        app:mrl_rippleDelayClick="true"
+                        app:mrl_rippleOverlay="true">
+
+                        <LinearLayout
+                            android:id="@+id/ll_share_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="2dp">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/iv_share_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:scaleType="center"
+                                app:srcCompat="@drawable/ic_share" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/popup_share"
+                                android:textSize="@dimen/size_text_small" />
+                        </LinearLayout>
+                    </club.bobfilm.app.MaterialRippleLayout>
+
+                    <club.bobfilm.app.MaterialRippleLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:mrl_rippleColor="@color/c_ripple"
+                        app:mrl_rippleDelayClick="true"
+                        app:mrl_rippleOverlay="true">
+
+                        <LinearLayout
+                            android:id="@+id/ll_add_bookmark"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="2dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="2dp">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/iv_bookmark_state"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:scaleType="center"
+                                app:srcCompat="@drawable/ic_bookmark_unchecked" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/details_btn_bookmark_text"
+                                android:textSize="@dimen/size_text_small" />
+                        </LinearLayout>
+                    </club.bobfilm.app.MaterialRippleLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_details_html"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/parent_layout_padding"
+                    android:textColor="@color/main_text"
+                    android:textSize="@dimen/grid_item_header_text_size" />
+
+                <!-- stretching frame layout, using layout_weight -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    tools:ignore="UselessLeaf" />
+
+                <LinearLayout
+                    android:id="@+id/ll_list_files"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+
+                    <!--<include layout="@layout/item_list_file" />-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <!-- This initially-hidden ImageView will hold the expanded/zoomed version of the
+     images above. Without transformations applied, it takes up the entire screen.
+     To achieve the "zoom" animation, this view's bounds are animated from the
+     bounds of the thumbnail buttons above, to its final laid-out bounds. The implementation
+     of this animation is in the ZoomActivity class. -->
+
+        <LinearLayout
+            android:id="@+id/ll_expanded"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/c_bg_zoom_image"
+            android:gravity="center"
+            android:padding="8dp"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/expanded_image"
+                android:layout_width="@dimen/image_width_large"
+                android:layout_height="@dimen/image_height_large"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                app:srcCompat="@drawable/no_picture"
+                android:visibility="visible" />
+        </LinearLayout>
+    </FrameLayout>
+
+</ViewFlipper>

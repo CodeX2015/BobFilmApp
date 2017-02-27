@@ -1,0 +1,507 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>Сервис хранения информации @ EX.UA</title>
+    <link href="/index.css?0.08" type="text/css" rel="stylesheet">
+    <link href="/favicon.ico" rel="shortcut icon">
+    <meta name="robots" content="noarchive">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="content-language" content="ru">
+    <script src="/js/main.js" charset="utf-8" type="text/javascript"></script>
+    <script src="/js/request.js" charset="utf-8" type="text/javascript"></script>
+    <link href="/ex2/build/js/lib/jqui/jquery-ui.structure.min.css" type="text/css"
+          rel="stylesheet">
+    <link href="/ex2/build/js/lib/jqui/jquery-ui.min.css" type="text/css" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/ex2/build/js/lib/jqui/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+if (window.devicePixelRatio) document.cookie = 'udpr=' + window.devicePixelRatio + ';path=/';
+// if (window.top != window.self) window.top.location = window.self.location;
+
+    </script>
+    <meta name="description"
+          content="Сервис хранения информации. EX-файлы, видео, аудио, изображения, тексты, игры и программы. Просмотр онлайн.">
+    <meta name="keywords"
+          content="сервис, хранение информации, видео, аудио, изображения, тексты, игры, программы, фильмы, музыка, mp3, просмотр, онлайн, скачать">
+    <link rel="image_src" href="http://www.ex.ua/i/ex-3.gif">
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+{ lang: 'ru' }
+
+    </script>
+    <script type="text/javascript">
+    (function () {
+        var w = window, d = document;
+        var protocol = /https/i.test(w.location.protocol) ? 'https:' : 'http:';
+        w.amSlots = (w.amSlots || []);
+        w.invPathB = protocol + '//inv-nets.admixer.net';
+        w.amCPath = protocol + '//cdn.admixer.net/';
+        w.amHost = 'sf';
+
+        if (!w.aml) {
+            var aml = document.createElement('script');
+            aml.id = 'amlScript';
+            aml.async = true;
+            aml.type = 'text/javascript';
+            aml.src = w.amCPath + 'scripts3/loader.js';
+            var node = d.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(aml, node);
+        }
+    })();
+
+    </script>
+</head>
+<body onload="initBody()">
+<table width="100%" border="0" class="menu" id="menu"
+       style="width: 100%; position: absolute; top: 0px; z-index: 990;">
+    <!--31px-->
+    <tbody>
+    <tr>
+        <td class="menu_text">&nbsp; <a href="https://mail.ex.ua/"><img src="/i/ex-small.png"
+                                                                        width="26" height="12"
+                                                                        border="0"
+                                                                        alt="EX">-Почта</a>
+            <!--
+      &nbsp;|
+      <a href='/'>Файлы</a>&nbsp;|
+      <a href='/ru/video'>Видео</a>&nbsp;|
+      <a href='/ru/audio'>Аудио</a>&nbsp;|
+      <a href='/ru/images'>Изображения</a>&nbsp;|
+      <a href='/ru/texts'>Тексты</a>&nbsp;|
+      <a href='/ru/games'>Игры</a>&nbsp;|
+      <a href='/ru/software'>Программы</a>&nbsp;|
+      <a href='/ru/about'>О сервисе</a>&nbsp;|
+      <a href='/search'>Поиск</a>
+      --> &nbsp;</td>
+        <td align="right" valign="center" class="menu_text">&nbsp;
+            <form style="display: inline;" action="/language">
+                <select name="lang" onchange="if (this.form) this.form.submit();">
+                    <option value="ru" selected>русский</option>
+                    <option value="uk">українська</option>
+                    <option value="en">english</option>
+                    <option value="es">espanol</option>
+                    <option value="de">deutsch</option>
+                    <option value="fr">français</option>
+                    <option value="pl">polski</option>
+                    <option value="ja">日本語</option>
+                    <option value="kk">қазақ</option>
+                </select>
+            </form>
+            &nbsp;| <a href="/login">Вход</a> &nbsp; </td>
+    </tr>
+    </tbody>
+</table>
+<table id="body_table" width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+    <tr>
+        <td valign="top" style="height: 28px;">
+            <!--58px--> </td>
+    </tr>
+    <tr>
+        <td valign="top" style="padding: 16px;" id="body_element">
+            <script src="/js/jquery.min.js"></script>
+            <center style="margin: -16px -16px -28px;">
+                <div style="background-color:#f8f8f8;">
+                    <div style="width:960px; margin:0 auto; overflow:auto;">
+                        <div style="width:540px; float:left; padding:25px 0; text-align:left;">
+                            <h1>Экспресс-файлы — сервис обмена информацией</h1>
+                            <p> Вы можете анонимно воспользоваться сервисом хранения, пересылки и
+                                обмена файлов, в этом случае доступ к объекту будет возможен только
+                                с помощью ключа, который Вы получите при создании объекта. </p>
+                        </div>
+                        <div style="padding-left: 24px;overflow: visible;float: right;width: 323px;padding-top: 55px;">
+                            <form method="post" action="/edit_storage">
+                                <input type="submit" value="создать" class="button ex"
+                                       style="float: left;">
+                            </form>
+                            <div style="overflow: visible;float: right;">
+                                <form method="post" action="/storage">
+                                    <input type="text" name="key" value="" class="ex"
+                                           autocomplete="off" maxlength="12">
+                                    <input type="submit" value="получить" class="button ex"
+                                           style="border-radius:0 3px 3px 0; float: left;">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+         <div id='mixer_7674cd18ccce40e2872989ad8000d3f3_zone_10009_sect_2166_site_2030_rnd_379134829'></div>
+         <script type="text/javascript">
+             window.amSlots = (window.amSlots || []); window.amSlots.push({ z: '7674cd18-ccce-40e2-8729-89ad8000d3f3', ph: 'mixer_7674cd18ccce40e2872989ad8000d3f3_zone_10009_sect_2166_site_2030_rnd_379134829', i: 'inv-nets' });
+         </script>
+         -->
+                <!-- // -->
+                <link rel="stylesheet" type="text/css" href="/express_send/css/express_send.css">
+                <link rel="stylesheet" href="/express_send/css/intlTelInput.css">
+                <script src="/express_send/js/fox_express.js"></script>
+                <script src="/express_send/js/intlTelInput.min.js"></script>
+                <script type="text/javascript">
+	var fox_note = {
+		TO_SHORT:     'Номер слишком короткий',
+		TO_LONG:      'Номер слишком длинный',
+		ONLY_NUMBERS: 'Номер может содержать только цифры',
+		DEF_INVALID:  'Номер не валидный'
+	};
+
+                </script>
+                <div class="note_wr" id="fox_note"></div>
+                <div class="fox_wrap_top">
+                    <div class="fox_wrap clearfix">
+                        <div class="fox_col1">
+                            <div class="fox_h">
+                                Экспресс-письмо
+                            </div>
+                            <div class="fox_desc">
+                                Если получатель не зарегистрирован в системе, сообщение всё равно
+                                будет доставлено.
+                                <br>На указанный номер телефона будет выслана SMS с информацией о
+                                доступе к аккаунту.
+                            </div>
+                            <div contenteditable="true" class="fox_body" data-ph="Сообщение"></div>
+                            <div class="fox_send_ctrl">
+                                <input type="tel" id="fox_exp_phone" name="fox_phone">
+                                <span>@ex.ua</span>
+                                <button class="fox_btn" id="fox_exp_send">отправить</button>
+                            </div>
+                            <span id="fox_err_send"></span>
+                        </div>
+                        <!-- / -->
+                        <div class="fox_col2">
+                            <div class="fox_h">
+                                Экспресс-регистрация в EXMAIL
+                                <i class="mail-howto">
+                                    <div>
+                                        Как это работает
+                                    </div>
+                                </i>
+                            </div>
+                            <div class="fox_desc">
+                                Чтобы создать почтовый ящик на ex.ua, достаточно лишь указать свой
+                                номер телефона.
+                            </div>
+                            <div class="fox_phone_bl">
+                                <input type="tel" data-express-reg="1" name="fox_phone">
+                                <span>@ex.ua</span>
+                                <button id="fox_create" class="fox_btn" style="float:right">
+                                    создать
+                                </button>
+                            </div>
+                            <span id="fox_err_reg"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mail-howto-bg"></div>
+                <div class="mail-howto-video">
+                    <i class="mail-howto-video-close"></i>
+                    <iframe width="640" height="368" frameborder="0" webkitallowfullscreen
+                            mozallowfullscreen allowfullscreen></iframe>
+                </div>
+                <!-- // -->
+                <div style="width:960px; margin:0 auto; overflow:auto;" id="fox_news">
+                    <div id="main_page">
+                        <div class="main_menu">
+                            <div class="main_login">
+                                Вход
+                            </div>
+                            <a href="http://www.ex.ua/register"
+                               class="main_register">Регистрация</a>
+                            <div class="login_form">
+                                <form name="login" method="post" action="/login">
+                                    <!-- <input type="hidden" name="back" value="/register"> -->
+                                    <div>
+                                        <input type="text" name="login" value="" class="ex"
+                                               maxlength="64" placeholder="логин">
+                                    </div>
+                                    <div>
+                                        <input type="password" name="password" value="" class="ex"
+                                               maxlength="64" placeholder="пароль">
+                                    </div>
+                                    <div style="display:none">
+                                        <input type="checkbox" name="flag_permanent" value="1">запомнить
+                                        меня
+                                    </div>
+                                    <div style="display:none">
+                                        <input type="checkbox" name="flag_not_ip_assign" value="1">без
+                                        привязки по IP
+                                    </div>
+                                    <input type="submit" value="войти" class="button ex">
+                                </form>
+                                <a class="login_footer" href="/password">Забыл пароль</a>
+                            </div>
+                        </div>
+                        <div class="main_center">
+                            <div class="ex_storage">
+                                <form method="post" action="/edit_storage">
+                                    <input type="submit" value="создать" class="button ex"
+                                           style="float:left; height:34px;">
+                                </form>
+                                <form method="post" action="/storage">
+                                    <input type="submit" value="получить" class="button ex"
+                                           style="border-radius:0 3px 3px 0; float:right; height:34px;">
+                                    <input type="text" name="key" placeholder="ключ доступа"
+                                           value="" class="ex" autocomplete="off" maxlength="12"
+                                           style="float:right; height:34px; padding-left:12px; width:115px;">
+                                </form>
+                            </div>
+                            <a href="https://mail.ex.ua/" class="ex_mail"></a>
+                            <div class="ex_file"></div>
+                            <div onclick="document.location='http://videopay.net/channel/y3m68F6YEeStFJNAGpT1tw/video';return false;"
+                                 class="ex_videopay"></div>
+                        </div>
+                        <div class="main_footer">
+                            ехmail – твоя пошта на ex.ua
+                        </div>
+                    </div>
+                    <div style="font-size: 18px; text-align: justify; padding-top: 32px;">
+                        <p><b>Уважаемые пользователи EX.UA.</b></p>
+                        <p>Решение портала о прекращении деятельности всколыхнуло интернет
+                            сообщество и подняло волну обсуждений. На почту ресурса поступает
+                            огромное количество вопросов. Еще больше их было задано в блогах, чатах
+                            и публикациях. Часть всякого рода домыслов было озвучено
+                            "доброжелателями". Кто следил за "эфиром", отметили особое внимание к
+                            данной теме некоторых карманных СМИ. Игнорировать эти вопросы
+                            некорректно по отношению к сообществу EX.UA. Поэтому мы дадим ответы на
+                            самые задаваемые вопросы.</p>
+                        <p><b>Возобновит ли ресурс работу в связи с вето законопроекта
+                            3081д?</b><br> Предположим, что решение ветирования законопроекта
+                            основано на здравом анализе неоднозначного закона. Ресурс никогда не
+                            имел целью влиять на позицию Президента. Единственным критерием принятия
+                            решений о закрытии ресурса всегда были интересы пользователей. Однако,
+                            сама проблема никуда не делась. Неадекватное лобби, публичные заявления
+                            и пресс-конференции продолжают нагнетать истерию вокруг вопроса защиты
+                            авторских прав. Защищая собственный бизнес, люди склонны игнорировать
+                            перемены вокруг, технический прогресс и существующую действительность.
+                            Ресурс всегда был готов к конструктивному диалогу с правообладателями. В
+                            этом вопросе ничего не изменилось. Как и не изменилось нынешнее решение
+                            о прекращении работы.</p>
+                        <p><b>Правда ли, что ресурс начнет работу под другим доменом или на другой
+                            территории?</b><br> EX.UA и до этого не был замечен в нарушении своих
+                            обещаний, нет планов ничего менять и сейчас. Публично сделанное
+                            объявление остается в силе.</p>
+                        <p><b>Будет ли доступен популярная опция: EX-файлы (анонимный обмен
+                            файлами)?</b><br> Да. Над новым решением ведется работа. Это будет
+                            отдельная платформа со множеством дополнительных функций и улучшенными
+                            возможностями производительности.</p>
+                        <p><b>Будет ли дополнительное время для переноса личных архивов с EX.UA?</b><br>
+                            Да. В связи с многочисленными обращениями пользователей такая
+                            возможность сохранится до 31.12.16. Данный доступ будет возможно только
+                            в личные архивы пользователей. Публичный доступ к ресурсу будет
+                            ограничен с 01.12.16.</p>
+                        <p><b>Будет ли доступна почта на домене EX.UA.?</b><br> Почта на домене
+                            EX.UA будет доступна до 31.12.16. Начиная с 01.01.17, почта будет
+                            доступна на новом домене.</p>
+                        <p><b>Где пользователям теперь хранить свои файлы?</b><br> Просьбы и интерес
+                            пользователей услышаны. Рассматривается возможность запуска закрытого
+                            файлового хранилища. О новом проекте и его названии будет объявлено
+                            21.12.16.</p>
+                        <p><b>Что будет с самым дорогим доменом UANET? (Цитата взята из
+                            интернета)</b><br> После 31 декабря 2016 сервисы на этом домене EX.UA
+                            предоставляться не будут ни в Белизе, ни в Ростовской области.</p>
+                        <p>Что-бы закончить любые спекуляции вокруг Ex.ua о возможном "заграничном"
+                            будущем ресурса уведомляем : самый дорогой домен UANET продается. Цена
+                            домена EX.UA - 1 млн. долларов США. 100% вырученных средств будут
+                            потрачены на срочные и неотложные детские операции . Мы надеемся, что
+                            пользователи EX.UA поддержат это решение. За контролем целевого
+                            использования денег от реализации домена будет следить известная
+                            международная аудиторская компания. В случае отсутствия спроса на
+                            заявленную стоимость домен EX.UA останется в памяти и легендах
+                            украинского Интернета.)</p>
+                        <p>Всем пользователям Ex.ua спасибо за любовь и поддержку.</p>
+                        <!--
+               <b>ЕХ.UA прекращает работу</b>
+               <p>Ресурс EX.UA принял решение прекратить работу. За последний год EX.UA довелось ощутить на себе прямые угрозы, шантаж (в т.ч. и на межгосударственном уровне), DDOS атаки. Данные действия подвергают опасности личную информацию и личные файлы пользователей, которые хранятся на ресурсе.</p>
+               <p>EX.UA работал в правовом поле. Не всем нравилась такая трактовка законодательства, но ресурс всегда уважал законы Украины. EX.UA соблюдал авторские права, что постоянно подтверждал быстрым реагированием на любые нарушения на площадке. При этом, ресурс не одобряет ту систему распределения и управления авторскими правами, которая сложилась сегодня.</p>
+               <p>За время существования EX.UA поставил перед собой задачу поднять эту проблему в украинском обществе. Личным примером ресурс показал, что страна способна соскочить с иглы торрентов, и в рамках рыночных механизмов плавно двигаться к нормализации правоотношений между пользователями, правообладателями и Интернет-площадками.  Часть из этих задач выполнена, часть – нет.</p>
+               <p>Последние законодательные инициативы в сфере якобы борьбы с пиратством несут все признаки нецивилизованного лоббизма. Новый закон, который находится на подписании  у Президента, делает невыгодным его соблюдение: он будет действовать только против тех, кто попытается ему следовать. Он будет стимулировать пренебрежение авторскими правами. И поэтому он невыгоден. Он мертв.</p>
+               <p>Выгоду получат только иностранные компании. Украинские правообладатели не получат больше денег. Украинский бюджет не получит вообще никаких денег. А украинский зритель получит меньшую свободу выбора. Мы считаем то, что сейчас будет происходить в Украине после принятия закона, сильно вредит ее интересам.</p>
+               <p>EX.UA всегда идентифицировал себя как национальное файловое хранилище и отвергал любые "предложения" связанные со  сменой доменной зоны и территории вещания. Название EX.to/co/ru для EX.uа неприемлемо.</p>
+               <p><b>EX.UA никогда не сойдет с позиций уважения законов Украины, и поэтому ресурс принял решение просто прекратить свою работу.</b> Мы просим всех пользователей изъять файлы из своих архивов на EX.UA до 30.11.2016. Также уведомляем пользователей mail.ex.ua, что данный сервис будет в ближайшее время перенесен на новый домен.</p>
+               <p>PS: Самая темная ночь – перед рассветом. Возможно, нашему рынку снова стоит вернуться к бесконтрольному торрент-пиратству, чтобы правообладатели осознали, что, не предоставив зрителям возможность легально получать контент, они не могут запрещать.</p>
+               -->
+                    </div>
+                </div>
+            </center>
+            <script type="text/javascript">
+function initStorage()
+{
+	var a = 1;
+	var f = document.forms['storage'];
+	if (f)
+	{
+		var e = f.elements['key'];
+		if (e) e.focus();
+	}
+}
+
+onLoadAction.push(initStorage);
+
+            </script>
+            <!-- Yandex.Metrika counter -->
+            <script type="text/javascript">
+                (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter26207799 = new Ya.Metrika({id:26207799, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true, ut:"noindex"}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");
+            </script>
+            <noscript>
+                <div>
+                    <img src="//mc.yandex.ru/watch/26207799?ut=noindex"
+                         style="position:absolute; left:-9999px;" alt="">
+                </div>
+            </noscript>
+            <!-- /Yandex.Metrika counter -->
+            <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-54840297-1', 'auto');
+ga('send', 'pageview');
+
+            </script>
+            <!-- <center style='margin-top: 24px;'>
+      <img src='/i/ex-2.png' alt='EX.ua' title='EX.ua' width=181 height=37 border=0><p>
+      <h1>Экспресс-файлы — сервис обмена информацией</h1><p>
+      Вы можете анонимно воспользоваться сервисом хранения, пересылки и обмена файлов, в этом случае доступ к объекту будет возможен только с помощью ключа, который Вы получите при создании объекта.
+
+      <p>
+      <form method=post action='/edit_storage'>
+      <input type=submit value="создать" class=button>
+      </form>
+      <p>
+      Для получения доступа к информации по ключу можете воспользоваться формой ниже.
+      <p>
+      <form method=post action='/storage'>
+      <input type=text name=key value='' style='width: 120px' autocomplete=off maxlength=12><p>
+      <input type=submit value="получить" class=button>
+      </form>
+      </center> -->
+            <script type="text/javascript">
+// function initStorage() {
+// 	var f = document.forms['storage'];
+// 	if (f) {
+// 		var e = f.elements['key'];
+// 		if (e) e.focus();
+// 	}
+// }
+// onLoadAction.push(initStorage);
+
+            </script>
+        </td>
+    </tr>
+    <tr>
+        <td valign="bottom" style="height: 32px;">
+            <table width="100%" border="0" class="copyright">
+                <tbody>
+                <tr>
+                    <td>
+                        <!-- hit.ua -->
+                        <script type="text/javascript"><!--
+
+function loadJs(src)
+{
+	var a = document.createElement('script');
+	a.setAttribute('src', src);
+	a.async = 'true';
+	var b = document.getElementsByTagName('script')[0];
+	b.parentNode.insertBefore(a, b);
+}
+
+if (!document.cookie) document.cookie = "b=b";
+
+var value = (document.getElementById('ex_block_1') ? 1 : 0) + (document.getElementById('ex_block_2') ? 2 : 0);
+loadJs('http://c.hit.ua/hit?i=13501' +
+	'&g=0&x=3&s=1' +
+	'&t=' + (new Date()).getTimezoneOffset() +
+	(document.cookie ? '&c=1' : '') +
+	(value ? '&v=' + value : '') +
+	(self != top ? '&f=1' : '') +
+	(navigator.javaEnabled() ? '&j=1' : '') +
+	(typeof(screen) != 'undefined' ? '&w=' + screen.width + '&h=' + screen.height + '&d=' + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth) : '') +
+	'&r=' + escape(document.referrer) +
+	'&u=' + escape(window.location.href) +
+	'&' + Math.random()
+);
+if (document.cookie) loadJs('http://c.hit.ua/poll?i=13501&c=1&' + Math.random());
+
+//-->
+                        </script>
+                        <!--script type="text/javascript" src="http://q.cnt.re/cnt/prod_ajax_poll_ex.min.js"></script-->
+                        <noscript>
+                            <img src="http://c.hit.ua/hit?i=13501&amp;g=0&amp;x=2" border="0"
+                                 width="1" height="1">
+                        </noscript>
+                        <!-- / hit.ua --> </td>
+                    <td align="center">
+                        <noscript>
+                            <img src="http://juke.mmi.bemobile.ua/bug/pic.gif?siteid=ex.ua">
+                        </noscript>
+                        <script language="javascript">
+var tns_already; if ("undefined"==typeof(tns_already) || null==tns_already || 0==tns_already) { tns_already=1; var i=new Image(); i.src="http://juke.mmi.bemobile.ua/bug/pic.gif?siteid=ex.ua&j=1&"+Math.random(); (function(){ var p=document.getElementsByTagName('head')[0]; var s=document.createElement("script"); s.type="text/javascript"; s.src="http://source.mmi.bemobile.ua/cm/cm.js"; s.async = true; p.appendChild(s); })(); };
+
+                        </script>
+                    </td>
+                    <td align="right"><span class="small" title="copyright">©</span>&nbsp;<span
+                            class="small">ex.ua&nbsp;|&nbsp;<a
+                            href="/contact">контактная информация</a>&nbsp;|&nbsp;<a
+                            href="/copyright">для правообладателей</a></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script type="text/javascript">
+// setTimeout(function() { var e, id = 0; while(e = document.getElementById('ex_block_' + ++id)) if (e.style.display == 'none') e.style.display = (e.tagName == 'TABLE' ? 'table' : (e.tagName == 'TR' ? 'table-row' : 'block')); }, 0);
+var updateWidthDivs = [];
+var updateWidthLimit = 30;
+for (var i in window.amSlots) {
+	var div = document.getElementById(window.amSlots[i].ph);
+	if (div) updateWidthDivs.push(div);
+}
+function updateWidth() {
+	var i = 0;
+	while (i < updateWidthDivs.length) {
+		var div = updateWidthDivs[i];
+		if (div.style.width == '100%') {
+			div.style = 'width: 100% !important';
+			updateWidthDivs.splice(i, 1);
+		}
+		else {
+			i++;
+		}
+	}
+	if (updateWidthDivs.length && --updateWidthLimit) setTimeout(updateWidth, 100);
+}
+// if (updateWidthDivs.length) setTimeout(updateWidth, 900);
+
+</script>
+<link rel="stylesheet" type="text/css" href="/css/gender_popup.css">
+<div id="gender_counter_wrapper">
+    <form id="inquirer">
+        <div class="sex">
+            <span class="checked"></span>
+            <h3 class="title">Вы нам очень поможете, если укажете</h3>
+            <h3>пол:</h3>
+            <input type="radio" id="men" name="uid_sex" value="1">
+            <label for="men">Мужской</label>
+            <input type="radio" id="women" name="uid_sex" value="2">
+            <label for="women">Женский</label>
+        </div>
+        <div class="age">
+            <h3>возраст: </h3>
+            <input type="radio" id="y17" name="uid_age" value="1">
+            <label for="y17">до 17</label>
+            <input type="radio" id="y1824" name="uid_age" value="2">
+            <label for="y1824">18 - 24</label>
+            <input type="radio" id="y2534" name="uid_age" value="3">
+            <label for="y2534">25 - 34</label>
+            <input type="radio" id="y3544" name="uid_age" value="4">
+            <label for="y3544">35 - 44</label>
+            <input type="radio" id="y45" name="uid_age" value="5">
+            <label for="y45">45 и старше</label>
+        </div>
+        <a id="cancel" class="close"></a>
+    </form>
+</div>
+<script src="/foxis/gender_popup.min.js?_=1.0"></script>
+</body>
+</html>

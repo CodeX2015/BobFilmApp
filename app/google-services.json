@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "602439710210",
+    "firebase_url": "https://toseex-1ae70.firebaseio.com",
+    "project_id": "toseex-1ae70",
+    "storage_bucket": "toseex-1ae70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602439710210:android:241ba4fd29166615",
+        "android_client_info": {
+          "package_name": "ua.ex.toseex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602439710210-of4csntv1bs6778jgasnk1dga0bfuk3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFQt2XOKKVFfpjVgnl9eUpaFno7tYG2r0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

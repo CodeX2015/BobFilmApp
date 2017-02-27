@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_category_title"
+        android:key="pref_key_storage_settings">
+        <ListPreference
+            android:key="pref_key_language"
+            android:title="@string/activity_setting_choose_language"
+            android:entries="@array/app_locales"
+            android:entryValues="@array/app_locales"
+            android:defaultValue="bbbbbb"/>
+<Preference
+    android:key="pref_key_download"
+    android:title="@string/activity_setting_downloads_path"
+    />
+    </PreferenceCategory>
+
+</PreferenceScreen>

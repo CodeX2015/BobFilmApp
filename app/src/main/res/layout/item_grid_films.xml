@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="@dimen/grid_item_width"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_rnd_corners_bg_gray_without_shadow">
+
+        <FrameLayout
+            android:id="@+id/fl_poster"
+            android:layout_width="@dimen/grid_item_width"
+            android:layout_height="@dimen/grid_item_height"
+            android:layout_alignParentTop="true"
+            android:paddingEnd="@dimen/grid_item_layout_padding"
+            android:paddingLeft="@dimen/grid_item_layout_padding"
+            android:paddingRight="@dimen/grid_item_layout_padding"
+            android:paddingStart="@dimen/grid_item_layout_padding"
+            android:paddingTop="@dimen/grid_item_layout_padding">
+
+            <ImageView
+                android:id="@+id/card_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="poster"
+                android:scaleType="centerCrop"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tv_film_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@drawable/gradient_background"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                android:maxLines="4"
+                android:minLines="1"
+                android:padding="2dp"
+                android:text="Название фильма"
+                android:textColor="@color/text_color_light"
+                android:textSize="@dimen/grid_item_header_text_size"
+                tools:ignore="HardcodedText" />
+        </FrameLayout>
+
+        <club.bobfilm.app.MaterialRippleLayout
+            android:id="@+id/ml_quote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fl_poster"
+            app:mrl_rippleColor="@color/c_ripple"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleOverlay="true">
+
+            <LinearLayout
+                android:id="@+id/ll_quote"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:paddingBottom="8dp"
+                android:paddingEnd="8dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="8dp"
+                android:paddingStart="5dp"
+                android:paddingTop="8dp"
+                tools:ignore="RtlSymmetry">
+
+                <ImageView
+                    android:id="@+id/iv_quote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:padding="4dp"
+                    android:scaleType="center"
+                    app:srcCompat="@drawable/ic_quote_grid"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/film_reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="2072"
+                    android:textAllCaps="true"
+                    android:textColor="@color/c_text_item_default"
+                    android:textSize="@dimen/grid_item_text_size"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </club.bobfilm.app.MaterialRippleLayout>
+
+        <TextView
+            android:id="@+id/date_create"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/ml_quote"
+            android:layout_below="@+id/fl_poster"
+            android:layout_toEndOf="@id/ml_quote"
+            android:layout_toLeftOf="@+id/ml_grid_more"
+            android:layout_toRightOf="@id/ml_quote"
+            android:layout_toStartOf="@+id/ml_grid_more"
+            android:ellipsize="end"
+            android:gravity="end|center_vertical"
+            android:maxLines="1"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:text="22.04.2016"
+            android:textColor="@color/c_text_item_default"
+            android:textSize="@dimen/size_text_small"
+            tools:ignore="HardcodedText" />
+
+        <club.bobfilm.app.MaterialRippleLayout
+            android:id="@+id/ml_grid_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/fl_poster"
+            app:mrl_rippleColor="@color/c_ripple"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleOverlay="true">
+
+            <ImageView
+                android:id="@+id/iv_grid_more"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
+                android:scaleType="center"
+                app:srcCompat="@drawable/ic_grid_more"
+                tools:ignore="ContentDescription" />
+        </club.bobfilm.app.MaterialRippleLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        android:clickable="true"
+        android:contentDescription="@string/details_btn_bookmark_descr"
+        android:paddingEnd="2dp"
+        android:paddingRight="2dp"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_bookmark_checked"
+        tools:ignore="RtlSymmetry" />
+
+</FrameLayout>

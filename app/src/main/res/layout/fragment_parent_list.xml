@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vf_layout_changer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/archive_layout_background"
+    android:padding="@dimen/parent_layout_padding">
+
+    <!--loading data layout-->
+    <include layout="@layout/layout_loading" />
+
+    <!--error layout-->
+    <include layout="@layout/layout_error" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!--blank layout-->
+    <include layout="@layout/layout_blank" />
+
+</ViewFlipper>

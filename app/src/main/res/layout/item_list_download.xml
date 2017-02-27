@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_download_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/parent_layout_padding"
+    android:background="@drawable/rnd_corners_white_bg_white"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="@dimen/parent_layout_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_file_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:ellipsize="end"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Имя видео файла"
+            android:textSize="@dimen/grid_item_header_text_size"
+            tools:ignore="HardcodedText" />
+
+        <ImageButton
+            android:id="@+id/ib_cancel_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/item_state"
+            android:padding="10dp"
+            android:scaleType="center"
+            app:srcCompat="@drawable/ic_close"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+
+    <club.bobfilm.app.ProgressBarIndeterminateDeterminate
+        android:id="@+id/pb_download_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginStart="4dp"
+        android:background="@color/progress_bar_active" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--<ImageView-->
+            <!--android:id="@+id/ib_start_pause_download"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="5dp"-->
+            <!--app:srcCompat="@drawable/ic_pause"-->
+            <!--tools:ignore="ContentDescription" />-->
+
+        <ImageView
+            android:id="@+id/ib_start_pause_download"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="5dp"
+            android:clickable="true"
+            android:src="@drawable/state_play"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_progress_value"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:gravity="end|center_vertical"
+            android:maxLines="1"
+            android:paddingEnd="28dp"
+            android:paddingRight="28dp"
+            android:text="---"
+            android:textColor="@color/button_default"
+            android:textSize="@dimen/size_text_small"
+            tools:ignore="HardcodedText,RtlSymmetry" />
+    </LinearLayout>
+
+</LinearLayout>
+
+
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_expanded"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    android:padding="8dp">
+    <!--android:id="@+id/vf_preview_changer"-->
+
+    <!--<ua.ex.toseex.ProgressBarCircularIndeterminate-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:background="@color/progress_bar_active" />-->
+
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/iv_preview_poster_small"
+        android:layout_width="@dimen/image_width_small"
+        android:layout_height="@dimen/image_height_small"
+        android:layout_gravity="start|top"
+        android:background="#55ffffff"
+        android:contentDescription="preview"
+        android:scaleType="center"
+        android:src="@drawable/no_picture"
+        tools:ignore="ContentDescription,HardcodedText" />
+
+    <!-- This initially-hidden ImageView will hold the expanded/zoomed version of the
+     images above. Without transformations applied, it takes up the entire screen.
+     To achieve the "zoom" animation, this view's bounds are animated from the
+     bounds of the thumbnail buttons above, to its final laid-out bounds. The implementation
+     of this animation is in the ZoomActivity class. -->
+
+
+        <ImageView
+            android:id="@+id/expanded_image1"
+            android:layout_width="@dimen/image_width_large"
+            android:layout_height="@dimen/image_height_large"
+            android:layout_gravity="center"
+            android:src="@drawable/no_picture"
+            android:visibility="invisible" />
+
+
+</FrameLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="club.bobfilm.app">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="club.bobfilm.app.Application"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:theme">
+        <activity
+            android:name="club.bobfilm.app.activity.ActivitySplash"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!--TODO uncomment when paying-->
+            <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data
+            android:host="@string/host_name"
+            android:scheme="http" />
+            <data
+            android:host="@string/host_www_name"
+            android:scheme="http" />
+            </intent-filter>
+        </activity>
+
+        <!--<activity-->
+        <!--android:name=".activity.ActivityTestProgress"-->
+        <!--android:label="@string/app_name"-->
+        <!--android:launchMode="singleTop"-->
+        <!--android:theme="@style/AppTheme.NoActionBar"-->
+        <!--android:windowSoftInputMode="stateHidden">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--<activity-->
+        <!--android:name=".activity.TestImageZoomActivity"-->
+        <!--android:label="@string/activity_film_details_title">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--TODO for debug-->
+        <activity
+            android:name="club.bobfilm.app.activity.TestActivitySearchResult"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/activity_search_results_title" />
+
+        <activity
+            android:name="club.bobfilm.app.activity.ActivityTabMain"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name="club.bobfilm.app.activity.ActivityTabArchive"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateHidden">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name="club.bobfilm.app.activity.ActivityDetails"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/activity_film_details_title" />
+
+        <activity
+            android:name="club.bobfilm.app.activity.ActivitySearchResult"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/activity_search_results_title" />
+
+        <activity
+            android:name="club.bobfilm.app.activity.ActivityComments"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/activity_comments_title" />
+
+        <activity
+            android:name="club.bobfilm.app.activity.ActivitySubCategories"
+            android:label="@string/activity_subcategories_title"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name="club.bobfilm.app.activity.ActivitySettings$FragmentLicense"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/activity_settings__license_title" />
+
+        <activity
+            android:name="club.bobfilm.app.activity.ActivitySettings"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/activity_settings_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="club.bobfilm.app.util.dirchooser.DirectoryChooserActivity" />
+
+        <activity android:name="club.bobfilm.app.activity.BaseTabActivity" />
+
+        <service
+            android:name="club.bobfilm.app.service.DownloadService"
+            android:enabled="true" />
+    </application>
+
+</manifest>

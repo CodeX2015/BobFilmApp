@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--System-->
+    <string name="app_name">BobFilmApp</string>
+    <string name="app_version">1.0.0.0</string>
+    <string name="host_name">bobfilm.club</string>
+    <string name="host_www_name">www.bobfilm.club</string>
+
+    <!--Toolbar-->
+    <string name="toolbar_btn_home_descr">На главную</string>
+
+    <!--Helpers-->
+    <string name="parser_films_responds_mask">тзыв</string>
+    <string name="parser_films_responds2">отзывов:</string>
+    <string name="parser_films_responds">Отзывов:</string>
+    <string name="parser_films_articles_mask">татей</string>
+    <string name="parser_films_articles2">статей:</string>
+    <string name="parser_films_articles">Статей:</string>
+
+    <!--Activities-->
+    <integer name="activity_splash_time">1000</integer>
+    <string name="activity_splash_title">Старт</string>
+    <string name="activity_archive_title">Загрузки</string>
+    <string name="activity_film_details_title">Описание</string>
+    <string name="details_btn_bookmark_text">В закладки</string>
+    <string name="details_btn_bookmark_descr">Закладки</string>
+    <string name="activity_donate_title">Поддержать проект</string>
+    <string name="activity_settings_title">Настройки</string>
+    <string name="activity_directory_chooser_title">Выбор папки</string>
+    <string name="activity_search_results_title">Результаты поиска</string>
+    <string name="activity_search_hint">Введите строку поиска..</string>
+    <string name="activity_comments_title">Комментарии</string>
+    <string name="activity_subcategories_title">Статьи</string>
+
+    <!--Fragments-->
+    <string name="progress_already_download">Загружено:</string>
+    <string name="progress_already_download_from">из</string>
+
+    <!--Service-->
+    <string name="download_init">Инициализация загрузки</string>
+    <string name="notice_download_start">Скачивание началось</string>
+    <string name="notice_download_complete">Скачивание завершено</string>
+    <string name="notice_download_pause">Скачивание приостановлено</string>
+    <string name="notice_download_canceled">Скачивание отменено</string>
+    <string name="notice_download_failed">Ошибка скачивания</string>
+    <string name="download_connecting">Соединение</string>
+    <string name="download_connected">Соединен</string>
+    <string name="download_downloading">Скачивание</string>
+    <string name="download_complete">Скачивание завершено</string>
+    <string name="download_pause">Скачивание приостановлено</string>
+    <string name="download_canceled">Скачивание отменено</string>
+    <string name="download_failed">Ошибка скачивания</string>
+    <string name="text_download_failed">ошибка</string>
+
+    <!--Dir chooser-->
+    <string name="dialog_btn_cancel">Отмена</string>
+    <string name="dialog_btn_confirm">Подтвердить</string>
+    <string name="selected_folder_label">Выбрать папку:</string>
+    <string name="create_folder_label">Создать папку</string>
+    <string name="create_folder_msg">Создать новую папку с именем "%1$s"?</string>
+    <string name="create_folder_success">Создать новую папку</string>
+    <string name="create_folder_error_no_write_access">Нельзя записать в эту папку</string>
+    <string name="create_folder_error_already_exists">Папка уже существует</string>
+    <string name="create_folder_error">Невозможно создать папку</string>
+    <string name="up_label">Вверх</string>
+
+    <!--Dialogs-->
+    <string name="dialog_choose_app">Выбор приложения:</string>
+    <string name="dialog_pb_title">Обработка данных..</string>
+    <string name="dialog_app_exit_text">Вы уверены что хотите выйти из приложения?</string>
+    <string name="dialog_btn_yes">Да</string>
+    <string name="dialog_btn_no">Нет</string>
+    <string name="dialog_header_information">Информация:</string>
+    <string name="dialog_btn_ok">Ок</string>
+    <string name="dialog_no_downloads">Закачек не найдено.</string>
+    <string name="dialog_no_bookmarks">Закладок не найдено.</string>
+    <string name="dialog_no_history">История не найдена.</string>
+    <string name="msg_connection_failed">Упс… Нет соединения с сайтом.\nПроверьте подключение к интернету и попробуйте еще раз.</string>
+    <string name="dialog_btn_repeat">Повторить</string>
+    <string name="dialog_btn_exit">Выйти</string>
+    <string name="dialog_btn_later">Позже</string>
+    <string name="message_under_construction">В разработке…</string>
+    <string name="msg_change_language">Для завершения смены языка необходимо перезапустить приложение.</string>
+    <string name="delete_item">удалить выделенные элементы</string>
+    <string name="selected_count">выделено: %1$s</string>
+    <string name="action_send_to">поделиться информацией о фильме</string>
+    <string name="no_reviews">нет</string>
+    <string name="msg_no_reviews">комментариев пока нет</string>
+    <string name="search_hint">Поиск в \"%1$s\"</string>
+    <string name="msg_pb_dialog">Обработка данных..</string>
+    <string name="msg_no_history">Истории нет</string>
+    <string name="msg_no_bookmarks">Закладок нет</string>
+    <string name="msg_no_downloads">Нет файлов</string>
+    <string name="msg_nothing_found">Ничего не найдено</string>
+    <string name="popup_add_bookmark">Добавить в закладки</string>
+    <string name="popup_share">Поделиться</string>
+    <string name="delete_from_downloads">Удалить из списка</string>
+    <string name="delete_files">Удалить с файлом</string>
+    <string name="menu_play_light">облегченная версия</string>
+    <string name="menu_play_normal">обычная версия</string>
+    <string name="err_layout_text">Ошибка обработки данных…</string>
+    <string name="msg_download_file_does_not_exist">Нет файла!</string>
+    <string name="msg_download_file_downloaded_now">Файл еще загружается..</string>
+    <string name="msg_trial_over">Пробный период закончен :(</string>
+    <string name="msg_update_available">Доступна новая версия приложения</string>
+
+    <!--Preferences-->
+    <string name="pref_category_title">Общие</string>
+    <string name="activity_setting_group_general">Общие</string>
+    <string name="activity_setting_group_other">Другое</string>
+    <string name="activity_setting_bypass_blocked_title">Обход блокировок ex.ua</string>
+    <string name="activity_setting_bypass_blocked_descr">в разработке</string>
+    <string name="activity_setting_app_update">Обновление программы</string>
+    <string name="activity_setting_about_descr">Помощь, обсуждения, детали</string>
+    <string name="activity_setting_clear_history">Очистить историю просмотров</string>
+    <string name="activity_setting_about">О программе</string>
+    <string name="activity_setting_choose_language">Язык программы</string>
+    <string name="activity_setting_disable_ads">Отключить рекламу</string>
+    <string name="activity_setting_license_agreement">Лицензионное соглашение</string>
+    <string name="activity_setting_downloads_path">Папка для загрузок</string>
+    <string name="dialog_btn_update">Обновить</string>
+    <string name="license_agreement">Внимание!
+        &lt;br /&gt;Любое использование вами программы означает полное и безоговорочное принятие вами его условий. Если вы не принимаете условия лицензионного соглашения в полном объеме, вы не имеете права использовать программу в каких-либо целях. Использование Программы на условиях настоящей Лицензии в личных некоммерческих целях осуществляется безвозмездно. Использование Программы на условиях и способами, не предусмотренными настоящей Лицензией, возможно только на основании отдельного соглашения с Правообладателем.
+        <![CDATA[<br><br><u><b>1. Общие положения</b></u><br>]]>
+        1.1. К настоящей Лицензии и всем отношениям, связанным с использованием Программы, подлежит применению право Российской Федерации и любые претензии или иски, вытекающие из настоящей Лицензии или использования Программы, должны быть поданы и рассмотрены в суде по месту нахождения Правообладателя.
+        &lt;br /&gt;1.2. Правообладатель может предоставить Пользователю перевод настоящей Лицензии с русского на другие языки, однако в случае противоречия между условиями Лицензии на русском языке и ее переводом, юридическую силу имеет исключительно русскоязычная версия Лицензии.
+        <![CDATA[<br><br><u><b>2. Права на Программу</b></u><br>]]>
+        2.1. Исключительное право на Программу принадлежит Правообладателю.
+        <![CDATA[<br><br><u><b>3. Лицензия</b></u><br>]]> 3.1. Правообладатель безвозмездно, на условиях простой (неисключительной) лицензии, предоставляет Пользователю непередаваемое право использования Программы на территории стран всего мира следующими способами:
+        &lt;br /&gt;3.1.1. Применять Программу по прямому функциональному назначению, в целях чего произвести её копирование и установку (воспроизведение) на устройстве(-ах) Пользователя. Пользователь вправе произвести установку Программы на неограниченное число устройств. При установке на устройство каждой копии Программы присваивается индивидуальный номер, который автоматически сообщается Правообладателю.
+        &lt;br /&gt;3.1.2. Воспроизводить и распространять Программу в некоммерческих целях (безвозмездно).
+        <![CDATA[<br><br><u><b>4. Ограничения</b></u><br>]]>
+        4.1. За исключением использования в объемах и способами, прямо предусмотренными настоящей Лицензией или законодательством РФ, Пользователь не имеет права изменять, декомпилировать, дизассемблировать, дешифровать и производить иные действия с объектным кодом Программы, имеющие целью получение информации о реализации алгоритмов, используемых в Программе, создавать производные произведения с использованием Программы, а также осуществлять (разрешать осуществлять) иное использование Программы или любых компонентов Программы, без письменного согласия Правообладателя.
+        &lt;br /&gt;4.2. Пользователь не имеет права воспроизводить и распространять Программу в коммерческих целях (в том числе за плату), в том числе в составе сборников программных продуктов, без письменного согласия Правообладателя.
+        &lt;br /&gt;4.3. Программа должна использоваться под наименованием: «Toseex». Пользователь не вправе изменять наименование Программы, изменять и/или удалять знак охраны авторского права (copyright notice) или иное указание на Правообладателя.
+        <![CDATA[<br><br><u><b>5. Ограничение ответственности по Лицензии</b></u><br>]]>
+        5.1. Программа предоставляется на условиях «как есть» (as is). Правообладатель не предоставляет никаких гарантий в отношении безошибочной и бесперебойной работы Программы, соответствия Программы конкретным целям и ожиданиям Пользователя, а также не предоставляет никаких иных гарантий, прямо не указанных в настоящей Лицензии.
+        &lt;br /&gt;5.2. В максимальной степени, допустимой действующим законодательством, Правообладатель не несет никакой ответственности за какие-либо прямые или косвенные последствия какого-либо использования или невозможности использования Программы и/или ущерб, причиненный Пользователю и/или третьим сторонам в результате какого-либо использования, неиспользования или невозможности использования Программы или отдельных её компонентов и/или функций, в том числе из-за возможных ошибок или сбоев в работе Программы.
+        &lt;br /&gt;5.3. Пользователь настоящим уведомлен и соглашается, что при использовании Программы Правообладателю в автоматическом режиме анонимно (без привязки к Пользователю) передается следующая информация: тип операционной системы устройства Пользователя, версия и идентификатор Программы, статистика использования функций Программы, а также иная техническая информация.
+        <![CDATA[<br><br><u><b>6. Обновления/новые версии Программы</b></u><br>]]>
+        6.1. Действие настоящей Лицензии распространяется на все последующие обновления/новые версии Программы. Соглашаясь с установкой обновления/новой версии Программы, Пользователь принимает условия настоящей Лицензии для соответствующих обновлений/новых версий Программы, если обновление/установка новой версии Программы не сопровождается иным лицензионным соглашением.
+        <![CDATA[<br><br><u><b>7. Изменения условий настоящей Лицензии</b></u><br>]]>
+        7.1. Настоящее лицензионное соглашение может изменяться Правообладателем в одностороннем порядке. Уведомление Пользователя о внесенных изменениях в условия настоящей Лицензии публикуется на странице: https://vk.com/toseex. Указанные изменения в условиях лицензионного соглашения вступают в силу с даты их публикации, если иное не оговорено в соответствующей публикации.</string>
+    <string name="activity_settings__license_title">License agreement</string>
+    <string name="msg_not_valid_details_url">Не верная ссылка описания фильма</string>
+    <string name="msg_no_new_version">Новых версий приложения не обнаружено</string>
+    <string name="msg_no_selected_video">Выбранной версии видео пока нет</string>
+    <string name="popup_remove_bookmark">Удалить из закладок</string>
+    <string name="notice_already_download">Файл уже скачивается</string>
+    <string name="msg_download_error">Ошибка скачивания файла</string>
+    <string name="dialog_btn_select">выбрать</string>
+    <string name="group_notify_download">Загрузка файлов</string>
+    <string name="app_old_version">Старая версия приложения, необходимо установить %1$s версию</string>
+
+    <!--Tabs-->
+    <string-array name="tabs_header">
+        <item>Загрузки</item>
+        <item>Закладки</item>
+        <item>История</item>
+    </string-array>
+
+    <!--Locales-->
+    <string-array name="app_locales">
+        <item>Русский</item>
+        <item>Английский</item>
+        <item>Украинский</item>
+    </string-array>
+    <string-array name="site_lang">
+        <item>ru</item>
+        <item>en</item>
+        <item>uk</item>
+    </string-array>
+
+</resources>

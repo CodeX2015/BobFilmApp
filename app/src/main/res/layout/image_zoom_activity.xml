@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/ll_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/parent_layout_padding"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rnd_corners_gray_bg_gray"
+            android:orientation="vertical">
+
+            <!--poster & title-->
+            <LinearLayout
+                android:id="@+id/ll_header_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/parent_layout_padding"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_details_poster"
+                    android:layout_width="@dimen/image_width_small"
+                    android:layout_height="@dimen/image_height_small"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:contentDescription="poster"
+                    android:padding="@dimen/little_padding"
+                    android:src="@drawable/no_picture"
+                    android:scaleType="fitCenter"
+                    tools:ignore="HardcodedText" />
+                <!--app:srcCompat="@drawable/no_picture"-->
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_details_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/margin_top"
+                        android:layout_weight="0.9"
+                        android:ellipsize="end"
+                        android:gravity="center|top"
+                        android:maxLines="5"
+                        android:padding="@dimen/little_padding"
+                        android:text="Название фильма на англиском / на русском"
+                        android:textColor="@color/main_text"
+                        android:textSize="@dimen/grid_item_header_text_size"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText,NestedWeights" />
+
+                    <Button
+                        android:id="@+id/btn_change_size_1"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:text="1"
+                        android:onClick="onClick"/>
+                    <Button
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/btn_change_size_2"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:text="2"
+                        android:onClick="onClick"/>
+                    <Button
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/btn_change_size_3"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:text="3"
+                        android:onClick="onClick"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- This initially-hidden ImageView will hold the expanded/zoomed version of the
+ images above. Without transformations applied, it takes up the entire screen.
+ To achieve the "zoom" animation, this view's bounds are animated from the
+ bounds of the thumbnail buttons above, to its final laid-out bounds. The implementation
+ of this animation is in the ZoomActivity class. -->
+
+    <LinearLayout
+        android:id="@+id/ll_expanded"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_bg_zoom_image"
+        android:gravity="center"
+        android:padding="8dp"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/expanded_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:visibility="invisible" />
+    </LinearLayout>
+</FrameLayout>

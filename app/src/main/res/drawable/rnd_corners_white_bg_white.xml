@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- enabled and pressed state -->
+    <!--<item android:state_enabled="true" android:state_pressed="true">-->
+        <!--<shape>-->
+            <!--<solid android:color="@color/c_list_item_background" />-->
+            <!--<stroke android:width="0dip" android:color="@color/c_list_item_background" />-->
+            <!--<corners android:radius="4dip" />-->
+            <!--<padding android:bottom="0dip" android:left="0dip" android:right="0dip" android:top="0dip" />-->
+        <!--</shape>-->
+    <!--</item>-->
+     <!--enabled and activated state -->
+    <item android:state_activated="true">
+        <shape>
+            <solid android:color="@color/c_list_item_select" />
+            <stroke android:width="0dip" android:color="@color/c_list_item_select" />
+            <corners android:radius="4dip" />
+            <padding android:bottom="0dip" android:left="0dip" android:right="0dip" android:top="0dip" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="@color/c_list_item_background" />
+            <stroke android:width="0dip" android:color="@color/c_list_item_background" />
+            <corners android:radius="4dip" />
+            <padding android:bottom="0dip" android:left="0dip" android:right="0dip" android:top="0dip" />
+        </shape>
+    </item>
+</selector>

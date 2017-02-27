@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<club.bobfilm.app.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/parent_layout_padding"
+    app:mrl_rippleColor="@color/c_ripple"
+    app:mrl_rippleDuration="450"
+    app:mrl_rippleOverlay="true"
+    app:mrl_rippleRoundedCorners="4dp">
+
+    <RelativeLayout
+        android:id="@+id/ll_download_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rnd_corners_white_bg_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/parent_layout_padding">
+
+        <ImageView
+            android:id="@+id/iv_list_poster"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:contentDescription="poster"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/no_picture"
+            tools:ignore="HardcodedText" />
+
+
+        <TextView
+            android:id="@+id/tv_film_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/iv_list_poster"
+            android:layout_toRightOf="@id/iv_list_poster"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="4dp"
+            android:text="Название фильма"
+            android:textSize="@dimen/grid_item_header_text_size"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_film_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_film_title"
+            android:layout_toEndOf="@id/iv_list_poster"
+            android:layout_toRightOf="@id/iv_list_poster"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:padding="4dp"
+            android:text="Описание фильма.."
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_create_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@id/iv_list_poster"
+            android:layout_toRightOf="@id/iv_list_poster"
+            android:layout_toLeftOf="@+id/tv_reviews"
+            android:layout_toStartOf="@+id/tv_reviews"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="4dp"
+            android:text="10.02.2012"
+            android:textSize="@dimen/size_text_small"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="4dp"
+            android:text="отзывов: 2"
+            android:textSize="@dimen/size_text_small"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+</club.bobfilm.app.MaterialRippleLayout>

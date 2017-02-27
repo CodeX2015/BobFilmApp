@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rbg_select_language"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/p_dialog_layout">
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_dialog_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingBottom="@dimen/error_layout_margin"-->
+        <!--android:text="Dialog title"-->
+        <!--android:textSize="@dimen/size_text_large" />-->
+
+    <RadioButton
+        android:id="@+id/rb_russian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/p_settings_radio"
+        android:layout_marginStart="@dimen/p_settings_radio"
+        android:paddingLeft="@dimen/p_settings_radio"
+        android:paddingStart="@dimen/p_settings_radio"
+        android:paddingRight="@dimen/p_settings_radio"
+        android:paddingEnd="@dimen/p_settings_radio"
+        android:textSize="@dimen/size_text_large" />
+
+    <RadioButton
+        android:id="@+id/rb_english"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/p_settings_radio"
+        android:layout_marginStart="@dimen/p_settings_radio"
+        android:paddingLeft="@dimen/p_settings_radio"
+        android:paddingStart="@dimen/p_settings_radio"
+        android:paddingRight="@dimen/p_settings_radio"
+        android:paddingEnd="@dimen/p_settings_radio"
+        android:textSize="@dimen/size_text_large" />
+
+    <RadioButton
+        android:id="@+id/rb_ukrainian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/p_settings_radio"
+        android:layout_marginStart="@dimen/p_settings_radio"
+        android:paddingLeft="@dimen/p_settings_radio"
+        android:paddingStart="@dimen/p_settings_radio"
+        android:paddingRight="@dimen/p_settings_radio"
+        android:paddingEnd="@dimen/p_settings_radio"
+        android:textSize="@dimen/size_text_large" />
+</RadioGroup>

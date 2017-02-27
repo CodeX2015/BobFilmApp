@@ -1,0 +1,91 @@
+Applications Graphics Acceleration Info:
+Uptime: 757875 Realtime: 757875
+
+** Graphics info for pid 10490 [ua.ex.toseex] **
+
+Recent DisplayList operations
+                        ClipRect
+                        DrawDisplayList
+                          DrawDisplayList
+                            Save
+                            ConcatMatrix
+                            Save
+                            DrawBitmapRect
+                            RestoreToCount
+                          DrawDisplayList
+                            SetupShader
+                            DrawRect
+                            ResetShader
+                            Save
+                            ClipRect
+                            Translate
+                            DrawText
+                            DrawText
+                            RestoreToCount
+                        DrawDisplayList
+                        DrawDisplayList
+                        DrawDisplayList
+                        RestoreToCount
+                    DrawDisplayList
+                      DrawDisplayList
+                        DrawRoundRect
+                        Save
+                        ClipRect
+                        DrawDisplayList
+                          DrawDisplayList
+                            Save
+                            ConcatMatrix
+                            Save
+                            DrawBitmapRect
+                            RestoreToCount
+                          DrawDisplayList
+                            SetupShader
+                            DrawRect
+                            ResetShader
+                            Save
+                            ClipRect
+                            Translate
+                            DrawText
+                            DrawText
+                            DrawText
+                            RestoreToCount
+                        DrawDisplayList
+                        DrawDisplayList
+                        DrawDisplayList
+                        RestoreToCount
+          DrawPatch
+
+Caches:
+Current memory usage / total memory usage (bytes):
+  TextureCache           700320 / 25165824
+  LayerCache            3342336 / 16777216
+  GradientCache            4096 /   524288
+  PathCache                   0 /  4194304
+  CircleShapeCache       325505 /  1048576
+  OvalShapeCache              0 /  1048576
+  RoundRectShapeCache    390388 /  1048576
+  RectShapeCache              0 /  1048576
+  ArcShapeCache               0 /  1048576
+  TextDropShadowCache         0 /  2097152
+  FontRenderer 0         262144 /   262144
+  FontRenderer 1         262144 /   262144
+  FontRenderer 2         262144 /   262144
+Other:
+  FboCache                    2 /       16
+  PatchCache                  1 /      512
+Total memory usage:
+  5549077 bytes, 5.29 MB
+
+Profile data in ms:
+
+	ua.ex.toseex/ua.ex.toseex.activity.ActivityTabMain/android.view.ViewRootImpl@b1b526b0
+View hierarchy:
+
+  ua.ex.toseex/ua.ex.toseex.activity.ActivityTabMain/android.view.ViewRootImpl@b1b526b0
+  205 views, 12,39 kB of display lists, 257 frames rendered
+
+
+Total ViewRootImpl: 1
+Total Views:        205
+Total DisplayList:  12,39 kB
+

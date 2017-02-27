@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<club.bobfilm.app.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_history_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/parent_layout_padding"
+    app:mrl_rippleColor="@color/c_ripple"
+    app:mrl_rippleDuration="450"
+    app:mrl_rippleOverlay="true"
+    app:mrl_rippleRoundedCorners="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rnd_corners_white_bg_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/parent_layout_padding">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/tv_file_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="Имя видео файла"
+                android:textSize="@dimen/grid_item_header_text_size"
+                tools:ignore="HardcodedText" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp">
+
+                <TextView
+                    android:id="@+id/tv_file_create_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:text="28.07.2016"
+                    android:textSize="@dimen/size_text_small"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tv_file_create_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end|center_vertical"
+                    android:layout_marginEnd="56dp"
+                    android:layout_marginRight="56dp"
+                    android:text="08:21:12"
+                    android:textSize="@dimen/size_text_small"
+                    tools:ignore="HardcodedText,RtlSymmetry" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <club.bobfilm.app.MaterialRippleLayout
+            android:id="@+id/rippleDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mrl_rippleColor="@color/c_ripple"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleOverlay="true">
+
+            <ImageButton
+                android:id="@+id/ib_remove_item"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@color/transparent"
+                android:gravity="center"
+                android:padding="20dp"
+                android:scaleType="center"
+                app:srcCompat="@drawable/ic_close"
+                tools:ignore="ContentDescription" />
+        </club.bobfilm.app.MaterialRippleLayout>
+
+    </LinearLayout>
+</club.bobfilm.app.MaterialRippleLayout>

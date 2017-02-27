@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vf_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--loading data layout-->
+    <include layout="@layout/layout_loading" />
+
+    <!--error layout-->
+    <include layout="@layout/layout_error" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <club.bobfilm.app.AutoFitRecyclerView
+            android:id="@+id/grid"
+            android:name="ua.ex.videoapp.FragmentVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_layout_background"
+            android:clipToPadding="false"
+            android:columnWidth="@dimen/grid_item_width"
+            tools:context=".fragment.FragmentVideo" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</ViewFlipper>

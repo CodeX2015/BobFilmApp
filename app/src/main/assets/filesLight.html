@@ -1,0 +1,48 @@
+<script>
+	var newPlaylist = [], curList = [{ "type": "video", "url": "http://www.ex.ua/show/241809016/3582548ad91e09ce72c4c3e27e4129ab.mp4" }, { "type": "video", "url": "http://www.ex.ua/show/241809028/96ba27ec634ee871beaf64ff9fea68ef.mp4" }, { "type": "video", "url": "http://www.ex.ua/show/242145378/193c9c71bc6894a140cd9670c5efab3f.mp4" }, { "type": "video", "url": "http://www.ex.ua/show/248830003/ec7b194350e3b48c61dbf0c9c3a8077f.mp4" }, { "type": "video", "url": "http://www.ex.ua/show/248830088/08015ab5a207215fd589d7d41e161ed0.mp4" }, { "type": "video", "url": "http://www.ex.ua/show/248830164/844dde38454eac19424708bcecebdfe4.mp4" }, { "type": "video", "url": "http://www.ex.ua/show/248830267/0f066e71b0a342893c0ab6e9f50de523.mp4" }], newInfo = [{ pos: 2, title: 'House of Lies S05E01 (2016) 720p HDTV (Gears Media).mkv' }, { pos: 3, title: 'House of Lies S05E02 (2016) 720p HDTV (Gears Media).mkv' }, { pos: 4, title: 'House of Lies S05E03 (2016) 720p HDTV (Gears Media).mkv' }, { pos: 5, title: 'House of Lies S05E04 (2016) 720p HDTV (Gears Media).mkv' }, { pos: 6, title: 'House of Lies S05E05 (2016) 720p HDTV (Gears Media).mkv' }, { pos: 7, title: 'House of Lies S05E06 (2016) 720p HDTV (Gears Media).mkv' }, { pos: 8, title: 'House of Lies S05E07 (2016) 720p HDTV (Gears Media).mkv' }];
+
+	$.each(curList, function(n,el) {
+		newPlaylist.push({title: newInfo[n].title, src: el.url, type: el.type});
+	});
+
+	var vjsCover = {"cover": "http://fs210.www.ex.ua/show/241809444/241809444.png?800", };
+
+	var kids_vast = {url: 'http://inv-nets.admixer.net/dsp.aspx?rct=3&zone=9115ea1b-458e-4cb9-a7d6-717451db0740&zoneInt=8929&sect=2166&site=2030&rnd=1867416821'};
+
+	var player_conf = {
+		cover: {url: vjsCover.cover},
+		// playlist: [
+		// 	{ "title": "jailhouse rock", "type": "video", "src": "http://www.ex.ua/get/188017556"},
+		// 	{ "title": "jailhouse rock", "type": "video", "src": "http://www.ex.ua/test_player/data/jailhouse.mp4"}
+		// ],
+		playlist: newPlaylist,
+		techOrder: ['html5', 'flash'],
+		adsOptions: {
+			isMinuteBlock: true,
+
+			// pre: [],
+
+			afterpaus: [
+				{url: 'http://inv-nets.admixer.net/dsp.aspx?rct=3&zone=a118983a-6133-4728-b303-b1cf8a2dd618&zoneInt=8858&sect=2166&site=2030&rnd=931324853'}
+			],
+
+			post: [
+				{url: 'http://inv-nets.admixer.net/dsp.aspx?rct=3&zone=81092ab3-e109-4368-8aca-2b16f837965b&zoneInt=8927&sect=2166&site=2030&rnd=843133205'}
+			],
+
+			overlay: [
+				{url: 'http://inv-nets.admixer.net/dsp.aspx?rct=3&nl=1&zone=4f542717-f910-4b8f-a83b-000bd9c0bce3&zoneInt=9110&sect=2166&site=2030&rnd=818098871'}
+			],
+
+			debug: false,
+			timeout: 2000,
+			prerollTimeout: 2000
+		}
+	};
+
+	if(player_kids == 'beygs') {
+		// is kids;
+		player_conf.adsOptions.isMinuteBlock = false;
+		player_conf.adsOptions.pre = player_conf.adsOptions.post = player_conf.adsOptions.afterpaus = [kids_vast];
+	}
+</script>

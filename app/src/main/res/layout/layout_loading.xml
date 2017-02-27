@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_loading"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_background"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <club.bobfilm.app.ProgressBarCircularIndeterminate
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@color/progress_bar_active" />
+</LinearLayout>

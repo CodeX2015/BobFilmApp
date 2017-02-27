@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.ActivityTabMain">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <include layout="@layout/toolbar" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/sliding_tabs"
+            style="@style/viewPagerTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:visibility="gone"
+            app:tabMode="scrollable"
+            app:tabMaxWidth="0dp"/>
+
+        <TextView
+            android:id="@+id/tv_category_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:visibility="gone" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ViewFlipper
+        android:id="@+id/vf_layout_changer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_layout_background"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_layout_background"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".activity.ActivityMain"
+            tools:showIn="@layout/activity_main_tab" />
+
+        <!--error layout-->
+        <include layout="@layout/layout_error" />
+    </ViewFlipper>
+
+    <!---->
+
+</android.support.design.widget.CoordinatorLayout>

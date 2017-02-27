@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_download_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/layout_background_item"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <club.bobfilm.app.MaterialRippleLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:mrl_rippleColor="@color/c_ripple"
+        app:mrl_rippleDelayClick="true"
+        app:mrl_rippleOverlay="true">
+
+        <ImageView
+            android:id="@+id/iv_action_done"
+            android:layout_width="@dimen/s_item_file_btn"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription=""
+            android:scaleType="center"
+            android:gravity="center"
+            app:srcCompat="@drawable/ic_checkmark_off"
+            tools:ignore="ContentDescription" />
+    </club.bobfilm.app.MaterialRippleLayout>
+
+    <TextView
+        android:id="@+id/tv_file_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="Имя видео файла"
+        android:textSize="@dimen/grid_item_header_text_size"
+        tools:ignore="HardcodedText" />
+
+    <club.bobfilm.app.MaterialRippleLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:mrl_rippleColor="@color/c_ripple"
+        app:mrl_rippleDelayClick="true"
+        app:mrl_rippleOverlay="true">
+
+        <ImageView
+            android:id="@+id/iv_file_play"
+            android:layout_width="@dimen/s_item_file_btn"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:scaleType="center"
+            app:srcCompat="@drawable/ic_file_play"
+            tools:ignore="ContentDescription" />
+    </club.bobfilm.app.MaterialRippleLayout>
+
+    <club.bobfilm.app.MaterialRippleLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:mrl_rippleColor="@color/c_ripple"
+        app:mrl_rippleDelayClick="true"
+        app:mrl_rippleOverlay="true">
+
+        <ImageView
+            android:id="@+id/iv_file_download"
+            android:layout_width="@dimen/s_item_file_btn"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:scaleType="center"
+            android:padding="5dp"
+            app:srcCompat="@drawable/ic_file_download"
+            tools:ignore="ContentDescription" />
+    </club.bobfilm.app.MaterialRippleLayout>
+</LinearLayout>

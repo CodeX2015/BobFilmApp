@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_error"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_background"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/error_layout_margin"
+        android:layout_marginRight="@dimen/error_layout_margin"
+        android:gravity="center"
+        android:padding="@dimen/grid_item_layout_padding"
+        android:scrollbars="vertical"
+        android:text="@string/err_layout_text"
+        android:textColor="@color/text_color_error"
+        android:textSize="@dimen/size_text_large" />
+
+    <club.bobfilm.app.MaterialRippleLayout
+        android:layout_width="@dimen/error_btn_width"
+        android:layout_height="@dimen/error_btn_height"
+        android:layout_marginTop="@dimen/error_layout_margin"
+        app:mrl_rippleColor="@color/c_ripple"
+        app:mrl_rippleDelayClick="true"
+        app:mrl_rippleOverlay="true">
+
+        <TextView
+            android:id="@+id/tv_error_repeat"
+            style="@style/TextButton"
+            android:text="@string/dialog_btn_repeat"
+            android:layout_width="@dimen/error_btn_width"
+            android:layout_height="@dimen/error_btn_height" />
+
+        <!--android:textColor="@color/colorAccent"-->
+        <!--android:layout_width="140dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:gravity="center"-->
+        <!--android:background="@drawable/rounded_corners_bg_white"-->
+        <!--android:clickable="true"-->
+        <!--android:onClick="onClick"-->
+    </club.bobfilm.app.MaterialRippleLayout>
+</LinearLayout>

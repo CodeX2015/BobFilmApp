@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/small_icon"
+        android:layout_width="@dimen/notify_icon_size"
+        android:layout_height="@dimen/notify_icon_size"
+        android:padding="12dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/small_icon"
+        android:layout_toLeftOf="@+id/action_icon"
+        android:layout_toRightOf="@+id/small_icon"
+        android:layout_toStartOf="@+id/action_icon"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingTop="5dp"
+        android:textColor="@color/text_color_dark"
+        android:textSize="@dimen/size_text_normal" />
+
+    <ProgressBar
+        android:id="@+id/download_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:scaleY="3"
+        android:layout_width="wrap_content"
+        android:layout_height="4dp"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/small_icon"
+        android:layout_toLeftOf="@+id/action_icon"
+        android:layout_toRightOf="@+id/small_icon"
+        android:layout_toStartOf="@+id/action_icon"
+        android:indeterminate="true"
+        android:layout_centerVertical="true"
+        android:indeterminateBehavior="cycle"
+        />
+    <!--android:theme="@style/LinearProgress"-->
+    <!--android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"-->
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/download_progress"
+        android:layout_toEndOf="@+id/small_icon"
+        android:layout_toLeftOf="@+id/action_icon"
+        android:layout_toRightOf="@+id/small_icon"
+        android:layout_toStartOf="@+id/action_icon"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_color_dark" />
+
+    <ImageView
+        android:id="@+id/action_icon"
+        android:layout_width="@dimen/notify_icon_size"
+        android:layout_height="@dimen/notify_icon_size"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="12dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_media_pause"
+        tools:ignore="ContentDescription" />
+
+</RelativeLayout>

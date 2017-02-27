@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="280.0"
+    android:viewportWidth="280.0">
+    <path
+        android:fillColor="@color/button_default"
+        android:pathData="M183.03,43.03H96.97C43.5,43.03 0,86.53 0,140s43.5,96.97 96.97,96.97h86.06c53.47,0 96.97,-43.5 96.97,-96.97S236.5,43.03 183.03,43.03zM183.03,218.97H96.97C53.43,218.97 18,183.54 18,140s35.43,-78.97 78.97,-78.97h86.06C226.57,61.03 262,96.46 262,140S226.57,218.97 183.03,218.97z"
+        tools:ignore="VectorRaster" />
+    <path
+        android:fillColor="@color/button_default"
+        android:pathData="M127.52,104.99h-19.7c-2.21,0 -4,1.79 -4,4v62.03c0,2.21 1.79,4 4,4h19.7c2.21,0 4,-1.79 4,-4v-62.03C131.52,106.78 129.73,104.99 127.52,104.99z"
+        tools:ignore="VectorRaster" />
+    <path
+        android:fillColor="@color/button_default"
+        android:pathData="M172.18,104.99h-19.7c-2.21,0 -4,1.79 -4,4v62.03c0,2.21 1.79,4 4,4h19.7c2.21,0 4,-1.79 4,-4v-62.03C176.18,106.78 174.39,104.99 172.18,104.99z"
+        tools:ignore="VectorRaster" />
+</vector>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/grid_item_layout_padding"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_item_layout_padding">
+
+        <TextView
+            android:id="@+id/tv_choice_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding"
+            android:text="@string/activity_setting_choose_language"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spn_language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:entries="@array/app_locales"
+            android:paddingBottom="5dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_download_path_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding"
+            android:text="@string/activity_setting_downloads_path"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/tv_download_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.10"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:padding="5dp"
+                android:text="sdcard/"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tv_browse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.90"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="..."
+                android:textSize="@dimen/settings_text_size"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_clean_history"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            android:text="@string/activity_setting_clear_history"
+            android:textSize="@dimen/settings_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_license"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            android:text="@string/activity_setting_license_agreement"
+            android:textSize="@dimen/settings_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            android:text="@string/activity_setting_about"
+            android:textSize="@dimen/settings_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_disable_ads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            android:text="@string/activity_setting_disable_ads"
+            android:textSize="@dimen/settings_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+    </LinearLayout>
+</ScrollView>

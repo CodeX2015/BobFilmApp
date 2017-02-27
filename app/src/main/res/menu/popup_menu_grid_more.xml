@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/popup_add_bookmark"
+        android:title="@string/popup_add_bookmark" />
+    <item
+        android:id="@+id/popup_share"
+        android:title="@string/popup_share" />
+    <!--<item-->
+        <!--android:id="@+id/popup_test_download"-->
+        <!--android:title="test_download"-->
+        <!--tools:ignore="HardcodedText" />-->
+    <!--<item-->
+        <!--android:id="@+id/popup_add_history"-->
+        <!--android:title="test_add_to history"-->
+        <!--tools:ignore="HardcodedText" />-->
+</menu>

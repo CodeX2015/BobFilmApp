@@ -1,0 +1,153 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="searchViewStyle">@style/AppSearchViewStyle</item>
+        <item name="actionButtonStyle">@style/AppActionButtonStyle</item>
+
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeBackground">@color/colorPrimary</item>
+        <item name="android:actionModeBackground">@color/colorPrimary</item>
+        <!--<item name="actionModeCloseDrawable">@drawable/ic_arrow_back_white_24dp</item>-->
+        <item name="actionModeStyle">@style/MyActionModeStyle</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--<style name="viewPagerTitleStrip">-->
+    <!--<item name="android:layout_width">match_parent</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--<item name="android:textColor">@color/tab_text_selected</item>-->
+    <!--<item name="android:background">?attr/selectableItemBackground</item>-->
+    <!--<item name="android:textSize">@dimen/grid_item_header_text_size</item>-->
+    <!--</style>-->
+
+    <style name="viewPagerTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/c_tab_indicator</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabBackground">?android:attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/tab_text_selected</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/tab_text_size</item>
+        <item name="android:textColor">@color/tab_text_unselected</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="AppSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:textCursorDrawable">@drawable/white_cursor</item>
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="searchIcon">@android:drawable/ic_menu_search</item>
+        <item name="closeIcon">@drawable/ic_close</item>
+        <item name="queryHint">@string/activity_search_hint</item>
+        <item name="android:imeActionId">6</item>
+    </style>
+
+    <style name="AppActionButtonStyle" parent="Widget.AppCompat.ActionButton">
+        <!--<item name="android:minWidth">12dp</item>-->
+        <!--<item name="android:maxWidth">16dp</item>-->
+        <!--<item name="android:width">40dp</item>-->
+    </style>
+
+    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="searchViewStyle">@style/AppSearchViewStyle</item>
+        <item name="actionButtonStyle">@style/AppActionButtonStyle</item>
+
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeBackground">@color/colorPrimary</item>
+        <item name="android:actionModeBackground">@color/colorPrimary</item>
+        <!--<item name="actionModeCloseDrawable">@drawable/ic_arrow_back_white_24dp</item>-->
+        <item name="actionModeStyle">@style/MyActionModeStyle</item>
+    </style>
+
+    <style name="MyActionModeStyle" parent="Widget.AppCompat.ActionMode">
+        <item name="actionModeBackground">@color/colorPrimary</item>
+        <item name="android:actionModeBackground">@color/colorPrimary</item>
+        <item name="backgroundSplit">@color/colorPrimary</item>
+        <item name="android:backgroundSplit">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppActionModeStyle" parent="Base.Widget.AppCompat.ActionMode">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:backgroundSplit">@color/colorPrimary</item>
+        <item name="android:height">?android:attr/actionBarSize</item>
+    </style>
+
+    <style name="DialogButton" parent="@android:style/Widget.Button">
+        <!--<item name="android:shadowColor">@color/colorPrimaryDark</item>-->
+        <!--<item name="android:shadowDx">0</item>-->
+        <!--<item name="android:shadowDy">-1</item>-->
+        <!--<item name="android:shadowRadius">0.2</item>-->
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <!--<item name="android:textStyle">bold</item>-->
+        <!--<item name="android:background">@drawable/selector_button</item>-->
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="TextButton" parent="@android:style/Widget.TextView">
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:background">@drawable/rnd_corners_white_bg_white</item>
+        <item name="android:onClick">onClick</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="DropDown" parent="@android:style/Widget.DropDownItem">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="LinearProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/progress_bar_inactive</item>
+    </style>
+
+    <style name="ImagePreviewDialog" parent="android:Theme.Dialog">
+        <item name="android:windowEnterAnimation">@anim/grow_in_show</item>
+        <item name="android:windowExitAnimation">@anim/shrink_out_minimize</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+        <item name="android:windowTitleStyle">@null</item>
+        <!--<item name="android:backgroundDimEnabled">false</item>-->
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <!--<item name="android:animateOnClick">@anim/alpha_resize_click</item>-->
+        <!--<item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>-->
+    </style>
+
+    <style name="MyProgressBarStyleHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:minHeight">4dp</item>
+        <item name="android:maxHeight">4dp</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/text_color_light</item>
+        <!-- Used for the background -->
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+</resources>
