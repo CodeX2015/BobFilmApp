@@ -90,7 +90,7 @@ import club.bobfilm.app.activity.ActivitySplash;
 import club.bobfilm.app.activity.BaseTabActivity;
 import club.bobfilm.app.entity.AppUpdate;
 import club.bobfilm.app.entity.FilmFile;
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.service.DownloadService;
 
 /**
@@ -147,7 +147,7 @@ public class Utils {
                                           final String imageUrl,
                                           final ImageView imageView,
                                           @Nullable final ViewFlipper vfProgress) {
-        if (imageUrl== null || imageUrl.equalsIgnoreCase("") || imageView == null) {
+        if (imageUrl == null || imageUrl.equalsIgnoreCase("") || imageView == null) {
             return;
         }
         log.info("image: {}", imageUrl);
@@ -323,8 +323,8 @@ public class Utils {
     }
 
     public static AlertDialog showMessage(int titleId, String message,
-                                   int btnPositiveId, int btnNegativeId,
-                                   DialogInterface.OnClickListener dialogAction) {
+                                          int btnPositiveId, int btnNegativeId,
+                                          DialogInterface.OnClickListener dialogAction) {
         AlertDialog.Builder builder = new AlertDialog.Builder(Application.getCurrentActivity());
         if (titleId != -1) {
             builder.setTitle(titleId);
@@ -389,7 +389,7 @@ public class Utils {
     }
 
     public static void changeLang(Context context, int lang) {
-        HTMLParser.mSiteLanguage = context.getResources().getStringArray(R.array.site_lang)[lang];
+        BobFilmParser.mSiteLanguage = context.getResources().getStringArray(R.array.site_lang)[lang];
         String[] langData = context.getResources().getStringArray(R.array.site_lang);
         Locale myLocale = new Locale(langData[lang]);
         //log.debug("changeLang: locale={}", langData[lang]);
@@ -1030,7 +1030,8 @@ public class Utils {
     }
 
     public static String convertDate(String date, @Nullable String format_in, @Nullable String format_out) {
-//        date = "2015-03-22T19:59:29.315188";
+        if (BuildConfig.DEBUG) return date;
+        //date = "2015-03-22T19:59:29.315188";
         if (date == null) {
             //noinspection ConstantConditions
             return date;
@@ -1075,7 +1076,7 @@ public class Utils {
         return "Unknown";
     }
 
-    public static String extractDigitsFromString(String str){
+    public static String extractDigitsFromString(String str) {
         return str.replaceAll("[^0-9]", "");
     }
 
@@ -1084,8 +1085,8 @@ public class Utils {
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
 //            underlineText = Html.fromHtml("<u>" + text + "</u>", Html.FROM_HTML_MODE_LEGACY);
 //        } else {
-            //noinspection deprecation
-            underlineText = Html.fromHtml("<u>" + text + "</u>");
+        //noinspection deprecation
+        underlineText = Html.fromHtml("<u>" + text + "</u>");
 //        }
         return underlineText;
     }

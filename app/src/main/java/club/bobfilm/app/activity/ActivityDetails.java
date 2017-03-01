@@ -43,8 +43,8 @@ import club.bobfilm.app.R;
 import club.bobfilm.app.entity.Film;
 import club.bobfilm.app.entity.FilmDetails;
 import club.bobfilm.app.entity.FilmFile;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.helpers.DBHelper;
-import club.bobfilm.app.helpers.HTMLParser;
 import club.bobfilm.app.service.DownloadService;
 import club.bobfilm.app.util.Utils;
 
@@ -130,44 +130,44 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
     }
 
     private void getFilmDetailsByUrl(final String urlQuery) {
-        String filmUrl = HTMLParser.SITE + urlQuery;
-        HTMLParser.getParsedSite(filmUrl, HTMLParser.ACTION_FILM_DETAILS, null, new HTMLParser.LoadListener() {
-            @Override
-            public void OnLoadComplete(final Object result) {
-                mFilmDetails = (FilmDetails) result;
-                if (mFilmDetails != null) {
-                    mFilmDetails = (FilmDetails) result;
-                    if (mFilm != null) {
-                        mFilmDetails.setmPosterUrl(mFilm.getPosterUrl());
-                        mFilmDetails.setmFilmUrl(mFilm.getFilmUrl());
-                        mFilmDetails.setBookmarked(mFilm.isBookmarked());
-                    } else {
-                        mFilm = new Film(
-                                mFilmDetails.getmFilmTitle(),
-                                urlQuery,
-                                mFilmDetails.getmBigPosterUrl().replace("?1600", "?200"),
-                                false
-                        );
-                    }
-                    setData();
-                }
-            }
-
-            @Override
-            public void OnLoadError(final Exception ex) {
-//                ex.printStackTrace();
-                if (!ex.getMessage().equalsIgnoreCase(getString(R.string.msg_connection_failed))) {
-                    log.error(Utils.getErrorLogHeader() + new Object() {
-                    }.getClass().getEnclosingMethod().getName(), ex);
-                }
-                runOnUiThread(new Runnable() {
+        BobFilmParser.getParsedSite(urlQuery, BobFilmParser.ACTION_FILM_DETAILS, null,
+                new BobFilmParser.LoadListener() {
                     @Override
-                    public void run() {
-                        changeViewForError(ex.getMessage());
+                    public void OnLoadComplete(final Object result) {
+                        mFilmDetails = (FilmDetails) result;
+                        if (mFilmDetails != null) {
+                            mFilmDetails = (FilmDetails) result;
+                            if (mFilm != null) {
+                                mFilmDetails.setmPosterUrl(mFilm.getPosterUrl());
+                                mFilmDetails.setmFilmUrl(mFilm.getFilmUrl());
+                                mFilmDetails.setBookmarked(mFilm.isBookmarked());
+                            } else {
+                                mFilm = new Film(
+                                        mFilmDetails.getmFilmTitle(),
+                                        urlQuery,
+                                        mFilmDetails.getmBigPosterUrl().replace("?1600", "?200"),
+                                        false
+                                );
+                            }
+                            setData();
+                        }
+                    }
+
+                    @Override
+                    public void OnLoadError(final Exception ex) {
+//                ex.printStackTrace();
+                        if (!ex.getMessage().equalsIgnoreCase(getString(R.string.msg_connection_failed))) {
+                            log.error(Utils.getErrorLogHeader() + new Object() {
+                            }.getClass().getEnclosingMethod().getName(), ex);
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeViewForError(ex.getMessage());
+                            }
+                        });
                     }
                 });
-            }
-        });
     }
 
     private void changeViewForError(String msg) {
@@ -474,7 +474,7 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
                 zoomImageFromThumb(v, path);
                 break;
             case R.id.ll_share_details:
-                String shareString = mFilmDetails.getmFilmTitle() + "\n\n" + HTMLParser.SITE + mFilmDetails.getmFilmUrl();
+                String shareString = mFilmDetails.getmFilmTitle() + "\n\n" + BobFilmParser.mSite + mFilmDetails.getmFilmUrl();
                 Utils.shareTextUrl(ActivityDetails.this, getString(R.string.action_send_to), shareString);
                 break;
             case R.id.ll_read_quotes:

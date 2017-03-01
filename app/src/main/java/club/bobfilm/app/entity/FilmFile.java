@@ -3,11 +3,13 @@ package club.bobfilm.app.entity;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
 import club.bobfilm.app.helpers.DBHelper;
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.service.DownloadService;
 
 /**
@@ -16,7 +18,9 @@ import club.bobfilm.app.service.DownloadService;
 public class FilmFile implements Serializable, DBHelper.IDbData {
     public int idL;
     public int id;
+    @SerializedName("comment")
     private String mFileName;
+    @SerializedName("file")
     private String mFileUrl;
     private String mLightFileUrl;
     private String mLightFileName;
@@ -42,6 +46,12 @@ public class FilmFile implements Serializable, DBHelper.IDbData {
     public FilmFile() {
     }
 
+    public FilmFile(String fileName, String urlFile) {
+        this.mFileName = fileName;
+        this.mFileUrl = urlFile;
+        this.id = fileName.hashCode();
+    }
+
     public FilmFile(String fileName, String urlFile, Film film) {
         this.mFileName = fileName;
         this.mFileUrl = urlFile;
@@ -49,12 +59,6 @@ public class FilmFile implements Serializable, DBHelper.IDbData {
         this.mFilmUrl = film.getFilmUrl();
         this.mFilmLogoUrl = film.getPosterUrl();
         this.mFilmBookmarked = film.isBookmarked();
-        this.id = fileName.hashCode();
-    }
-
-    public FilmFile(String fileName, String urlFile) {
-        this.mFileName = fileName;
-        this.mFileUrl = urlFile;
         this.id = fileName.hashCode();
     }
 
@@ -237,7 +241,7 @@ public class FilmFile implements Serializable, DBHelper.IDbData {
     }
 
     public String getmFileUrl() {
-        if (!mFileUrl.contains("http")) return HTMLParser.SITE + mFileUrl;
+        if (!mFileUrl.contains("http")) return BobFilmParser.mSite + mFileUrl;
         return mFileUrl;
     }
 

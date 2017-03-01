@@ -18,7 +18,7 @@ import club.bobfilm.app.Application;
 import club.bobfilm.app.R;
 import club.bobfilm.app.adapter.RVListCommentsAdapter;
 import club.bobfilm.app.entity.Comment;
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.util.Utils;
 
 /**
@@ -99,8 +99,8 @@ public class ActivityComments extends BaseActivity implements View.OnClickListen
     }
 
     private void getCommentsFromNetwork() {
-        String commentsUrl = HTMLParser.SITE + mCommentsUrl;
-        HTMLParser.getParsedSite(commentsUrl, HTMLParser.ACTION_COMMENTS, null, new HTMLParser.LoadListener() {
+        String commentsUrl = BobFilmParser.mSite + mCommentsUrl;
+        BobFilmParser.getParsedSite(commentsUrl, BobFilmParser.ACTION_COMMENTS, null, new BobFilmParser.LoadListener() {
                     @SuppressWarnings("unchecked")
                     @Override
                     public void OnLoadComplete(Object result) {

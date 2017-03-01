@@ -19,7 +19,7 @@ import club.bobfilm.app.R;
 import club.bobfilm.app.adapter.RVListSearchResultAdapter;
 import club.bobfilm.app.entity.Film;
 import club.bobfilm.app.entity.Section;
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.util.Utils;
 
 /**
@@ -149,8 +149,8 @@ public class ActivitySearchResult extends BaseActivity implements View.OnClickLi
 
     private void getSearchDataFromNetwork() {
         if (mSearchRequest != null && !mSearchRequest.equalsIgnoreCase("")) {
-            String searchUrl = HTMLParser.SITE + mSearchRequest;
-            HTMLParser.getParsedSite(searchUrl, HTMLParser.ACTION_SEARCH, null, new HTMLParser.LoadListener() {
+            String searchUrl = BobFilmParser.mSite + mSearchRequest;
+            BobFilmParser.getParsedSite(searchUrl, BobFilmParser.ACTION_SEARCH, null, new BobFilmParser.LoadListener() {
                         @SuppressWarnings("unchecked")
                         @Override
                         public void OnLoadComplete(Object result) {

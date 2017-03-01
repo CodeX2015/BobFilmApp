@@ -70,6 +70,7 @@ dependencies {
     //sendEmail
     //for directoryChooser
     //AdMob
+    compile 'com.google.code.gson:gson:2.4'
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
     compile 'com.android.support:support-v4:25.2.0'

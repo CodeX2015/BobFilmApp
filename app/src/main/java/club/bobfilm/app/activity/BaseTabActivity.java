@@ -30,7 +30,7 @@ import club.bobfilm.app.Application;
 import club.bobfilm.app.BuildConfig;
 import club.bobfilm.app.R;
 import club.bobfilm.app.entity.FilmFile;
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.service.DownloadService;
 import club.bobfilm.app.util.Utils;
 
@@ -112,7 +112,7 @@ public class BaseTabActivity extends AppCompatActivity
 
     protected void setAppSettings() {
         Utils.setAppSettings(this);
-        HTMLParser.setContext(this);
+        BobFilmParser.setContext(this);
     }
 
 

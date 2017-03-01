@@ -33,7 +33,7 @@ import club.bobfilm.app.adapter.RVGridAdapter;
 import club.bobfilm.app.entity.Film;
 import club.bobfilm.app.entity.Section;
 import club.bobfilm.app.helpers.DBHelper;
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.util.Utils;
 
 /**
@@ -271,8 +271,8 @@ public class ActivitySubCategories extends BaseActivity {
     }
 
     private void getListOfSubCategories() {
-        mSubCategoryUrl = HTMLParser.SITE + mSubCategory.getFilmUrl();
-        HTMLParser.getParsedSite(mSubCategoryUrl, HTMLParser.ACTION_SUB_CATEGORIES, mCategory, new HTMLParser.LoadListener() {
+        mSubCategoryUrl = BobFilmParser.mSite + mSubCategory.getFilmUrl();
+        BobFilmParser.getParsedSite(mSubCategoryUrl, BobFilmParser.ACTION_SUB_CATEGORIES, mCategory, new BobFilmParser.LoadListener() {
             @SuppressWarnings("unchecked")
             @Override
             public void OnLoadComplete(final Object result) {
@@ -363,7 +363,7 @@ public class ActivitySubCategories extends BaseActivity {
                                 loading = false;
                                 //log.info("Last Item Wow! {}, {}, {}", visibleItemCount[0], pastVisibleItems[0], totalItemCount[0]);
                                 if (!mCategory.getNextPageUrl().equalsIgnoreCase("")) {
-                                    mSubCategoryUrl = HTMLParser.SITE + mCategory.getNextPageUrl();
+                                    mSubCategoryUrl = BobFilmParser.mSite + mCategory.getNextPageUrl();
                                     log.info("Loading: " + mSubCategoryUrl);
                                     getListOfSubCategories();
                                 }

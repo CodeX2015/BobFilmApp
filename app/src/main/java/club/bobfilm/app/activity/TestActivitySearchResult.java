@@ -38,7 +38,7 @@ import club.bobfilm.app.adapter.SearchViewArrayAdapter;
 import club.bobfilm.app.entity.Film;
 import club.bobfilm.app.entity.Section;
 import club.bobfilm.app.helpers.DBHelper;
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.util.Utils;
 
 /**
@@ -191,9 +191,9 @@ public class TestActivitySearchResult extends AppCompatActivity
 
     private void getSearchDataFromNetwork() {
         if (mSearchRequest != null && !mSearchRequest.equalsIgnoreCase("")) {
-            String searchUrl = HTMLParser.SITE + mSearchRequest;
-            HTMLParser.getParsedSite(searchUrl, HTMLParser.ACTION_SEARCH,
-                    null, new HTMLParser.LoadListener() {
+            String searchUrl = BobFilmParser.mSite + mSearchRequest;
+            BobFilmParser.getParsedSite(searchUrl, BobFilmParser.ACTION_SEARCH,
+                    null, new BobFilmParser.LoadListener() {
                         @SuppressWarnings("unchecked")
                         @Override
                         public void OnLoadComplete(Object result) {
@@ -442,7 +442,7 @@ public class TestActivitySearchResult extends AppCompatActivity
     public void getSearchHints(String s) {
         String url = "http://www.ex.ua/r_search_hint?" + mCategory.getSearchId() + "&s=" + Uri.encode(s);
         log.info("getSearchHints: {}", url);
-        HTMLParser.getParsedSite(url, HTMLParser.ACTION_SEARCH_HINTS, s, new HTMLParser.LoadListener() {
+        BobFilmParser.getParsedSite(url, BobFilmParser.ACTION_SEARCH_HINTS, s, new BobFilmParser.LoadListener() {
             @Override
             public void OnLoadComplete(Object result) {
                 String[] listHints = (String[]) result;

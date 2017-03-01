@@ -4,7 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,11 +18,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -47,7 +54,7 @@ import okhttp3.Response;
 /**
  * Created by Codex on 22.04.2016.
  */
-class BobFilmParser {
+public class BobFilmParser {
     public static final String FILMS_COUNT_PER_PAGE = "24";
     public static final int ACTION_SECTIONS = 10;
     public static final int ACTION_FILMS = 11;
@@ -56,21 +63,17 @@ class BobFilmParser {
     public static final int ACTION_COMMENTS = 14;
     public static final int ACTION_SEARCH = 15;
     public static final int ACTION_SEARCH_HINTS = 16;
-    private static final int HTTP_TIMEOUT = 5000;
-    public static String mSiteLanguage = "ru";
-    private static final String LANG_PAR = "ulang";
 
     //sharing link
     //https://drive.google.com/file/d/0BwLqqTp54Kpwbzk2bFJrQ25rSTA/view?usp=sharing
     //direct link
     //https://drive.google.com/uc?export=download&id=0BwLqqTp54Kpwbzk2bFJrQ25rSTA
-    private static final String
-            APP_UPDATE_URL = "https://drive.google.com/uc?export=" +
-            "download&id=0B4zAUBCH3sS6aWt4NEtxVWFGX1k";
-    public static String mSite = "http://";
-    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) " +
-            "AppleWebKit/537.36 (KHTML, like Gecko) " +
-            "Chrome/56.0.2924.87 Safari/537.36 OPR/43.0.2442.991";
+    private static String mAppUpdateUrl;
+    public static String mSiteLanguage = "ru";
+    private static final String LANG_PAR = "ulang";
+    private static int mHttpTimeout;
+    public static String mSite;
+    private static String mUserAgent;
     private static final String ALLOWED_URI_CHARS = "@#&=*+-_.,:!?()/~'%";
     private static ExecutorService mExecService = Executors.newCachedThreadPool();
     @SuppressLint("StaticFieldLeak")
@@ -80,8 +83,14 @@ class BobFilmParser {
     private static Logger log = LoggerFactory.getLogger(BobFilmParser.class);
 
     public static void setContext(Context context) {
-        BobFilmParser.mSite += context.getString(R.string.host_www_name);
         BobFilmParser.mContext = context;
+
+        //set default params for parser
+        BobFilmParser.mSite = context.getString(R.string.site_url);
+        BobFilmParser.mHttpTimeout = context.getResources().getInteger(R.integer.jsoup_timeout);
+        BobFilmParser.mUserAgent = context.getString(R.string.jsoup_user_agent);
+        BobFilmParser.mAppUpdateUrl = context.getString(R.string.app_update_url);
+
         strReviewsDefaultValue = context.getResources().getString(R.string.no_reviews);
         strReviewsDefault = context.getResources().getString(R.string.parser_films_responds);
     }
@@ -91,16 +100,17 @@ class BobFilmParser {
         mExecService.submit(
                 new Runnable() {
                     Document docForParsing;
+                    String checkSiteWord = mContext.getString(R.string.check_site_available);
 
                     @Override
                     public void run() {
                         try {
                             docForParsing = Jsoup
                                     .connect(url)
-                                    .timeout(HTTP_TIMEOUT)
-                                    .userAgent(USER_AGENT)
+                                    .timeout(mHttpTimeout)
+                                    .userAgent(mUserAgent)
                                     .get();
-                            if (docForParsing.toString().contains("Видео [RU - русский]")) {
+                            if (docForParsing.toString().contains(checkSiteWord)) {
                                 listener.OnLoadComplete(true);
                             } else {
                                 String siteText = isSiteClosed(docForParsing);
@@ -116,7 +126,6 @@ class BobFilmParser {
                         } catch (Exception ex) {
                             listener.OnLoadError(ex);
                         }
-
                     }
                 }
         );
@@ -138,8 +147,8 @@ class BobFilmParser {
 
                     docForParsing = Jsoup
                             .connect(url)
-                            .timeout(HTTP_TIMEOUT)
-                            .userAgent(USER_AGENT)
+                            .timeout(mHttpTimeout)
+                            .userAgent(mUserAgent)
                             .cookie(LANG_PAR, mSiteLanguage)
                             .get();
                     if (isSiteRestricted(docForParsing)) {
@@ -202,6 +211,7 @@ class BobFilmParser {
         }
     }
 
+    //todo need fix for new site
     private static String isSiteClosed(Document doc) {
         String pageTitle = doc.title().toLowerCase();
         if (!pageTitle.equals("") && pageTitle.contains("@ EX.UA".toLowerCase())) {
@@ -356,22 +366,20 @@ class BobFilmParser {
     }
 
     private static ArrayList<Section> parseSections(Document doc) {
-        Elements sections = doc.select("table.include_0").select("td");
+        Elements sections = doc.select("div.bl_nav").select("li");
         ArrayList<Section> sectionsArr = new ArrayList<>();
         //noinspection TryWithIdenticalCatches
         try {
             int position = 0;
             for (Element section : sections) {
-                if (section.attr("style").equalsIgnoreCase("")) {
-                    String sTitle = section.select("a").first().text();
-                    String sUrl = section.select("a").first().attr("href");
-                    Section sectionObj = new Section();
-                    sectionObj.setmSectionPosition(position);
-                    sectionObj.setSectionTitle(sTitle);
-                    sectionObj.setSectionUrl(sUrl);
-                    sectionsArr.add(sectionObj);
-                    position++;
-                }
+                String sTitle = section.select("a").text();
+                String sUrl = section.select("a").attr("href");
+                Section sectionObj = new Section();
+                sectionObj.setmSectionPosition(position);
+                sectionObj.setSectionTitle(sTitle);
+                sectionObj.setSectionUrl(sUrl);
+                sectionsArr.add(sectionObj);
+                position++;
             }
             //log.debug("get " + String.valueOf(sectionsArr.size()) + " sections");
         } catch (Exception ex) {
@@ -389,80 +397,100 @@ class BobFilmParser {
         FilmDetails filmDetailsObj = new FilmDetails();
         //noinspection TryWithIdenticalCatches
         try {
-            Element filmDetails = doc.select("td#body_element")
-                    .select("table").select("td[valign=top]").first();
+            Elements filmDetails = doc.select("div#dle-content").select("div.sh0");
 
             if (filmDetails == null) {
                 return parseArtistDetails(doc);
             }
-            String sFilmDetails = filmDetails.select("p:not(p:has(a)):not(a[href])").toString();
-            String sBigPosterUrl = filmDetails.select("img").attr("src");
-            String sFilmTitle = filmDetails.select("h1").text();
-            String sFilmYear = "";
-            if (sFilmTitle.contains("(")) {
-                sFilmYear = sFilmTitle.substring(sFilmTitle.indexOf("(") + 1, sFilmTitle.indexOf(")"));
-            } else {
-                log.warn("string {} not contains \'(\'", sFilmTitle);
-            }
-            String sFilmCreateDate = filmDetails.select("small").text();
+            String sFilmTitle = filmDetails.select(".sh2").select("h1").text();
+            String sBigPosterUrl = filmDetails.select("div.posterfull_img").select("img").attr("src");
+            sBigPosterUrl = sBigPosterUrl.contains("http") ? sBigPosterUrl : mSite + sBigPosterUrl;
+            String sFilmDetails = filmDetails.select("div.fulldisc").select("div[id^=news-id]").html();
+
+            Elements sFilmFullInfo = filmDetails.select("ul.fullinfo>li");
+
+            String sFilmYear = sFilmFullInfo.select("li:has(span:contains(Год выпуска:))").html();
+            String sFilmCountry = sFilmFullInfo.select("li:has(span:contains(Страна:))").html();
+            String sFilmSlogan = sFilmFullInfo.select("li:has(span:contains(Слоган:))").html();
+            String sFilmGenre = sFilmFullInfo.select("li:has(span:contains(Жанр:))").html();
+            String sFilmQuality = sFilmFullInfo.select("li:has(span:contains(Качество:))").html();
+            String sFilmDuration = sFilmFullInfo.select("li:has(span:contains(Прод-сть:))").html();
+            String sFilmTranslation = sFilmFullInfo.select("li:has(span:contains(Перевод:))").html();
+            String sFilmPremiere = sFilmFullInfo.select("li:has(span:contains(Премьера:))").html();
+            String sFilmProducer = sFilmFullInfo.select("li:has(span:contains(Режиссер:))").html();
+
+            String sFilmActors = filmDetails.select("div.n_actors").html();
+
+            String sFilmCreateDate = filmDetails.select(".sh9").text();
             if (sFilmCreateDate.contains(",")) {
-                sFilmCreateDate = sFilmCreateDate
-                        .substring(0, sFilmCreateDate.indexOf(",", sFilmCreateDate.indexOf(",") + 1));
+                sFilmCreateDate = sFilmCreateDate.substring(sFilmCreateDate.indexOf(":") + 2);
             } else {
                 log.warn("Date {} not contains \',\'", sFilmCreateDate);
             }
 
-            String sFilmReviews = doc.select("a[href*=/view_comments/]").text();
-            if (sFilmReviews.contains(":")) {
-                sFilmReviews = sFilmReviews.substring(sFilmReviews.indexOf(":") + 2);
+            String sFilmReviews = doc.select("div.sh13_full").select(".item").select(".num").text();
+
+            // neede parse and save to comments object
+            Elements sFilmReviewsUrl = doc.select("div[class^=comm0]");
+
+            String sPlaylistUrl = doc.select("param[name=flashvars]").attr("value");
+            if (sPlaylistUrl.contains("&")) {
+                sPlaylistUrl = sPlaylistUrl.substring(
+                        sPlaylistUrl.indexOf("&", sPlaylistUrl.indexOf("&") + 1) + 4);
+                sPlaylistUrl = sPlaylistUrl.contains("http") ? sPlaylistUrl : mSite + sPlaylistUrl;
+
             } else {
-                log.warn("string {} not contains \':\'", sFilmReviews);
+                log.warn("Playlist {} not contains \'&\'", sPlaylistUrl);
+                sPlaylistUrl = null;
             }
-            sFilmReviews = (sFilmReviews.equalsIgnoreCase("")) ? strReviewsDefaultValue : sFilmReviews;
-
-            String sFilmReviewsUrl = doc.select("a[href*=/view_comments/]").attr("href");
-
-            Elements sFiles = doc.select("table.list")
-                    .select("a[href*=/get/]:not(.fox-ic_file_play-btn):not(.fox-play-btn)");
-
-            sFiles = sFiles.select(":not(a[title~=(?i)\\.(png|jpe?g|bmp|gif)])");
-            HashMap<String, String> hLightFiles = getLightFiles(doc);
-            String sLightFileUrl = null;
-            String sLightFileName = null;
-            //noinspection MismatchedQueryAndUpdateOfCollection
             List<FilmFile> filesList = new ArrayList<>();
-            for (int i = 0; i < sFiles.size(); i++) {
-                String sFileUrl = sFiles.get(i).select("a").attr("href");
-                String sFileName = sFiles.get(i).select("a").text();
-                if (hLightFiles != null) {
-                    String htmlString = TextUtils.htmlEncode(sFileName);
-                    sLightFileUrl = hLightFiles.get(htmlString);
-                    if (sLightFileUrl != null && sLightFileUrl.contains("/")) {
-                        sLightFileName = sLightFileUrl.substring(sLightFileUrl.lastIndexOf("/") + 1);
-                        if (sLightFileName.contains(".")) {
-                            sLightFileName = sFileName.substring(0, sFileName.lastIndexOf("."))
-                                    + "_light" +
-                                    sLightFileName.substring(sLightFileName.lastIndexOf("."));
-                            filesList.add(new FilmFile(sFileName, sFileUrl,
-                                    sBigPosterUrl, sLightFileUrl, sLightFileName));
-                        } else {
-                            log.warn("error rename file to light version from {}", sFileName);
-                        }
-                    } else {
-                        log.warn("string \'{}\' not contains \'/\'", sLightFileUrl);
-                    }
-                }
-                if (sLightFileName == null) {
-                    filesList.add(new FilmFile(sFileName, sFileUrl, sBigPosterUrl));
-                }
+            JsonObject jRequest;
+            if (sPlaylistUrl != null) {
+                jRequest = getDataFromServer(sPlaylistUrl);
+                JsonArray playlist = jRequest.getAsJsonArray("playlist");
+                filesList = new Gson().fromJson(playlist, new TypeToken<List<FilmFile>>() {
+                }.getType());
+                log.info("files count {}", filesList.size());
             }
+//            Elements sFiles = doc.select("param[name=flashvars]").attr("value");
+//            sFiles = sFiles.select(":not(a[title~=(?i)\\.(png|jpe?g|bmp|gif)])");
+//            HashMap<String, String> hLightFiles = getLightFiles(doc);
+//            String sLightFileUrl = null;
+//            String sLightFileName = null;
+//            //noinspection MismatchedQueryAndUpdateOfCollection
+//            List<FilmFile> filesList = new ArrayList<>();
+//            for (int i = 0; i < sFiles.size(); i++) {
+//                String sFileUrl = sFiles.get(i).select("a").attr("href");
+//                String sFileName = sFiles.get(i).select("a").text();
+//                if (hLightFiles != null) {
+//                    String htmlString = TextUtils.htmlEncode(sFileName);
+//                    sLightFileUrl = hLightFiles.get(htmlString);
+//                    if (sLightFileUrl != null && sLightFileUrl.contains("/")) {
+//                        sLightFileName = sLightFileUrl.substring(sLightFileUrl.lastIndexOf("/") + 1);
+//                        if (sLightFileName.contains(".")) {
+//                            sLightFileName = sFileName.substring(0, sFileName.lastIndexOf("."))
+//                                    + "_light" +
+//                                    sLightFileName.substring(sLightFileName.lastIndexOf("."));
+//                            filesList.add(new FilmFile(sFileName, sFileUrl,
+//                                    sBigPosterUrl, sLightFileUrl, sLightFileName));
+//                        } else {
+//                            log.warn("error rename file to light version from {}", sFileName);
+//                        }
+//                    } else {
+//                        log.warn("string \'{}\' not contains \'/\'", sLightFileUrl);
+//                    }
+//                }
+//                if (sLightFileName == null) {
+//                    filesList.add(new FilmFile(sFileName, sFileUrl, sBigPosterUrl));
+//                }
+//            }
 
             filmDetailsObj.setmBigPosterUrl(sBigPosterUrl);
             filmDetailsObj.setmFilmTitle(sFilmTitle);
             filmDetailsObj.setmFilmYear(sFilmYear);
             filmDetailsObj.setmFilmCreateDate(sFilmCreateDate);
             filmDetailsObj.setmFilmReviews(sFilmReviews);
-            filmDetailsObj.setmFilmReviewsUrl(sFilmReviewsUrl);
+            //filmDetailsObj.setmFilmReviewsUrl(sFilmReviewsUrl);
             filmDetailsObj.setmFilmDetailsHTML(sFilmDetails);
             filmDetailsObj.setmFilmFiles(filesList);
         } catch (Exception ex) {
@@ -481,26 +509,25 @@ class BobFilmParser {
             log.error("parseFilmCards: category is null");
             return new ArrayList<>();
         }
-        Elements pages = doc.select("a[href*=&p]");
-        if (pages.size() > 0) {
-            for (Element page : pages) {
-                String strPage = page.toString();
-                if (strPage.contains("Ctrl →")) {
-                    String nextPage = (page.attr("href"));
-                    category.setNextPageUrl(nextPage);
-                    //log.info("Set nextpage: {}", category.getNextPageUrl());
-                    break;
-                }
-            }
+        Elements pages = doc.select("div.pagination");
+        Elements nextPage = pages.select(".page_btn.next_page");
+        String nextPageUrl = nextPage.attr("href");
+        if (nextPageUrl != null) {
+            log.info("Set nextPageUrl: {}", nextPageUrl);
+            category.setNextPageUrl(nextPageUrl);
         } else {
             category.setNextPageUrl("");
         }
+
+
         String searchCategoryId = doc.select("input[name=original_id]").attr("value");
         if (searchCategoryId != null) {
             category.setSearchId(searchCategoryId);
         }
-        Elements tableInclude = doc.select("td#body_element").select("table[class^=include]");
-        Elements films = tableInclude.select("td[valign=center]");
+
+
+        Elements tableInclude = doc.select("div#dle-content");
+        Elements films = tableInclude.select("div.sh0");
         if (films == null || films.size() == 0) {
             return new ArrayList<>();
         }
@@ -508,54 +535,56 @@ class BobFilmParser {
         //noinspection TryWithIdenticalCatches
         try {
             for (Element film : films) {
-                if (film.attr("style").equalsIgnoreCase("")) {
-                    String sPosterUrl = film.select("img").attr("src");
-                    String sFilmTitle = film.select("img").attr("alt");
-                    String sFilmUrl = film.select("a").first().attr("href");
-                    String sCreateDate = film.select("small").text();
-                    if (sCreateDate.contains(",")) {
-                        sCreateDate = sCreateDate.substring(sCreateDate.indexOf(",") + 2);
-                    } else {
-                        log.warn("Date {} not contains \',\'", sCreateDate);
-                    }
-                    String strReviews = film.select("a.info").text();
-                    String sReviews = "";
-                    String sReviewsCount = "";
-                    String sReviewsMask = mContext.getString(R.string.parser_films_responds_mask);
+                String sPosterUrl = film.select(".sh15").select(".postershortbox").select("img").attr("src");
+                sPosterUrl = sPosterUrl.contains("http") ? sPosterUrl : mSite + sPosterUrl;
+                String sFilmTitle = film.select(".sh15").select(".postershortbox").select("img").attr("title");
+                String sFilmUrl = film.select(".sh15").select(".postershortbox").select("a").attr("href");
+                String sFilmShortDescription = film.select("div.shortdisc").text();
+
+                String sCreateDate = film.select(".sh9").text();
+                if (sCreateDate.contains(",")) {
+                    sCreateDate = sCreateDate.substring(sCreateDate.indexOf(":") + 2);
+                } else {
+                    log.warn("Date {} not contains \',\'", sCreateDate);
+                }
+
+                String strReviews = film.select(".sh13").text();
+                String sReviews = "";
+                String sReviewsCount = "";
+                String sReviewsMask = mContext.getString(R.string.parser_films_responds_mask);
 //                    log.debug("{} sReviewsMask:{}, strReviews: {}",
 //                                          sFilmTitle, sReviewsMask, strReviews);
-                    //noinspection StatementWithEmptyBody
-                    if (strReviews.contains(sReviewsMask) && strReviews.contains(":")) {
-                        sReviews = strReviews.substring(0, strReviews.indexOf(":"));
-                        int indexOfColon = strReviews.indexOf(":");
-                        sReviewsCount = strReviews.substring(indexOfColon + 2 > strReviews.length()
-                                ? indexOfColon + 1 : indexOfColon + 2);
-                    } else {
-                        //log.warn("string \'{}\' not contains \'{}\' and \':\'",
-                        //                                  strReviews, sReviewsMask);
-                    }
-                    boolean hasArticles = false;
-                    String sArticlesMask = mContext.getString(R.string.parser_films_articles_mask);
-                    if (strReviews.toLowerCase().contains(sArticlesMask.toLowerCase())) {
-                        hasArticles = true;
-                        log.debug("{} sArticlesMask: {}, strReviews: {}, true",
-                                sFilmTitle, sArticlesMask, strReviews);
-                    }
-                    sReviews = (sReviewsCount.equalsIgnoreCase("")
-                            || sReviewsCount.equalsIgnoreCase("0")) ?
-                            strReviewsDefaultValue : sReviewsCount;
-                    String sReviewsUrl = film.select("a.info").attr("href");
-                    String sNextPageUrl = "";
-                    final Film filmObj = new Film();
-                    filmObj.setPosterUrl(sPosterUrl);
-                    filmObj.setFilmTitle(sFilmTitle);
-                    filmObj.setFilmUrl(sFilmUrl);
-                    filmObj.setCreateDate(sCreateDate);
-                    filmObj.setReviews(sReviews);
-                    filmObj.setHasArticle(hasArticles);
-                    filmObj.setReviewsUrl(sReviewsUrl);
-                    filmsArr.add(filmObj);
+                //noinspection StatementWithEmptyBody
+                if (strReviews.contains(sReviewsMask) && strReviews.contains(":")) {
+                    sReviews = strReviews.substring(0, strReviews.indexOf(":"));
+                    int indexOfColon = strReviews.indexOf(":");
+                    sReviewsCount = strReviews.substring(indexOfColon + 2 > strReviews.length()
+                            ? indexOfColon + 1 : indexOfColon + 2);
+                } else {
+                    //log.warn("string \'{}\' not contains \'{}\' and \':\'",
+                    //                                  strReviews, sReviewsMask);
                 }
+                boolean hasArticles = false;
+                String sArticlesMask = mContext.getString(R.string.parser_films_articles_mask);
+                if (strReviews.toLowerCase().contains(sArticlesMask.toLowerCase())) {
+                    hasArticles = true;
+                    log.debug("{} sArticlesMask: {}, strReviews: {}, true",
+                            sFilmTitle, sArticlesMask, strReviews);
+                }
+                sReviews = (sReviewsCount.equalsIgnoreCase("")
+                        || sReviewsCount.equalsIgnoreCase("0")) ?
+                        strReviewsDefaultValue : sReviewsCount;
+                String sReviewsUrl = film.select("a.info").attr("href");
+                String sNextPageUrl = "";
+                final Film filmObj = new Film();
+                filmObj.setPosterUrl(sPosterUrl);
+                filmObj.setFilmTitle(sFilmTitle);
+                filmObj.setFilmUrl(sFilmUrl);
+                filmObj.setCreateDate(sCreateDate);
+                filmObj.setReviews(sReviews);
+                filmObj.setHasArticle(hasArticles);
+                filmObj.setReviewsUrl(sReviewsUrl);
+                filmsArr.add(filmObj);
             }
         } catch (Exception ex) {
             if (BuildConfig.DEBUG) {
@@ -725,7 +754,7 @@ class BobFilmParser {
     }
 
     public static void checkForUpdate(final Context context, LoadListener listener) {
-        String url = APP_UPDATE_URL;
+        String url = mAppUpdateUrl;
         log.info("checkForUpdate {}", url);
         BobFilmParser.checkNewVersion(url, listener);
 
@@ -739,7 +768,7 @@ class BobFilmParser {
 
                 final OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
-                        .url(APP_UPDATE_URL)
+                        .url(mAppUpdateUrl)
                         .build();
                 Response response = null;
                 try {
@@ -761,42 +790,42 @@ class BobFilmParser {
         });
     }
 
+
     public static void ___checkNewVersion(final String urlString, final LoadListener listener) {
-        mExecService.execute(new Runnable() {
-            @Override
-            public void run() {
-                int fileSize = 0;
-                try {
-                    URL url = new URL(urlString);
-                    HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setConnectTimeout(5000);
-                    connection.connect();
-                    fileSize = connection.getContentLength();
+//        mExecService.execute(new Runnable() {
+//            @Override
+//            public void run() {
+        int fileSize = 0;
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);
+            connection.connect();
+            fileSize = connection.getContentLength();
 
-                    // download the file
-                    InputStream input = new BufferedInputStream(url.openStream(),
-                            8192);
+            InputStream input = new BufferedInputStream(url.openStream(),
+                    8192);
 
-                    String result = Utils.convertInputStreamToString(input);
+            String result = Utils.convertInputStreamToString(input);
 
-                    AppUpdate appUpdate = Utils.getAppUpdate(result);
-                    log.info("getAppUpdate {}", appUpdate);
-                    if (appUpdate == null) {
-                        throw new IOException("no new version");
-                    }
-                    input.close();
-                    connection.disconnect();
-
-                    listener.OnLoadComplete(appUpdate);
-                } catch (Exception e) {
-                    if (BuildConfig.DEBUG) {
-                        e.printStackTrace();
-                    }
-                    listener.OnLoadError(e);
-                }
+            AppUpdate appUpdate = Utils.getAppUpdate(result);
+            log.info("getAppUpdate {}", appUpdate);
+            if (appUpdate == null) {
+                throw new IOException("no new version");
             }
-        });
+            input.close();
+            connection.disconnect();
+
+            //listener.OnLoadComplete(appUpdate);
+        } catch (Exception e) {
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace();
+            }
+            //listener.OnLoadError(e);
+        }
+//            }
+//        });
     }
 
     //this work fine by not need now
@@ -849,6 +878,31 @@ class BobFilmParser {
     private static boolean checkSubCategories(Document doc) {
         Elements include = doc.select("td#body_element").select("table[class^=include]");
         return include.size() > 0;
+    }
+
+    private static JsonObject getDataFromServer(String url) throws Exception {
+
+        BufferedReader connectionBufferedReader = openGetConnection(url);
+
+        JsonObject jRequest = new Gson().fromJson(connectionBufferedReader, JsonObject.class);
+        connectionBufferedReader.close();
+        return jRequest;
+    }
+
+    private static BufferedReader openGetConnection(String link) throws Exception {
+        // should be a singleton
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .header("Accept-Charset", "UTF-8")
+                .header("Content-Type", "application/json")
+                .url(link)
+                .build();
+        // Get a handler that can be used to post to the main thread
+        Response response = client.newCall(request).execute();
+        if (!response.isSuccessful()) {
+            throw new Exception("HTTP_RESPONSE_CODE: " + response.code());
+        }
+        return new BufferedReader(new InputStreamReader(response.body().byteStream()));
     }
 
     public interface LoadListener {

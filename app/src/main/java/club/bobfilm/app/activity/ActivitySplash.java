@@ -23,7 +23,7 @@ import club.bobfilm.app.Application;
 import club.bobfilm.app.BuildConfig;
 import club.bobfilm.app.R;
 import club.bobfilm.app.entity.AppUpdate;
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.util.Utils;
 
 
@@ -70,10 +70,10 @@ public class ActivitySplash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
+        BobFilmParser.setContext(this);
         checkVersion();
         Utils.setAppSettings(this);
         Utils.setLogData();
-
         //check site available and start app
         checkSiteAndStartApp();
 //        splashAnimation();
@@ -81,7 +81,7 @@ public class ActivitySplash extends AppCompatActivity {
 
     private void checkVersion() {
         log.warn("HTMLParser.checkForUpdate");
-        HTMLParser.checkForUpdate(this, new HTMLParser.LoadListener() {
+        BobFilmParser.checkForUpdate(this, new BobFilmParser.LoadListener() {
             @Override
             public void OnLoadComplete(Object result) {
                 final AppUpdate appUpdate = (AppUpdate) result;
@@ -197,8 +197,8 @@ public class ActivitySplash extends AppCompatActivity {
 
     private void checkSiteAvailable() {
         if (Utils.isInternetAvailable(this)) {
-            final String webSite = "http://" + getString(R.string.host_www_name);
-            HTMLParser.isSiteAvailable(webSite, new HTMLParser.LoadListener() {
+            final String webSite = getString(R.string.site_url);
+            BobFilmParser.isSiteAvailable(webSite, new BobFilmParser.LoadListener() {
                 @Override
                 public void OnLoadComplete(final Object result) {
                     runOnUiThread(new Runnable() {

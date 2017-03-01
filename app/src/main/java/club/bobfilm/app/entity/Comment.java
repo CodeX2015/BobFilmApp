@@ -2,7 +2,7 @@ package club.bobfilm.app.entity;
 
 import java.io.Serializable;
 
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 
 /**
  * Created by CodeX on 01.06.2016.
@@ -20,7 +20,7 @@ public class Comment implements Serializable {
 
     public String getCommentUrl() {
         return mCommentUrl.contains("http") ?
-                mCommentUrl : HTMLParser.SITE + mCommentUrl;
+                mCommentUrl : BobFilmParser.mSite + mCommentUrl;
     }
 
     public void setCommentUrl(String mCommentUrl) {
@@ -29,7 +29,7 @@ public class Comment implements Serializable {
 
     public String getUserProfileUrl() {
         return mUserProfileUrl.contains("http") ?
-                mUserProfileUrl : HTMLParser.SITE + mUserProfileUrl;
+                mUserProfileUrl : BobFilmParser.mSite + mUserProfileUrl;
     }
 
     public void setUserProfileUrl(String mUserProfileUrl) {

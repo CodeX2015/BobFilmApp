@@ -44,8 +44,8 @@ import club.bobfilm.app.adapter.RVGridAdapter;
 import club.bobfilm.app.adapter.SearchViewArrayAdapter;
 import club.bobfilm.app.entity.Film;
 import club.bobfilm.app.entity.Section;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.helpers.DBHelper;
-import club.bobfilm.app.helpers.HTMLParser;
 import club.bobfilm.app.util.Utils;
 
 /**
@@ -176,7 +176,7 @@ public class FragmentVideo extends Fragment
                         switch (item.getItemId()) {
                             case R.id.popup_share:
                                 String shareString = mFilm.getFilmTitle() + "\n\n" +
-                                        HTMLParser.SITE + mFilm.getFilmUrl();
+                                        BobFilmParser.mSite + mFilm.getFilmUrl();
                                 log.warn("share:\n{}", shareString);
                                 Utils.shareTextUrl(mContext, getString(R.string.action_send_to), shareString);
                                 return true;
@@ -233,7 +233,7 @@ public class FragmentVideo extends Fragment
         if (getArguments() != null) {
             mCategory = (Section) getArguments().getSerializable(Utils.ARG_SERIALIZABLE_SECTION);
             if (mCategory != null) {
-                mFilmsURL = HTMLParser.SITE + mCategory.getSectionUrl();
+                mFilmsURL = BobFilmParser.mSite + mCategory.getSectionUrl();
             }
         }
 
@@ -249,7 +249,7 @@ public class FragmentVideo extends Fragment
         mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.swipeRefreshLayout);
         setSwipeToRefresh();
         if (savedInstanceState == null || mFilms.size() == 0) {
-            getListOfFilms();
+            getFilmsList();
         } else {
             resetAdapter();
             setData();
@@ -297,42 +297,42 @@ public class FragmentVideo extends Fragment
             mAdapter.notifyDataSetChanged();
             mAdapter = null;
         }
-        getListOfFilms();
+        getFilmsList();
     }
 
-    private void getListOfFilms() {
-        String url = mFilmsURL + "&per=" + HTMLParser.FILMS_COUNT_PER_PAGE;
-        HTMLParser.getParsedSite(url, HTMLParser.ACTION_FILMS, mCategory, new HTMLParser.LoadListener() {
-            @SuppressWarnings("unchecked")
-            @Override
-            public void OnLoadComplete(final Object result) {
-                List<Film> parseResult = new ArrayList<>((List<Film>) result);
-                if (parseResult.size() > 0) {
-                    mPrevItemCount = mFilms.size();
-                    mFilms.addAll(parseResult);
-                    log.info("mFilms size is: {}, loading {}", mFilms.size(), loading);
-                }
-                getDataFromDB();
-            }
-
-            @Override
-            public void OnLoadError(final Exception ex) {
-                if (!ex.getMessage().equalsIgnoreCase(getString(R.string.msg_connection_failed))) {
-                    if (BuildConfig.DEBUG) {
-                        ex.printStackTrace();
-                    } else {
-                        log.error(Utils.getErrorLogHeader() + new Object() {
-                        }.getClass().getEnclosingMethod().getName(), ex);
-                    }
-                }
-                ((AppCompatActivity) mContext).runOnUiThread(new Runnable() {
+    private void getFilmsList() {
+        BobFilmParser.getParsedSite(mFilmsURL, BobFilmParser.ACTION_FILMS, mCategory,
+                new BobFilmParser.LoadListener() {
+                    @SuppressWarnings("unchecked")
                     @Override
-                    public void run() {
-                        changeViewForError(ex.getMessage());
+                    public void OnLoadComplete(final Object result) {
+                        List<Film> parseResult = new ArrayList<>((List<Film>) result);
+                        if (parseResult.size() > 0) {
+                            mPrevItemCount = mFilms.size();
+                            mFilms.addAll(parseResult);
+                            log.info("mFilms size is: {}, loading {}", mFilms.size(), loading);
+                        }
+                        getDataFromDB();
+                    }
+
+                    @Override
+                    public void OnLoadError(final Exception ex) {
+                        if (!ex.getMessage().equalsIgnoreCase(getString(R.string.msg_connection_failed))) {
+                            if (BuildConfig.DEBUG) {
+                                ex.printStackTrace();
+                            } else {
+                                log.error(Utils.getErrorLogHeader() + new Object() {
+                                }.getClass().getEnclosingMethod().getName(), ex);
+                            }
+                        }
+                        ((AppCompatActivity) mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeViewForError(ex.getMessage());
+                            }
+                        });
                     }
                 });
-            }
-        });
     }
 
     @Override
@@ -476,10 +476,10 @@ public class FragmentVideo extends Fragment
                                 //log.info("Last Item Wow! {}, {}, {}",
                                 // visibleItemCount[0], pastVisibleItems[0], totalItemCount[0]);
                                 if (!mCategory.getNextPageUrl().equalsIgnoreCase("")) {
-                                    mFilmsURL = HTMLParser.SITE + mCategory.getNextPageUrl();
+                                    mFilmsURL = BobFilmParser.mSite + mCategory.getNextPageUrl();
                                     log.info("Loading: {}", mFilmsURL);
                                     mSwipeRefreshLayout.setRefreshing(true);
-                                    getListOfFilms();
+                                    getFilmsList();
                                 }
                             }
                         }
@@ -488,7 +488,7 @@ public class FragmentVideo extends Fragment
             });
         } else {
             mViewFlipper.setDisplayedChild(0);
-            getListOfFilms();
+            getFilmsList();
         }
     }
 
@@ -591,40 +591,41 @@ public class FragmentVideo extends Fragment
     public void getSearchHints(String s) {
         String url = "http://www.ex.ua/r_search_hint?" + mCategory.getSearchId() + "&s=" + Uri.encode(s);
         log.info("getSearchHints: {}", url);
-        HTMLParser.getParsedSite(url, HTMLParser.ACTION_SEARCH_HINTS, s, new HTMLParser.LoadListener() {
-            @Override
-            public void OnLoadComplete(Object result) {
-                String[] listHints = (String[]) result;
-                log.info("getSearchHints: {}", listHints[0]);
-                if (listHints.length > 0) {
-                    mSearchAdapter = new ArrayAdapter<>(mContext,
-                            R.layout.item_spinner_dropdown, listHints);
-                }
-                log.debug("AdapterCreated");
-                ((AppCompatActivity) mContext).runOnUiThread(new Runnable() {
+        BobFilmParser.getParsedSite(url, BobFilmParser.ACTION_SEARCH_HINTS,
+                s, new BobFilmParser.LoadListener() {
                     @Override
-                    public void run() {
+                    public void OnLoadComplete(Object result) {
+                        String[] listHints = (String[]) result;
+                        log.info("getSearchHints: {}", listHints[0]);
+                        if (listHints.length > 0) {
+                            mSearchAdapter = new ArrayAdapter<>(mContext,
+                                    R.layout.item_spinner_dropdown, listHints);
+                        }
+                        log.debug("AdapterCreated");
+                        ((AppCompatActivity) mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 //                        if (mSearchAdapter.getCount() > 0) {
-                        mSearchView.setAdapter(mSearchAdapter);
+                                mSearchView.setAdapter(mSearchAdapter);
 //                        }
+                            }
+                        });
+                        mSearchView.performClick();
                     }
-                });
-                mSearchView.performClick();
-            }
 
-            @Override
-            public void OnLoadError(final Exception ex) {
-                if (!ex.getMessage().equalsIgnoreCase(getString(R.string.msg_connection_failed))) {
-                    log.error(Utils.getErrorLogHeader() + new Object() {
-                    }.getClass().getEnclosingMethod().getName(), ex);
-                }
-                ((AppCompatActivity) mContext).runOnUiThread(new Runnable() {
                     @Override
-                    public void run() {
-                        changeViewForError(ex.getMessage());
+                    public void OnLoadError(final Exception ex) {
+                        if (!ex.getMessage().equalsIgnoreCase(getString(R.string.msg_connection_failed))) {
+                            log.error(Utils.getErrorLogHeader() + new Object() {
+                            }.getClass().getEnclosingMethod().getName(), ex);
+                        }
+                        ((AppCompatActivity) mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeViewForError(ex.getMessage());
+                            }
+                        });
                     }
                 });
-            }
-        });
     }
 }

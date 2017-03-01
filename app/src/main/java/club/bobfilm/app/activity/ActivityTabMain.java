@@ -28,7 +28,7 @@ import club.bobfilm.app.ZoomOutPageTransformer;
 import club.bobfilm.app.adapter.TabHeaderAdapter;
 import club.bobfilm.app.entity.Section;
 import club.bobfilm.app.fragment.FragmentVideo;
-import club.bobfilm.app.helpers.HTMLParser;
+import club.bobfilm.app.helpers.BobFilmParser;
 import club.bobfilm.app.util.Utils;
 
 public class ActivityTabMain extends BaseTabActivity {
@@ -103,7 +103,7 @@ public class ActivityTabMain extends BaseTabActivity {
         startDialog();
         if (mSections == null || mSections.size() == 0) {
             log.info("OnCreate: getDataFromNetwork");
-            getVideoSectionsList();
+            getSectionsList();
         } else {
             log.info("OnCreate: setAdapter");
             setAdapter();
@@ -141,41 +141,42 @@ public class ActivityTabMain extends BaseTabActivity {
         }
     }
 
-    private void getVideoSectionsList() {
-        final String url = HTMLParser.SITE + "/" + HTMLParser.mSiteLanguage + "/video";
-        HTMLParser.getParsedSite(url, HTMLParser.ACTION_SECTIONS, null, new HTMLParser.LoadListener() {
-            @SuppressWarnings("unchecked")
-            @Override
-            public void OnLoadComplete(final Object result) {
-                mSections = new ArrayList<>((List<Section>) result);
-                runOnUiThread(new Runnable() {
+    private void getSectionsList() {
+        BobFilmParser.getParsedSite(BobFilmParser.mSite,
+                BobFilmParser.ACTION_SECTIONS,
+                null, new BobFilmParser.LoadListener() {
+                    @SuppressWarnings("unchecked")
                     @Override
-                    public void run() {
-                        setAdapter();
+                    public void OnLoadComplete(final Object result) {
+                        mSections = new ArrayList<>((List<Section>) result);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setAdapter();
+                            }
+                        });
                     }
-                });
-            }
 
-            @Override
-            public void OnLoadError(final Exception ex) {
-                if (!ex.getMessage()
-                        .equalsIgnoreCase(getString(R.string.msg_connection_failed))) {
-                    if (BuildConfig.DEBUG) {
-                        ex.printStackTrace();
-                    } else {
-                        log.error(Utils.getErrorLogHeader() + new Object() {
-                        }.getClass().getEnclosingMethod().getName(), ex);
-                    }
-                }
-                runOnUiThread(new Runnable() {
                     @Override
-                    public void run() {
-                        stopDialog();
-                        changeViewForError(ex.getMessage());
-                        //showErrorMessage();
+                    public void OnLoadError(final Exception ex) {
+                        if (!ex.getMessage()
+                                .equalsIgnoreCase(getString(R.string.msg_connection_failed))) {
+                            if (BuildConfig.DEBUG) {
+                                ex.printStackTrace();
+                            } else {
+                                log.error(Utils.getErrorLogHeader() + new Object() {
+                                }.getClass().getEnclosingMethod().getName(), ex);
+                            }
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                stopDialog();
+                                changeViewForError(ex.getMessage());
+                                //showErrorMessage();
+                            }
+                        });
                     }
-                });
-            }
 
 //            @Override
 //            public void OnConnectionProblem(Object message) {
@@ -184,7 +185,7 @@ public class ActivityTabMain extends BaseTabActivity {
 //                changeViewForError((String) message);
 //                showErrorMessage();
 //            }
-        });
+                });
     }
 
     private void changeViewForError(String msg) {
@@ -297,11 +298,11 @@ public class ActivityTabMain extends BaseTabActivity {
 
         switch (item.getItemId()) {
             case R.id.action_search:
-                  //todo search engine
+                //todo search engine
 //                if (BuildConfig.DEBUG) {
-                    startActivity(TestActivitySearchResult.newInstanceSearch(this,
-                            mSections.get(mPager.getCurrentItem())));
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                startActivity(TestActivitySearchResult.newInstanceSearch(this,
+                        mSections.get(mPager.getCurrentItem())));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 //                }
                 break;
         }

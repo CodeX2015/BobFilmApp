@@ -2,6 +2,11 @@ package club.bobfilm.app;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,13 +15,21 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import club.bobfilm.app.entity.FilmFile;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, manifest = Config.NONE, sdk = 23)
 public class RegExpTest {
     static final Context mContext = RuntimeEnvironment.application;
 
@@ -63,14 +76,52 @@ public class RegExpTest {
         }
     }
 
-//    public static void setLocale(final String language )
+    //    public static void setLocale(final String language )
 //    {
 //        final Locale locale = new Locale( language );
 //        Robolectric.shadowOf(mContext.getResources().getConfiguration() ).setLocale( locale );
 //        Locale.setDefault( locale );
 //    }
 
-    private String parseReviewString(String strReviews){
+
+    private static BufferedReader loadJsonObject(String link) throws Exception {
+        String exampleBody = "{\"playlist\":[{\"comment\":\"Bobfilm\"," +
+                "\"file\":\"http://bf.vbfcdn.net/" +
+                "videos/B2EHO4nUU5IOfSd02W08qA,1488357153/" +
+                "drugoy_mir_sleduyuschee_pokolenie_2016.flv\"}]}";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .header("Accept-Charset", "UTF-8")
+                .header("Content-Type", "application/json")
+                .url(link)
+                .build();
+        Response response = client.newCall(request).execute();
+        if (!response.isSuccessful()) {
+            throw new Exception("HTTP_RESPONSE_CODE: " + response.code());
+        }
+        return new BufferedReader(new InputStreamReader(response.body().byteStream()));
+    }
+
+    @Test
+    public void parsePlaylist() {
+        Gson gson = new Gson();
+        String url = "http://bobfilm.club/pl/playlist041838.txt";
+        ArrayList<FilmFile> files;
+        try {
+            BufferedReader in = loadJsonObject(url);
+            JsonObject jRequest = new Gson().fromJson(in, JsonObject.class);
+            JsonArray playlist = jRequest.getAsJsonArray("playlist");
+            files = new Gson().fromJson(playlist, new TypeToken<ArrayList<FilmFile>>() {
+            }.getType());
+            in.close();
+            ShadowLog.d("Test_Parse_String", "1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ShadowLog.d("Test_Parse_String", "1");
+    }
+
+    private String parseReviewString(String strReviews) {
         String strReviewsDefaultValue = mContext.getResources().getString(R.string.no_reviews);
         String trReviewsDefault = mContext.getResources().getString(R.string.parser_films_responds);
 
@@ -104,7 +155,7 @@ public class RegExpTest {
                 strReviews, sArticlesMask, strReviews);
         ShadowLog.d("Test_Parse_String", parseRes);
 
-        return  sReviews;
+        return sReviews;
     }
 
     //@Test
@@ -138,7 +189,6 @@ public class RegExpTest {
                 "http://www.ex.ru/"
         };
     }
-
 
 
     //@Test
