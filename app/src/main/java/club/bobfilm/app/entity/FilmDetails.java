@@ -17,30 +17,38 @@ public class FilmDetails implements Serializable {
     private String mFilmYear;
     private String mFilmDetailsHTML;
     private List<FilmFile> mFilmFiles;
+    private List<Comment> mFilmComments;
     private boolean isBookmarked = false;
 
-
-    public String getmFilmReviewsUrl() {
+    public String getFilmReviewsUrl() {
         return mFilmReviewsUrl;
     }
 
-    public void setmFilmReviewsUrl(String mFilmReviewsUrl) {
+    public void setFilmReviewsUrl(String mFilmReviewsUrl) {
         this.mFilmReviewsUrl = mFilmReviewsUrl;
     }
 
-    public String getmFilmUrl() {
+    public List<Comment> getFilmComments() {
+        return mFilmComments;
+    }
+
+    public void setFilmComments(List<Comment> filmComments) {
+        this.mFilmComments = filmComments;
+    }
+
+    public String getFilmUrl() {
         return mFilmUrl;
     }
 
-    public void setmFilmUrl(String mFilmUrl) {
+    public void setFilmUrl(String mFilmUrl) {
         this.mFilmUrl = mFilmUrl;
     }
 
-    public List<FilmFile> getmFilmFiles() {
+    public List<FilmFile> getFilmFiles() {
         return mFilmFiles;
     }
 
-    public void setmFilmFiles(List<FilmFile> mFilmFiles) {
+    public void setFilmFiles(List<FilmFile> mFilmFiles) {
         this.mFilmFiles = mFilmFiles;
     }
 
@@ -52,60 +60,61 @@ public class FilmDetails implements Serializable {
         isBookmarked = bookmarked;
     }
 
-    public String getmFilmDetailsHTML() {
+    public String getFilmDetailsHTML() {
         if (mFilmDetailsHTML == null) {return "";}
         return mFilmDetailsHTML;
     }
 
-    public String getmPosterUrl() {
+    public String getPosterUrl() {
         return mPosterUrl;
     }
 
-    public void setmPosterUrl(String mPosterUrl) {
+    public void setPosterUrl(String mPosterUrl) {
         this.mPosterUrl = mPosterUrl;
     }
 
-    public void setmFilmDetailsHTML(String mFilmDetailsHTML) {
+    public void setFilmDetailsHTML(String mFilmDetailsHTML) {
         this.mFilmDetailsHTML = mFilmDetailsHTML;
     }
 
-    public String getmBigPosterUrl() {
+    public String getBigPosterUrl() {
         return mBigPosterUrl;
     }
 
-    public void setmBigPosterUrl(String mBigPosterUrl) {
+    public void setBigPosterUrl(String mBigPosterUrl) {
         this.mBigPosterUrl = mBigPosterUrl;
     }
 
-    public String getmFilmTitle() {
+    public String getFilmTitle() {
         return mFilmTitle;
     }
 
-    public void setmFilmTitle(String mFilmTitle) {
+    public void setFilmTitle(String mFilmTitle) {
         this.mFilmTitle = mFilmTitle;
     }
 
-    public String getmFilmCreateDate() {
+    public String getFilmCreateDate() {
         return mFilmCreateDate;
     }
 
-    public void setmFilmCreateDate(String mFilmCreateDate) {
+    public void setFilmCreateDate(String mFilmCreateDate) {
         this.mFilmCreateDate = mFilmCreateDate;
     }
 
-    public String getmFilmReviews() {
+    public String getFilmReviews() {
         return mFilmReviews;
     }
 
-    public void setmFilmReviews(String mFilmReviews) {
+    public void setFilmReviews(String mFilmReviews) {
+
         this.mFilmReviews = mFilmReviews;
     }
 
-    public String getmFilmYear() {
+    public String getFilmYear() {
         return mFilmYear;
     }
 
-    public void setmFilmYear(String mFilmYear) {
+    public void setFilmYear(String mFilmYear) {
         this.mFilmYear = mFilmYear;
     }
 

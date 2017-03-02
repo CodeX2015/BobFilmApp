@@ -87,13 +87,13 @@ public class DownloadsAdapter extends RecyclerView.Adapter<DownloadsAdapter.View
         int idx = holder.getAdapterPosition();
         final FilmFile item = mItems.get(idx);
         holder.Id = item.id;
-        holder.tvName.setText(item.getmFileName());
+        holder.tvName.setText(item.getFileName());
         item.isPaused = true;
         //log.debug("holder position {}, title = {}", index, holder.tvName.getText());
         if (item.isDownloadComplete() || item.getStatus() == DownloadService.DownloadStatuses.COMPLETE) {
             holder.progressBar.setVisibility(View.GONE);
             holder.btnPauseDownload.setVisibility(View.GONE);
-            holder.tvDownloadPerSize.setText(humanReadableByteCount(item.getmFileSize(), true));
+            holder.tvDownloadPerSize.setText(humanReadableByteCount(item.getFileSize(), true));
         } else {
             checkPauseState(item, holder);
 //            DownloadService.DownloadStatuses status = item.getStatus();
@@ -101,12 +101,12 @@ public class DownloadsAdapter extends RecyclerView.Adapter<DownloadsAdapter.View
 //                    || status == DownloadService.DownloadStatuses.PAUSED) {
             holder.progressBar.setVisibility(View.VISIBLE);
             holder.btnPauseDownload.setVisibility(View.VISIBLE);
-            holder.progressBar.setProgress(item.getmProgressValue());
+            holder.progressBar.setProgress(item.getProgressValue());
 
 
             String downloadText = "";
             if (item.getDownloadPerSize() == null || item.getDownloadPerSize().equalsIgnoreCase("")) {
-                downloadText = Utils.humanReadableByteCount(item.getmFileSize(), true);
+                downloadText = Utils.humanReadableByteCount(item.getFileSize(), true);
             } else {
                 downloadText = item.getDownloadPerSize();
             }
@@ -118,7 +118,7 @@ public class DownloadsAdapter extends RecyclerView.Adapter<DownloadsAdapter.View
 //            }
         }
 //        holder.tvDownloadPerSize.setText(item.getDownloadPerSize().equalsIgnoreCase("")
-//                ? Utils.humanReadableByteCount(item.getmFileSize(), true)
+//                ? Utils.humanReadableByteCount(item.getFileSize(), true)
 //                : item.getDownloadPerSize());
         holder.btnPauseDownload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +164,7 @@ public class DownloadsAdapter extends RecyclerView.Adapter<DownloadsAdapter.View
     private void checkPauseState(FilmFile item, ViewHolder holder) {
         int index = holder.getAdapterPosition();
         log.info("checkstate title {} state {} isPaused {}",
-                item.getmFilmTitle(), item.getStatus().toString(), item.isPaused);
+                item.getFilmTitle(), item.getStatus().toString(), item.isPaused);
         if (/*item.isPaused
         ||*/  item.getStatus() == DownloadService.DownloadStatuses.PAUSED
                 || item.getStatus() == DownloadService.DownloadStatuses.COMPLETE

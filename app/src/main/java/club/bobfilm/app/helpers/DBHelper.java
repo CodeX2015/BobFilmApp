@@ -193,13 +193,13 @@ public class DBHelper extends SQLiteOpenHelper {
             case ACTION_DELETE:
                 switch (function) {
                     case FN_DOWNLOADS:
-                        deleteFromDB(TABLE_DOWNLOADS, "file_name=?", data != null ? ((FilmFile) data).getmFileName() : null);
+                        deleteFromDB(TABLE_DOWNLOADS, "file_name=?", data != null ? ((FilmFile) data).getFileName() : null);
                         break;
                     case FN_BOOKMARKS:
                         deleteFromDB(TABLE_BOOKMARKS, "film_url=?", data != null ? ((Film) data).getFilmUrl() : null);
                         break;
                     case FN_HISTORY:
-                        deleteFromDB(TABLE_HISTORY, "file_name=?", data != null ? ((FilmFile) data).getmFileName() : null);
+                        deleteFromDB(TABLE_HISTORY, "file_name=?", data != null ? ((FilmFile) data).getFileName() : null);
                         break;
                 }
                 break;
@@ -345,17 +345,17 @@ public class DBHelper extends SQLiteOpenHelper {
 //                db.delete(TABLE_HISTORY, null, null);
 //            }
 //            ContentValues values = new ContentValues();
-//            values.put("file_name", historyFile.getmFileName());
-//            values.put("file_url", historyFile.getmFileUrl());
-//            values.put("file_logo_url", historyFile.getmFileLogoUrl());
-//            values.put("file_size", historyFile.getmFileSize());
-//            values.put("file_download_date", historyFile.getmDownloadTimeDate());
+//            values.put("file_name", historyFile.getFileName());
+//            values.put("file_url", historyFile.getFileUrl());
+//            values.put("file_logo_url", historyFile.getFileLogoUrl());
+//            values.put("file_size", historyFile.getFileSize());
+//            values.put("file_download_date", historyFile.getDownloadTimeDate());
 //            values.put("is_viewed", historyFile.isViewed());
 //            values.put("is_download_complete", historyFile.isDownloadComplete() ? 1 : 0);
 //            values.put("film_url", historyFile.getFilmUrl());
 //            values.put("film_title", historyFile.getFilmTitle());
-//            values.put("film_is_bookmarked", historyFile.ismFilmBookmarked() ? 1 : 0);
-//            values.put("film_logo_url", historyFile.getmFilmLogoUrl());
+//            values.put("film_is_bookmarked", historyFile.isFilmBookmarked() ? 1 : 0);
+//            values.put("film_logo_url", historyFile.getFilmLogoUrl());
 //            db.insertWithOnConflict(TABLE_HISTORY, null, values, SQLiteDatabase.CONFLICT_REPLACE);
 //        } catch (Exception e) {
 //            e.printStackTrace();
@@ -367,7 +367,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //    public synchronized void deleteHistoryFile(FilmFile historyFile) {
 //        SQLiteDatabase db = getDatabase();
 //        String whereClause = "file_name=?";
-//        String[] whereArgs = new String[]{historyFile.getmFileName()};
+//        String[] whereArgs = new String[]{historyFile.getFileName()};
 //        try {
 //            db.delete(TABLE_HISTORY, whereClause, whereArgs);
 //        } catch (Exception ex) {
@@ -388,17 +388,17 @@ public class DBHelper extends SQLiteOpenHelper {
 //                    do {
 //                        FilmFile file = new FilmFile();
 //                        file.fillItSelf(cursor);
-//                        file.setmFileName(cursor.getString(1));
-//                        file.setmFileUrl(cursor.getString(2));
-//                        file.setmFileLogoUrl(cursor.getString(3));
-//                        file.setmFileSize(Long.parseLong(cursor.getString(4)));
-//                        file.setmDownloadTimeDate(cursor.getString(5));
+//                        file.setFileName(cursor.getString(1));
+//                        file.setFileUrl(cursor.getString(2));
+//                        file.setFileLogoUrl(cursor.getString(3));
+//                        file.setFileSize(Long.parseLong(cursor.getString(4)));
+//                        file.setDownloadTimeDate(cursor.getString(5));
 //                        file.setViewed(cursor.getInt(6) == 1);
 //                        file.setDownloadComplete(cursor.getInt(7) == 1);
 //                        file.setFilmUrl(cursor.getString(8));
 //                        file.setFilmTitle(cursor.getString(9));
-//                        file.setmFilmBookmarked(cursor.getInt(10) == 1);
-//                        file.setmFilmLogoUrl(cursor.getString(11));
+//                        file.setFilmBookmarked(cursor.getInt(10) == 1);
+//                        file.setFilmLogoUrl(cursor.getString(11));
 //                        historyFiles.add(file);
 //                    } while (cursor.moveToNext());
 //                    cursor.close();
@@ -488,13 +488,13 @@ public class DBHelper extends SQLiteOpenHelper {
 //                db.delete(TABLE_DOWNLOADS, null, null);
 //            }
 //            ContentValues values = new ContentValues();
-//            values.put("file_name", downloadFile.getmFileName());
-//            values.put("file_url", downloadFile.getmFileUrl());
-//            values.put("file_logo_url", downloadFile.getmFileLogoUrl());
-//            values.put("file_size", downloadFile.getmFileSize());
-//            values.put("file_download_date", downloadFile.getmDownloadTimeDate());
+//            values.put("file_name", downloadFile.getFileName());
+//            values.put("file_url", downloadFile.getFileUrl());
+//            values.put("file_logo_url", downloadFile.getFileLogoUrl());
+//            values.put("file_size", downloadFile.getFileSize());
+//            values.put("file_download_date", downloadFile.getDownloadTimeDate());
 //            values.put("is_download_complete", downloadFile.isDownloadComplete() ? 1 : 0);
-//            values.put("file_path", downloadFile.getmFilePath());
+//            values.put("file_path", downloadFile.getFilePath());
 //            db.insertWithOnConflict(TABLE_DOWNLOADS, null, values, SQLiteDatabase.CONFLICT_REPLACE);
 //        } catch (Exception e) {
 //            e.printStackTrace();
@@ -506,7 +506,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //    public synchronized void deleteDownloadFile(FilmFile downloadFile) {
 //        SQLiteDatabase db = getDatabase();
 //        String whereClause = "file_name=?";
-//        String[] whereArgs = new String[]{downloadFile.getmFileName()};
+//        String[] whereArgs = new String[]{downloadFile.getFileName()};
 //        try {
 //            db.delete(TABLE_DOWNLOADS, whereClause, whereArgs);
 //        } catch (Exception ex) {
@@ -526,14 +526,14 @@ public class DBHelper extends SQLiteOpenHelper {
 //                if (cursor.moveToFirst()) {
 //                    do {
 //                        FilmFile file = new FilmFile();
-//                        file.setmFileName(cursor.getString(1));
-//                        file.setmFileUrl(cursor.getString(2));
-//                        file.setmFileLogoUrl(cursor.getString(3));
-//                        file.setmFileSize(Long.parseLong(cursor.getString(4)));
-//                        file.setmDownloadTimeDate(cursor.getString(5));
+//                        file.setFileName(cursor.getString(1));
+//                        file.setFileUrl(cursor.getString(2));
+//                        file.setFileLogoUrl(cursor.getString(3));
+//                        file.setFileSize(Long.parseLong(cursor.getString(4)));
+//                        file.setDownloadTimeDate(cursor.getString(5));
 //
 //                        file.setDownloadComplete(cursor.getInt(6) == 1);
-//                        file.setmFilePath(cursor.getString(7));
+//                        file.setFilePath(cursor.getString(7));
 //                        downloadFiles.add(file);
 //                    } while (cursor.moveToNext());
 //                    cursor.close();
@@ -557,11 +557,11 @@ public class DBHelper extends SQLiteOpenHelper {
 //            }
 //            for (FilmFile file : downloadFiles) {
 //                ContentValues values = new ContentValues();
-//                values.put("file_name", file.getmFileName());
-//                values.put("file_url", file.getmFileUrl());
-//                values.put("file_logo_url", file.getmFileLogoUrl());
-//                values.put("file_size", file.getmFileSize());
-//                values.put("file_download_date", file.getmDownloadTimeDate());
+//                values.put("file_name", file.getFileName());
+//                values.put("file_url", file.getFileUrl());
+//                values.put("file_logo_url", file.getFileLogoUrl());
+//                values.put("file_size", file.getFileSize());
+//                values.put("file_download_date", file.getDownloadTimeDate());
 //                values.put("is_download_complete", file.isDownloadComplete() ? 1 : 0);
 //
 //                db.insertWithOnConflict(TABLE_DOWNLOADS, null, values, SQLiteDatabase.CONFLICT_IGNORE);

@@ -14,14 +14,15 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import club.bobfilm.app.BuildConfig;
 import club.bobfilm.app.helpers.downloader.Constants;
 import club.bobfilm.app.helpers.downloader.DownloadException;
 import club.bobfilm.app.helpers.downloader.architecture.ConnectTask;
 import club.bobfilm.app.helpers.downloader.architecture.DownloadStatus;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 /**
@@ -112,7 +113,7 @@ public class ConnectTaskImpl implements ConnectTask {
                     .build();
             response = client.newCall(request).execute();
             final int responseCode = response.code();
-            log.warn("executeConnection RESPONSE CODE {}",responseCode);
+            log.warn("executeConnection RESPONSE CODE {}", responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == 416) {
                 parseResponse(response, false);
             } else if (responseCode == HttpURLConnection.HTTP_PARTIAL) {
@@ -144,11 +145,20 @@ public class ConnectTaskImpl implements ConnectTask {
             length = Long.parseLong(contentLength);
         }
 
-        //todo fix for download from GDRIVE
-        HttpUrl requestUrl = response.priorResponse().networkResponse().request().url();
-        if (requestUrl.toString().contains("drive.google")){
-            Log.d("Downloader", "length = " + length);
-            length = 4 * 1024 * 1024;
+        try {
+            //todo fix for download from GDRIVE
+            HttpUrl requestUrl = response.request().url();
+//            HttpUrl requestUrl = response.priorResponse().networkResponse().request().url();
+            if (requestUrl.toString().contains("drive.google")) {
+                Log.d("Downloader", "length = " + length);
+                length = 4 * 1024 * 1024;
+            }
+        } catch (Exception ex) {
+            if (BuildConfig.DEBUG) {
+                ex.printStackTrace();
+            } else {
+                throw new DownloadException(DownloadStatus.STATUS_FAILED, "response or request is null");
+            }
         }
 
         if (length <= 0) {

@@ -243,7 +243,7 @@ public class ActivityTabMain extends BaseTabActivity {
         mTabHeaderAdapter = new TabHeaderAdapter(getSupportFragmentManager(), mSections, ActivityTabMain.this);
         if (mPager != null) {
             //page download count
-            mPager.setOffscreenPageLimit(1);
+            mPager.setOffscreenPageLimit(0);
             mPager.setAdapter(mTabHeaderAdapter);
             //todo tab sport with articles
 //            mPager.setCurrentItem(13);

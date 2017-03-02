@@ -99,7 +99,7 @@ public class FragmentDownloads extends Fragment {
                 case R.id.pp_menu_delete:
                     if (deleteItem != null) {
                         deleteItem(deleteItem, false);
-                        log.warn("delete {}", deleteItem.getmFileName());
+                        log.warn("delete {}", deleteItem.getFileName());
                         mAdapter.clearDeleteItem();
                     } else {
                         for (int i = selectedItemPositions.size() - 1; i >= 0; i--) {
@@ -111,7 +111,7 @@ public class FragmentDownloads extends Fragment {
                 case R.id.pp_menu_delete_files:
                     if (deleteItem != null) {
                         deleteItem(deleteItem, true);
-                        log.warn("delete {}", deleteItem.getmFileName());
+                        log.warn("delete {}", deleteItem.getFileName());
                         mAdapter.clearDeleteItem();
                     } else {
 //                    Toast.makeText(mContext, "delete download files", Toast.LENGTH_SHORT).show();
@@ -162,7 +162,7 @@ public class FragmentDownloads extends Fragment {
             int idx = Utils.getIndexOfItem(mDownloadFiles, file);
             int idx2 = Utils.getIndexOfItem(mDownloadFiles, file);
             log.info("OnItemClick file {}, index={}, Index2={}, position {}, status: {} isPaused {}",
-                    file.getmFileName(), idx, idx2, position, file.getStatus(), file.isPaused);
+                    file.getFileName(), idx, idx2, position, file.getStatus(), file.isPaused);
 
             switch (v.getId()) {
                 case R.id.ib_start_pause_download:
@@ -170,17 +170,17 @@ public class FragmentDownloads extends Fragment {
                         v.setActivated(!v.isActivated());
                         if (v.isActivated()) {
                             log.info("FilmFile {} with id {} at position {} click_pause - PAUSE",
-                                    file.getmFileName(), file.id, idx);
+                                    file.getFileName(), file.id, idx);
                             DownloadService.intentPause(mContext, file);
                         } else {
                             log.info("FilmFile {} with id {} at position {} click_pause - DOWNLOAD",
-                                    file.getmFileName(), file.id, idx);
+                                    file.getFileName(), file.id, idx);
                             DownloadService.intentDownload(mContext, file);
                         }
                     } catch (Exception ex) {
                         if (BuildConfig.DEBUG) {
                             log.info("FilmFile {} with id {} at position {} ERROR click_play_pause",
-                                    file.getmFileName(), file.id, idx);
+                                    file.getFileName(), file.id, idx);
                             ex.printStackTrace();
                         } else {
                             log.error(Utils.getErrorLogHeader() + new Object() {
@@ -190,7 +190,7 @@ public class FragmentDownloads extends Fragment {
                     break;
                 case R.id.ib_cancel_download:
                     log.info("FilmFile {} with id {} at list_idx={} position={} cancel_download",
-                            file.getmFileName(), file.id, idx, position);
+                            file.getFileName(), file.id, idx, position);
                     try {
                         DownloadsAdapter2.ViewHolder holder = getViewHolder(position);
                         View btnCancel = holder.btnCancelDownload;
@@ -201,7 +201,7 @@ public class FragmentDownloads extends Fragment {
                     } catch (Exception ex) {
                         if (BuildConfig.DEBUG) {
                             log.debug("FilmFile {} with id {} at position {} ERROR cancel_download",
-                                    file.getmFileName(), file.id, idx);
+                                    file.getFileName(), file.id, idx);
                             ex.printStackTrace();
                         } else {
                             log.error(Utils.getErrorLogHeader() + new Object() {
@@ -218,10 +218,10 @@ public class FragmentDownloads extends Fragment {
                     }
                     //Check exist file before play
                     if (file.isDownloadComplete()) {
-                        String filePath = file.getmFilePath();
+                        String filePath = file.getFilePath();
                         log.info("try open file {} and status {}", filePath, file.getStatus());
                         if (Utils.checkFileExist(filePath)) {
-                            Utils.playVideo(file.getmFilePath(), mContext);
+                            Utils.playVideo(file.getFilePath(), mContext);
                         } else {
                             Toast.makeText(mContext,
                                     mContext.getString(R.string.msg_download_file_does_not_exist),
@@ -324,7 +324,7 @@ public class FragmentDownloads extends Fragment {
                     return;
                 }
                 log.info("receive file={} status={} from service mDownloadFiles size {}",
-                        downloadFile.getmFileName(), downloadFile.getStatus().name(), mDownloadFiles.size());
+                        downloadFile.getFileName(), downloadFile.getStatus().name(), mDownloadFiles.size());
                 if (mDownloadFiles != null && mDownloadFiles.size() == 0) {
                     //todo don't understand for what that???
                     log.info("mDownloadFiles IS EMPTY!!!!");
@@ -511,12 +511,12 @@ public class FragmentDownloads extends Fragment {
             }
         }
         if (withFile) {
-            Utils.deleteFile(file.getmFilePath());
+            Utils.deleteFile(file.getFilePath());
         }
         DBHelper.getInstance(mContext).dbWorker(DBHelper.ACTION_DELETE, DBHelper.FN_DOWNLOADS, mDownloadFiles.get(position), null);
         mDownloadFiles.remove(file);
         mAdapter.notifyItemRemoved(position);
-        log.info("REMOVE item {} at position {}, withFile {}", file.getmFileName(), position, withFile);
+        log.info("REMOVE item {} at position {}, withFile {}", file.getFileName(), position, withFile);
         mAdapter.notifyItemRangeChanged(position, mDownloadFiles.size());
     }
 
@@ -525,7 +525,7 @@ public class FragmentDownloads extends Fragment {
         final int position = mDownloadFiles.indexOf(file);
         if (position == -1) {
             log.warn("file {} doesn't exist in mDownloadFiles (pos={})",
-                    file.getmFileName(), position);
+                    file.getFileName(), position);
             return;
         }
         final DownloadService.DownloadStatuses status = file.getStatus();
@@ -543,7 +543,7 @@ public class FragmentDownloads extends Fragment {
         }
         int adapterPosition = holder.getAdapterPosition();
 //        log.warn("FilmFile {} with id {}, with title {} at position {} has status {}",
-//                file.getmFileName(), file.id, holder.tvName.getText(), position, file.getStatusName(status));
+//                file.getFileName(), file.id, holder.tvName.getText(), position, file.getStatusName(status));
         switch (status) {
             case CONNECTING:
                 if (isCurrentRVItemVisible(position)) {
@@ -552,25 +552,25 @@ public class FragmentDownloads extends Fragment {
                     holder.btnPauseDownload.setVisibility(View.VISIBLE);
                     holder.btnPauseDownload.setActivated(false);
                     log.info("refreshView: CONNECTING {} at pos={}, with name {}, status {} icon_pause",
-                            mDownloadFiles.get(position).getmFileName(), position,
+                            mDownloadFiles.get(position).getFileName(), position,
                             holder.tvName.getText(), file.getStatus().toString());
                 }
                 break;
             case DOWNLOADING:
                 if (isCurrentRVItemVisible(position)) {
                     log.debug("refreshView: DOWNLOADING {} at pos={}, with name {}, status {} icon_pause",
-                            mDownloadFiles.get(position).getmFileName(), position,
+                            mDownloadFiles.get(position).getFileName(), position,
                             holder.tvName.getText(), file.getStatus().toString());
                     holder.btnPauseDownload.setActivated(false);
                     holder.progressBar.setVisibility(View.VISIBLE);
                     holder.btnPauseDownload.setVisibility(View.VISIBLE);
                     holder.tvDownloadPerSize.setText(file.getDownloadPerSize());
-                    holder.progressBar.setProgress(file.getmProgressValue());
+                    holder.progressBar.setProgress(file.getProgressValue());
                 }
                 break;
             case COMPLETE:
                 if (isCurrentRVItemVisible(position)) {
-                    holder.tvDownloadPerSize.setText(Utils.humanReadableByteCount(file.getmFileSize(), true));
+                    holder.tvDownloadPerSize.setText(Utils.humanReadableByteCount(file.getFileSize(), true));
                     holder.progressBar.setVisibility(View.GONE);
                     holder.btnPauseDownload.setVisibility(View.GONE);
                 }
@@ -581,14 +581,14 @@ public class FragmentDownloads extends Fragment {
                     holder.btnPauseDownload.setVisibility(View.VISIBLE);
                     holder.btnPauseDownload.setActivated(true);
                     log.info("refreshView: PAUSED {} at pos={}, with name {}, status {} icon_play",
-                            mDownloadFiles.get(position).getmFileName(), position,
+                            mDownloadFiles.get(position).getFileName(), position,
                             holder.tvName.getText(), file.getStatus().toString());
                 }
                 break;
             case CANCELED:
                 //cancel download
                 if (isCurrentRVItemVisible(position)) {
-//                    holder.progressBar.setProgress(file.getmProgressValue());
+//                    holder.progressBar.setProgress(file.getProgressValue());
 //                    holder.tvDownloadPerSize.setText(file.getDownloadPerSize());
                 }
                 break;
@@ -616,7 +616,7 @@ public class FragmentDownloads extends Fragment {
                 mDownloadFiles.set(mDownloadFiles.indexOf(file), downloadFile);
                 shouldAdd = false;
                 log.warn("SET FilmFile {} with id {}, at position {}",
-                        file.getmFileName(), file.id, mDownloadFiles.indexOf(file));
+                        file.getFileName(), file.id, mDownloadFiles.indexOf(file));
 //                mAdapter.notifyItemChanged(mDownloadFiles.indexOf(file));
                 break;
             }
@@ -625,7 +625,7 @@ public class FragmentDownloads extends Fragment {
             mDownloadFiles.add(0, downloadFile);
             mAdapter.notifyItemInserted(0);
             log.warn("ADD FilmFile {} with id {} at position {} mAdapter.notifyItemInserted!",
-                    downloadFile.getmFileName(), downloadFile.id, mDownloadFiles.indexOf(downloadFile));
+                    downloadFile.getFileName(), downloadFile.id, mDownloadFiles.indexOf(downloadFile));
         }
     }
 

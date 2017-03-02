@@ -201,7 +201,7 @@ public class BobFilmParser {
                 listener.OnLoadComplete(parseFilmCards(docForParsing, (Section) parent));
                 break;
             case ACTION_COMMENTS:
-                listener.OnLoadComplete(parseComments(docForParsing));
+                listener.OnLoadComplete(parseCommentsPage(docForParsing));
                 break;
             case ACTION_SEARCH:
                 listener.OnLoadComplete(parseSearchResult(docForParsing));
@@ -314,7 +314,7 @@ public class BobFilmParser {
         return filmsArr;
     }
 
-    private static ArrayList<Comment> parseComments(Document doc) {
+    private static ArrayList<Comment> parseCommentsPage(Document doc) {
         Elements elComments = doc.select("table.comment").select("td[style^=padding-left]");
         if (elComments == null || elComments.size() == 0) {
             return new ArrayList<>();
@@ -367,7 +367,7 @@ public class BobFilmParser {
     }
 
     private static ArrayList<Section> parseSections(Document doc) {
-        Elements sections = doc.select("div.bl_nav").select("li");
+        Elements sections = doc.select("div.bl_nav").select("a:not(a[href^=javascript]");
         ArrayList<Section> sectionsArr = new ArrayList<>();
         //noinspection TryWithIdenticalCatches
         try {
@@ -429,10 +429,22 @@ public class BobFilmParser {
                 log.warn("Date {} not contains \',\'", sFilmCreateDate);
             }
 
-            String sFilmReviews = doc.select("div.sh13_full").select(".item").select(".num").text();
+            String sFilmReviewsCount = doc.select("div.sh13_full").select(".item").select(".num").text();
+            List<Comment> commentsList = new ArrayList<>();
+            Elements elsFilmReviews = doc.select("div[class^=comm0]");
+            for (Element comment : elsFilmReviews) {
+                String userNameDate = comment.select("span.comm5").text();
+                String userName = userNameDate.substring(0, userNameDate.indexOf("(") - 1);
+                String commentCreateDate = userNameDate.substring(userNameDate.indexOf("(") + 1).replace(")", "");
+                String avatarUrl = comment.select("img.comm4").attr("src");
+                avatarUrl = avatarUrl.contains("http") ? avatarUrl : mSite + avatarUrl;
+                String commentTextHtml = comment.select("div.comm9").html();
+                commentsList.add(new Comment(avatarUrl, commentCreateDate, userName, commentTextHtml));
+            }
 
-            // neede parse and save to comments object
+            // need parse and save to comments object
             Elements sFilmReviewsUrl = doc.select("div[class^=comm0]");
+
 
             String sPlaylistUrl = doc.select("param[name=flashvars]").attr("value");
             if (sPlaylistUrl.contains("&pl")) {
@@ -452,6 +464,13 @@ public class BobFilmParser {
                 }.getType());
                 log.info("files count {}", filesList.size());
             }
+
+            for (FilmFile file : filesList) {
+                String fileUrl = file.getFileUrl();
+                String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                file.setFileName(fileName);
+            }
+
 //            Elements sFiles = doc.select("param[name=flashvars]").attr("value");
 //            sFiles = sFiles.select(":not(a[title~=(?i)\\.(png|jpe?g|bmp|gif)])");
 //            HashMap<String, String> hLightFiles = getLightFiles(doc);
@@ -484,15 +503,15 @@ public class BobFilmParser {
 //                    filesList.add(new FilmFile(sFileName, sFileUrl, sBigPosterUrl));
 //                }
 //            }
-
-            filmDetailsObj.setmBigPosterUrl(sBigPosterUrl);
-            filmDetailsObj.setmFilmTitle(sFilmTitle);
-            filmDetailsObj.setmFilmYear(sFilmYear);
-            filmDetailsObj.setmFilmCreateDate(sFilmCreateDate);
-            filmDetailsObj.setmFilmReviews(sFilmReviews);
-            //filmDetailsObj.setmFilmReviewsUrl(sFilmReviewsUrl);
-            filmDetailsObj.setmFilmDetailsHTML(sFilmDetails);
-            filmDetailsObj.setmFilmFiles(filesList);
+            filmDetailsObj.setBigPosterUrl(sBigPosterUrl);
+            filmDetailsObj.setFilmTitle(sFilmTitle);
+            filmDetailsObj.setFilmYear(sFilmYear);
+            filmDetailsObj.setFilmCreateDate(sFilmCreateDate);
+            filmDetailsObj.setFilmReviews(sFilmReviewsCount);
+            filmDetailsObj.setFilmComments(commentsList);
+            //filmDetailsObj.setFilmReviewsUrl(sFilmReviewsUrl);
+            filmDetailsObj.setFilmDetailsHTML(sFilmDetails);
+            filmDetailsObj.setFilmFiles(filesList);
         } catch (Exception ex) {
             if (BuildConfig.DEBUG) {
                 ex.printStackTrace();
@@ -705,10 +724,10 @@ public class BobFilmParser {
                 filesList.add(new FilmFile(sFileName, sFileUrl));
             }
 
-            filmDetailsObj.setmFilmTitle(sFilmTitle);
-            filmDetailsObj.setmFilmReviews(sFilmReviews);
-            filmDetailsObj.setmFilmDetailsHTML(sFilmDetails);
-            filmDetailsObj.setmFilmFiles(filesList);
+            filmDetailsObj.setFilmTitle(sFilmTitle);
+            filmDetailsObj.setFilmReviews(sFilmReviews);
+            filmDetailsObj.setFilmDetailsHTML(sFilmDetails);
+            filmDetailsObj.setFilmFiles(filesList);
         } catch (IndexOutOfBoundsException ex) {
             if (BuildConfig.DEBUG) {
                 ex.printStackTrace();

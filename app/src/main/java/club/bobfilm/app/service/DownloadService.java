@@ -142,18 +142,18 @@ public class DownloadService extends Service {
 
     private void pause(FilmFile file) {
 //        log.info("pause file {}, status {}",
-//                file.getmFileName(), file.getStatus().toString());
-        mDownloadManager.pause(file.getmFileName());
+//                file.getFileName(), file.getStatus().toString());
+        mDownloadManager.pause(file.getFileName());
     }
 
     private void cancel(FilmFile file) {
 //        log.info("cancel file {}, status isCanceled {}",
-//                file.getmFileName(), (file.getStatus() == DownloadStatuses.CANCELED));
-        mDownloadManager.cancel(file.getmFileName());
-        DownloadCallBack callBack = mDownloadCallBacks.get(file.getmFileName());
+//                file.getFileName(), (file.getStatus() == DownloadStatuses.CANCELED));
+        mDownloadManager.cancel(file.getFileName());
+        DownloadCallBack callBack = mDownloadCallBacks.get(file.getFileName());
         if (callBack != null) {
             callBack.onDownloadCanceled();
-            mDownloadCallBacks.remove(file.getmFileName());
+            mDownloadCallBacks.remove(file.getFileName());
         }
     }
 
@@ -172,7 +172,7 @@ public class DownloadService extends Service {
         intent.putExtra(EXTRA_FILE_INFO, file);
         if (BuildConfig.DEBUG) {
 //            log.info("Download \nfile: {}\nurl: {}\n",
-//                    file.getmFileName(), file.getmFileUrl());
+//                    file.getFileName(), file.getFileUrl());
             context.startService(intent);
         } else {
             context.startService(intent);
@@ -211,14 +211,14 @@ public class DownloadService extends Service {
                 String fileName = "update_toseex.apk";
                 file = new FilmFile(fileName, fileUrl, false);
                 log.info("Downloading {}, {}, {}",
-                        file.getmFileName(), file.getmFileUrl(), file.isLightVersionChoice());
+                        file.getFileName(), file.getFileUrl(), file.isLightVersionChoice());
                 downloadFile(file);
             } else {
                 //For download video files
                 file = (FilmFile) intent.getSerializableExtra(EXTRA_FILE_INFO);
                 String fileName = "";
                 if (file != null) {
-                    fileName = file.getmFileName();
+                    fileName = file.getFileName();
                 }
                 int filePosition = Utils.getIndexOfItem(mDownloadingFiles, file);
                 String action = intent.getAction();
@@ -260,32 +260,32 @@ public class DownloadService extends Service {
 
     private void download(final FilmFile file) {
         //set download path
-        file.setmFilePath(mDownloadDirectory.getAbsolutePath() + "/" + file.getmFileName());
+        file.setFilePath(mDownloadDirectory.getAbsolutePath() + "/" + file.getFileName());
 
         final DownloadRequest request = new DownloadRequest.Builder()
-                .setTitle(file.getmFileName())
-                .setUri(file.getmFileUrl())
+                .setTitle(file.getFileName())
+                .setUri(file.getFileUrl())
                 .setFolder(mDownloadDirectory)
                 .build();
 //        log.info("real download: \nsetUri {}\nfilename {}\n",
 //                request.getUri(), request.getTitle());
         DownloadCallBack mDownloadCallBack = new DownloadCallBack(file);
-        mDownloadCallBacks.put(file.getmFileName(), mDownloadCallBack);
-        mDownloadManager.download(request, file.getmFileName(), mDownloadCallBack);
+        mDownloadCallBacks.put(file.getFileName(), mDownloadCallBack);
+        mDownloadManager.download(request, file.getFileName(), mDownloadCallBack);
     }
 
 
     private void downloadFile(final FilmFile file) {
         final DownloadRequest request = new DownloadRequest.Builder()
-                .setTitle(file.getmFileName())
-                .setUri(file.getmFileUrl())
+                .setTitle(file.getFileName())
+                .setUri(file.getFileUrl())
                 .setFolder(mDownloadDirectory)
                 .build();
         DownloadFileCallBack mDownloadFileCallBack = new DownloadFileCallBack(file);
 
-        mDownloadManager.download(request, file.getmFileName(), mDownloadFileCallBack);
+        mDownloadManager.download(request, file.getFileName(), mDownloadFileCallBack);
 //        log.warn("download.setUri {} , filename {}",
-//                file.getmFileUrl(), file.getmFileName());
+//                file.getFileUrl(), file.getFileName());
     }
 
     private void updateStockNotify(int smallIcon, String contentTitle,
@@ -329,7 +329,7 @@ public class DownloadService extends Service {
 //        mBuilder.addAction(R.id.action_icon, "Action", mSwitchedNotification.get(file.id));
 
 //        log.debug("Notification {} file:{}, id:{}",
-// contentText, file.getmFileName(), file.id);
+// contentText, file.getFileName(), file.id);
         mBuilder.setWhen(file.id);
         mNotificationManager.notify(file.id, mBuilder.build());
     }
@@ -343,26 +343,26 @@ public class DownloadService extends Service {
         public DownloadFileCallBack(FilmFile file) {
             mFile = file;
             mResources = getApplicationContext().getResources();
-//            log.warn("DownloadFile: {}", mFile.getmFileUrl());
+//            log.warn("DownloadFile: {}", mFile.getFileUrl());
         }
 
         @Override
         public void onStarted() {
 //            log.debug("onStart() file with name: {} and id: {}",
-//                    mFile.getmFileName(), mFile.id);
-            mFile.setmFilePath(mDownloadDirectory.getAbsolutePath() + "/" + mFile.getmFileName());
+//                    mFile.getFileName(), mFile.id);
+            mFile.setFilePath(mDownloadDirectory.getAbsolutePath() + "/" + mFile.getFileName());
             updateStockNotify(R.mipmap.ic_launcher,
-                    mFile.getmFileName(),
+                    mFile.getFileName(),
                     mResources.getString(R.string.download_init),
                     new Progress(100, 0, true),
-                    mFile.getmFileName() + " " + mResources.getString(R.string.download_init),
+                    mFile.getFileName() + " " + mResources.getString(R.string.download_init),
                     mContentIntent, true, false, true, false, mFile);
         }
 
         @Override
         public void onConnecting() {
 //            log.debug("onConnecting() file with name: {} and id: {}",
-//                    mFile.getmFileName(), mFile.id);
+//                    mFile.getFileName(), mFile.id);
             mFile.setStatus(DownloadStatuses.CONNECTING);
 //            updateStockNotify(-1, null, mResources.getString(R.string.download_connecting),
 //                    null,
@@ -372,7 +372,7 @@ public class DownloadService extends Service {
         @Override
         public void onConnected(long l, boolean b) {
 //            log.debug("onConnected() file with name: {} and id: {}",
-//                    mFile.getmFileName(), mFile.id);
+//                    mFile.getFileName(), mFile.id);
 //            updateStockNotify(-1, null, mResources.getString(R.string.download_connected),
 //                    null,
 //                    null, null, true, false, false, false, mFile);
@@ -393,11 +393,11 @@ public class DownloadService extends Service {
             //Update progress every ~1-5 sec
             int delay = Utils.generateRandomValueByRange();
             if (currentTime - mLastUpdateTime > delay) {
-                if (mFile.getmFileSize() == 0) {
-                    mFile.setmFileSize(total);
+                if (mFile.getFileSize() == 0) {
+                    mFile.setFileSize(total);
                 }
                 mFile.setStatus(DownloadStatuses.DOWNLOADING);
-                mFile.setmProgressValue(progress);
+                mFile.setProgressValue(progress);
                 mFile.setDownloadPerSize(Utils.getDownloadPerSize(finished, total));
                 updateStockNotify(-1, null, mResources.getString(R.string.download_downloading),
                         new Progress(100, progress, false),
@@ -414,21 +414,21 @@ public class DownloadService extends Service {
                 return;
             }
 //            log.debug("onCompleted() file with name: {} and id: {}",
-//                    mFile.getmFileName(), mFile.id);
+//                    mFile.getFileName(), mFile.id);
             mFile.setStatus(DownloadStatuses.COMPLETE);
-            mFile.setmProgressValue(100);
-            mFile.setmDownloadTime(new SimpleDateFormat("HH:mm:ss").format(new Date()));
-            mFile.setmDownloadDate(new Date());
-            mFile.setmDownloadTimeDate(new SimpleDateFormat("HH:mm, dd.MM.yyyy").format(new Date()));
+            mFile.setProgressValue(100);
+            mFile.setDownloadTime(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            mFile.setDownloadDate(new Date());
+            mFile.setDownloadTimeDate(new SimpleDateFormat("HH:mm, dd.MM.yyyy").format(new Date()));
             mFile.setDownloadComplete(true);
 
             mBuilder.setOnlyAlertOnce(true);
             updateStockNotify(-1, null, mResources.getString(R.string.download_complete),
                     new Progress(0, 0, false),
-                    mFile.getmFileName() + " " + mResources.getString(R.string.notice_download_complete),
-                    createInstallAppPI(mFile.getmFilePath()),
+                    mFile.getFileName() + " " + mResources.getString(R.string.notice_download_complete),
+                    createInstallAppPI(mFile.getFilePath()),
                     false, true, false, true, mFile);
-            Utils.installApp(DownloadService.this, mFile.getmFilePath());
+            Utils.installApp(DownloadService.this, mFile.getFilePath());
             checkComplete();
         }
 
@@ -445,7 +445,7 @@ public class DownloadService extends Service {
         @Override
         public void onFailed(DownloadException e) {
             log.warn("onFailed() file with name: {} and id: {}",
-                    mFile.getmFileName(), mFile.id);
+                    mFile.getFileName(), mFile.id);
             e.printStackTrace();
 //            log.error("Download file failed!", e);
             mFile.setStatus(DownloadStatuses.FAILED);
@@ -453,7 +453,7 @@ public class DownloadService extends Service {
             updateStockNotify(-1, null,
                     mResources.getString(R.string.download_failed) + " " + e.getErrorMessage(),
                     new Progress(0, 0, false),
-                    mFile.getmFileName() + " " + e.getErrorMessage(),
+                    mFile.getFileName() + " " + e.getErrorMessage(),
                     null, false, true, false, true, mFile);
         }
     }
@@ -487,14 +487,14 @@ public class DownloadService extends Service {
 
             int idx = Utils.getIndexOfItem(mDownloadingFiles, mFile);
             log.debug("onStarted() file with name: {} and id: {} and index: {} ",
-                    mFile.getmFileName(), mFile.id, idx);
+                    mFile.getFileName(), mFile.id, idx);
 
             mFile.setStatus(DownloadStatuses.CONNECTING);
             updateNotification(R.mipmap.ic_launcher,
-                    mFile.getmFileName(),
+                    mFile.getFileName(),
                     mResources.getString(R.string.download_init),
                     new Progress(100, 0, true),
-                    mFile.getmFileName() + " " + mResources.getString(R.string.download_init),
+                    mFile.getFileName() + " " + mResources.getString(R.string.download_init),
                     mContentIntent, true, false, true);
             sendBroadCast();
         }
@@ -502,7 +502,7 @@ public class DownloadService extends Service {
         @Override
         public void onConnecting() {
             int idx = Utils.getIndexOfItem(mDownloadingFiles, mFile);
-            log.debug("onConnecting() file with name: {} and id: {} and index: {}", mFile.getmFileName(), mFile.id, idx);
+            log.debug("onConnecting() file with name: {} and id: {} and index: {}", mFile.getFileName(), mFile.id, idx);
             mFile.setStatus(DownloadStatuses.CONNECTING);
 //            updateNotification(-1, null, mResources.getString(R.string.download_connecting),
 //                  null, null, null, true, false, false);
@@ -513,7 +513,7 @@ public class DownloadService extends Service {
         public void onConnected(long l, boolean b) {
             int idx = Utils.getIndexOfItem(mDownloadingFiles, mFile);
             log.debug("onConnected() file with name: {} and id: {} and index: {}",
-                    mFile.getmFileName(), mFile.id, idx);
+                    mFile.getFileName(), mFile.id, idx);
 //            updateNotification(-1, null, mResources.getString(R.string.download_connected),
 //              null, null, null, true, false, false);
 //            sendBroadCast();
@@ -526,13 +526,13 @@ public class DownloadService extends Service {
                     mFile.getStatus() == DownloadStatuses.CANCELED) {
 //                switch (mFile.getStatus()) {
 //                    case DownloadStatuses.COMPLETE:
-//                        log.info("onProgress() file {} status already COMPLETE", mFile.getmFileName());
+//                        log.info("onProgress() file {} status already COMPLETE", mFile.getFileName());
 //                        break;
 //                    case DownloadStatuses.PAUSED:
-//                        log.info("onProgress() file {} status already PAUSED", mFile.getmFileName());
+//                        log.info("onProgress() file {} status already PAUSED", mFile.getFileName());
 //                        break;
 //                    case DownloadStatuses.CANCELED:
-//                        log.info("onProgress() file {} status already CANCELED", mFile.getmFileName());
+//                        log.info("onProgress() file {} status already CANCELED", mFile.getFileName());
 //                        break;
 //                }
                 return;
@@ -547,11 +547,11 @@ public class DownloadService extends Service {
             if (currentTime - mLastUpdateTime > delay) {
                 int idx = Utils.getIndexOfItem(mDownloadingFiles, mFile);
 
-                if (mFile.getmFileSize() == 0) {
-                    mFile.setmFileSize(total);
+                if (mFile.getFileSize() == 0) {
+                    mFile.setFileSize(total);
                 }
                 mFile.setStatus(DownloadStatuses.DOWNLOADING);
-                mFile.setmProgressValue(progress);
+                mFile.setProgressValue(progress);
                 mFile.setDownloadPerSize(Utils.getDownloadPerSize(finished, total));
                 updateNotification(-1, null, mResources.getString(R.string.download_downloading),
                         new Progress(100, progress, false),
@@ -569,20 +569,20 @@ public class DownloadService extends Service {
             }
             int idx = Utils.getIndexOfItem(mDownloadingFiles, mFile);
             log.debug("onCompleted() file with name: {} and id: {} and index: {}",
-                    mFile.getmFileName(), mFile.id, idx);
+                    mFile.getFileName(), mFile.id, idx);
 
             mFile.setStatus(DownloadStatuses.COMPLETE);
-            mFile.setmProgressValue(100);
-            mFile.setmDownloadTime(new SimpleDateFormat("HH:mm:ss").format(new Date()));
-            mFile.setmDownloadDate(new Date());
-            mFile.setmDownloadTimeDate(new SimpleDateFormat("HH:mm, dd.MM.yyyy").format(new Date()));
+            mFile.setProgressValue(100);
+            mFile.setDownloadTime(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            mFile.setDownloadDate(new Date());
+            mFile.setDownloadTimeDate(new SimpleDateFormat("HH:mm, dd.MM.yyyy").format(new Date()));
             mFile.setDownloadComplete(true);
             //todo temporary off cancel event
             mDownloadingFiles.remove(mFile);
             mBuilder.setOnlyAlertOnce(true);
             updateNotification(-1, null, mResources.getString(R.string.download_complete),
                     new Progress(0, 0, false),
-                    mFile.getmFileName() + " " +
+                    mFile.getFileName() + " " +
                             mResources.getString(R.string.notice_download_complete),
                     null, false, true, false);
 
@@ -599,12 +599,12 @@ public class DownloadService extends Service {
             }
             int idx = Utils.getIndexOfItem(mDownloadingFiles, mFile);
             log.debug("onDownloadPaused() file with name: {} and id: {} and index: {}",
-                    mFile.getmFileName(), mFile.id, idx);
+                    mFile.getFileName(), mFile.id, idx);
 
             mFile.setStatus(DownloadStatuses.PAUSED);
 
             updateNotification(-1, null, mResources.getString(R.string.download_pause),
-                    null, mFile.getmFileName() + " " + mResources.getString(R.string.notice_download_pause),
+                    null, mFile.getFileName() + " " + mResources.getString(R.string.notice_download_pause),
                     null, true, false, false);
 
             sendBroadCast();
@@ -617,11 +617,11 @@ public class DownloadService extends Service {
             }
             int idx = Utils.getIndexOfItem(mDownloadingFiles, mFile);
 //            log.debug("onDownloadCanceled() file with name: {} and id: {} and index: {}",
-//                    mFile.getmFileName(), mFile.id, idx);
+//                    mFile.getFileName(), mFile.id, idx);
 
             mNotificationManager.cancel(mFile.id);
             mFile.setStatus(DownloadStatuses.CANCELED);
-            mFile.setmProgressValue(0);
+            mFile.setProgressValue(0);
             mFile.setDownloadPerSize("");
 //            log.warn("before remove size {}", mDownloadingFiles.size());
             //todo temporary off cancel event
@@ -630,7 +630,7 @@ public class DownloadService extends Service {
 
             updateNotification(-1, null, mResources.getString(R.string.download_canceled),
                     new Progress(0, 0, false),
-                    mFile.getmFileName() + " " + mResources.getString(R.string.notice_download_canceled), null, false, true, false);
+                    mFile.getFileName() + " " + mResources.getString(R.string.notice_download_canceled), null, false, true, false);
 
             sendBroadCast();
         }
@@ -642,7 +642,7 @@ public class DownloadService extends Service {
             }
             int idx = Utils.getIndexOfItem(mDownloadingFiles, mFile);
 //            log.debug("onFailed() file with name: {} and id: {} and index: {}",
-//                    mFile.getmFileName(), mFile.id, idx);
+//                    mFile.getFileName(), mFile.id, idx);
             ex.printStackTrace();
             mFile.setStatus(DownloadStatuses.FAILED);
             mFile.setDownloadPerSize(getString(R.string.msg_download_error) + " " + ex.getErrorMessage());
@@ -650,7 +650,7 @@ public class DownloadService extends Service {
             mDownloadingFiles.remove(mFile);
             updateNotification(-1, null, mResources.getString(R.string.download_failed) + "\n" + ex.getErrorMessage(),
                     new Progress(0, 0, false),
-                    mFile.getmFileName() + " " + ex.getErrorMessage(), null, false, true, false);
+                    mFile.getFileName() + " " + ex.getErrorMessage(), null, false, true, false);
             DBHelper.getInstance(DownloadService.this).dbWorker(DBHelper.ACTION_ADD,
                     DBHelper.FN_DOWNLOADS, mFile, null);
             sendBroadCast();
@@ -696,7 +696,7 @@ public class DownloadService extends Service {
             remoteViews.setImageViewResource(R.id.small_icon, R.mipmap.ic_launcher);
 
 //            log.warn("notify update: file {}, status is {}",
-//                    mFile.getmFileName(), mFile.getStatus());
+//                    mFile.getFileName(), mFile.getStatus());
             if (mFile.getStatus() == DownloadStatuses.PAUSED
                     || mFile.getStatus() == DownloadStatuses.FAILED) {
 //                log.info("notice Pause or Fail: play icon");
@@ -737,14 +737,14 @@ public class DownloadService extends Service {
                     mSwitchedNotification.get(mFile.id));
 
             //log.debug("Notification {} file:{}, id:{}", contentText,
-            // mFile.getmFileName(), mFile.id);
+            // mFile.getFileName(), mFile.id);
 
             mNotificationManager.notify(mFile.id, mBuilder.build());
         }
 
         private void sendBroadCast() {
 //            log.info("sending broadcast file {}, status {}",
-//                    mFile.getmFileName(), mFile.getStatus().toString());
+//                    mFile.getFileName(), mFile.getStatus().toString());
             Intent intent = new Intent();
             intent.setAction(DownloadService.ACTION_DOWNLOAD_BROADCAST);
             intent.putExtra(EXTRA_FILE_INFO, mFile);
@@ -760,7 +760,7 @@ public class DownloadService extends Service {
         android.support.v4.app.NotificationCompat.InboxStyle notificationStyle =
                 new android.support.v4.app.NotificationCompat.InboxStyle();
         for (FilmFile file : files) {
-            notificationStyle.addLine(file.getmFileName());
+            notificationStyle.addLine(file.getFileName());
         }
         String summaryExpandHeader, summaryCollapsedHeader;
         summaryCollapsedHeader = summaryExpandHeader = files.size() > 0
@@ -851,14 +851,14 @@ public class DownloadService extends Service {
                 int position = Utils.getIndexOfItem(mDownloadingFiles, file);
 
                 log.warn("receive click on {} at {} with id {}",
-                        file.getmFileName(), position, file.id);
+                        file.getFileName(), position, file.id);
 
                 if (file.getStatus() == DownloadStatuses.PAUSED
                         || file.getStatus() == DownloadStatuses.FAILED) {
-                    log.warn("resume download for {}", file.getmFileName());
+                    log.warn("resume download for {}", file.getFileName());
                     intentDownload(DownloadService.this, file);
                 } else {
-                    log.warn("pause download for {}", file.getmFileName());
+                    log.warn("pause download for {}", file.getFileName());
                     intentPause(DownloadService.this, file);
                 }
             }

@@ -18,8 +18,9 @@ import club.bobfilm.app.service.DownloadService;
 public class FilmFile implements Serializable, DBHelper.IDbData {
     public int idL;
     public int id;
-    @SerializedName("comment")
     private String mFileName;
+    @SerializedName("comment")
+    private String mFileComment;
     @SerializedName("file")
     private String mFileUrl;
     private String mLightFileUrl;
@@ -38,6 +39,7 @@ public class FilmFile implements Serializable, DBHelper.IDbData {
     private DownloadService.DownloadStatuses status = DownloadService.DownloadStatuses.DEFAULT;
     private String downloadPerSize;
     private String mFilmUrl;
+
     private String mFilmTitle;
     private String mFilmLogoUrl;
     private boolean mFilmBookmarked;
@@ -107,51 +109,63 @@ public class FilmFile implements Serializable, DBHelper.IDbData {
         isLightVersionChoice = lightVersionChoice;
     }
 
-    public String getmFilmTitle() {
+    public String getFileComment() {
+        return mFileComment;
+    }
+
+    public void setFileComment(String fileComment) {
+        this.mFileComment = fileComment;
+    }
+
+    public String getFilmTitle() {
         return mFilmTitle;
     }
 
-    public void setmFilmTitle(String mFilmTitle) {
+    public void setFilmTitle(String mFilmTitle) {
         this.mFilmTitle = mFilmTitle;
     }
 
-    public String getmFilmLogoUrl() {
+    public String getFilmLogoUrl() {
         return mFilmLogoUrl;
     }
 
-    public void setmFilmLogoUrl(String mFilmLogoUrl) {
+    public void setFilmLogoUrl(String mFilmLogoUrl) {
         this.mFilmLogoUrl = mFilmLogoUrl;
     }
 
-    public boolean ismFilmBookmarked() {
+    public boolean isFilmBookmarked() {
         return mFilmBookmarked;
     }
 
-    public void setmFilmBookmarked(boolean mFilmBookmarked) {
+    public void setFilmBookmarked(boolean mFilmBookmarked) {
         this.mFilmBookmarked = mFilmBookmarked;
     }
 
-    public String getmFilmUrl() {
+    public String getFilmUrl() {
         return mFilmUrl;
     }
 
-    public void setmFilmUrl(String mFilmUrl) {
+    public void setFilmUrl(String mFilmUrl) {
         this.mFilmUrl = mFilmUrl;
     }
 
-    public String getmLightFileUrl() {
+    public String getLightFileUrl() {
         return mLightFileUrl;
     }
 
-    public void setmLightFileUrl(String mLightFileUrl) {
+    public void setLightFileUrl(String mLightFileUrl) {
         this.mLightFileUrl = mLightFileUrl;
     }
 
-    public String getmFilePath() {
+    public String getLightFileName() {
+        return mLightFileName;
+    }
+
+    public String getFilePath() {
         return mFilePath;
     }
 
-    public void setmFilePath(String mFilePath) {
+    public void setFilePath(String mFilePath) {
         this.mFilePath = mFilePath;
     }
 
@@ -163,60 +177,60 @@ public class FilmFile implements Serializable, DBHelper.IDbData {
         isViewed = viewed;
     }
 
-    public String getmDownloadTime() {
+    public String getDownloadTime() {
         return mDownloadTime;
     }
 
-    public void setmDownloadTime(String mDownloadTime) {
+    public void setDownloadTime(String mDownloadTime) {
         this.mDownloadTime = mDownloadTime;
     }
 
-    public Date getmDownloadDate() {
+    public Date getDownloadDate() {
         return mDownloadDate;
     }
 
-    public void setmDownloadDate(Date mDownloadDate) {
+    public void setDownloadDate(Date mDownloadDate) {
         this.mDownloadDate = mDownloadDate;
     }
 
-    public long getmAlreadyDownload() {
+    public long getAlreadyDownload() {
         return mAlreadyDownload;
     }
 
-    public void setmAlreadyDownload(long mAlreadyDownload) {
+    public void setAlreadyDownload(long mAlreadyDownload) {
         this.mAlreadyDownload = mAlreadyDownload;
     }
 
-    public int getmProgressValue() {
+    public int getProgressValue() {
         return mProgressValue;
     }
 
-    public void setmProgressValue(int mProgressValue) {
+    public void setProgressValue(int mProgressValue) {
         this.mProgressValue = mProgressValue;
     }
 
-    public String getmDownloadTimeDate() {
+    public String getDownloadTimeDate() {
         return mDownloadTimeDate;
     }
 
-    public void setmDownloadTimeDate(String mDownloadTimeDate) {
+    public void setDownloadTimeDate(String mDownloadTimeDate) {
         this.mDownloadTimeDate = mDownloadTimeDate;
     }
 
-    public long getmFileSize() {
+    public long getFileSize() {
         return mFileSize;
     }
 
-    public void setmFileSize(long mFileSize) {
+    public void setFileSize(long mFileSize) {
         this.mFileSize = mFileSize;
     }
 
 
-    public String getmFileLogoUrl() {
+    public String getFileLogoUrl() {
         return mFileLogoUrl;
     }
 
-    public void setmFileLogoUrl(String mFileLogoUrl) {
+    public void setFileLogoUrl(String mFileLogoUrl) {
         this.mFileLogoUrl = mFileLogoUrl;
     }
 
@@ -231,21 +245,21 @@ public class FilmFile implements Serializable, DBHelper.IDbData {
         }
     }
 
-    public String getmFileName() {
+    public String getFileName() {
         return mFileName;
     }
 
-    public void setmFileName(String fileName) {
+    public void setFileName(String fileName) {
         this.mFileName = fileName;
         this.id = fileName.hashCode();
     }
 
-    public String getmFileUrl() {
+    public String getFileUrl() {
         if (!mFileUrl.contains("http")) return BobFilmParser.mSite + mFileUrl;
         return mFileUrl;
     }
 
-    public void setmFileUrl(String mFileUrl) {
+    public void setFileUrl(String mFileUrl) {
         this.mFileUrl = mFileUrl;
     }
 
@@ -322,45 +336,41 @@ public class FilmFile implements Serializable, DBHelper.IDbData {
 
     @Override
     public void fillItSelf(Cursor cursor) {
-        this.setmFileName(cursor.getString(1));
-        this.setmFileUrl(cursor.getString(2));
-        this.setmFileLogoUrl(cursor.getString(3));
-        this.setmFileSize(Long.parseLong(cursor.getString(4)));
-        this.setmDownloadTimeDate(cursor.getString(5));
+        this.setFileName(cursor.getString(1));
+        this.setFileUrl(cursor.getString(2));
+        this.setFileLogoUrl(cursor.getString(3));
+        this.setFileSize(Long.parseLong(cursor.getString(4)));
+        this.setDownloadTimeDate(cursor.getString(5));
         this.setDownloadComplete(cursor.getInt(6) == 1);
-        this.setmFilmUrl(cursor.getString(7));
-        this.setmFilmTitle(cursor.getString(8));
-        this.setmFilmBookmarked(cursor.getInt(9) == 1);
-        this.setmFilmLogoUrl(cursor.getString(10));
+        this.setFilmUrl(cursor.getString(7));
+        this.setFilmTitle(cursor.getString(8));
+        this.setFilmBookmarked(cursor.getInt(9) == 1);
+        this.setFilmLogoUrl(cursor.getString(10));
         this.setViewed(cursor.getInt(11) == 1);
-        this.setmFilePath(cursor.getString(12));
+        this.setFilePath(cursor.getString(12));
         this.setStatusFromInt(cursor.getInt(13));
-        this.setmProgressValue(cursor.getInt(14));
+        this.setProgressValue(cursor.getInt(14));
         this.setDownloadPerSize(cursor.getString(15));
     }
 
     @Override
     public ContentValues fillItemForDB() {
         ContentValues values = new ContentValues();
-        values.put("file_name", this.getmFileName());
-        values.put("file_url", this.getmFileUrl());
-        values.put("file_logo_url", this.getmFileLogoUrl());
-        values.put("file_size", this.getmFileSize());
-        values.put("file_download_date", this.getmDownloadTimeDate());
+        values.put("file_name", this.getFileName());
+        values.put("file_url", this.getFileUrl());
+        values.put("file_logo_url", this.getFileLogoUrl());
+        values.put("file_size", this.getFileSize());
+        values.put("file_download_date", this.getDownloadTimeDate());
         values.put("is_download_complete", this.isDownloadComplete() ? 1 : 0);
-        values.put("film_url", this.getmFilmUrl());
-        values.put("film_title", this.getmFilmTitle());
-        values.put("film_is_bookmarked", this.ismFilmBookmarked() ? 1 : 0);
-        values.put("film_logo_url", this.getmFilmLogoUrl());
+        values.put("film_url", this.getFilmUrl());
+        values.put("film_title", this.getFilmTitle());
+        values.put("film_is_bookmarked", this.isFilmBookmarked() ? 1 : 0);
+        values.put("film_logo_url", this.getFilmLogoUrl());
         values.put("is_viewed", this.isViewed());
-        values.put("file_path", this.getmFilePath());
+        values.put("file_path", this.getFilePath());
         values.put("download_status", this.getIntStatus());
-        values.put("download_progress", this.getmProgressValue());
+        values.put("download_progress", this.getProgressValue());
         values.put("downloaded_size", this.getDownloadPerSize());
         return values;
-    }
-
-    public String getmLightFileName() {
-        return mLightFileName;
     }
 }

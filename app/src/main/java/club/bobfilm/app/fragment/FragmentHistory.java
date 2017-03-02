@@ -135,7 +135,7 @@ public class FragmentHistory extends BaseFragment {
 
     private Film generateFilm(int position) {
         FilmFile file = mDataFromDB.get(position);
-        return new Film(file.getmFilmTitle(), file.getmFilmUrl(), file.getmFilmLogoUrl(), file.ismFilmBookmarked());
+        return new Film(file.getFilmTitle(), file.getFilmUrl(), file.getFilmLogoUrl(), file.isFilmBookmarked());
     }
 
     private void startActivityDetails(Film film) {

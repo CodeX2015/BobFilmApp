@@ -86,20 +86,20 @@ public class DownloadsAdapter2 extends RecyclerView.Adapter<DownloadsAdapter2.Vi
         int idx = holder.getAdapterPosition();
         final FilmFile item = mItems.get(idx);
         holder.Id = item.id;
-        holder.tvName.setText(item.getmFileName());
+        holder.tvName.setText(item.getFileName());
         if (item.isDownloadComplete() || item.getStatus() == DownloadService.DownloadStatuses.COMPLETE) {
             holder.progressBar.setVisibility(View.GONE);
             holder.btnPauseDownload.setVisibility(View.GONE);
-            holder.tvDownloadPerSize.setText(humanReadableByteCount(item.getmFileSize(), true));
+            holder.tvDownloadPerSize.setText(humanReadableByteCount(item.getFileSize(), true));
         } else {
             checkPauseState(item, holder);
             holder.progressBar.setVisibility(View.VISIBLE);
             holder.btnPauseDownload.setVisibility(View.VISIBLE);
-            holder.progressBar.setProgress(item.getmProgressValue());
+            holder.progressBar.setProgress(item.getProgressValue());
 
             String downloadText = "";
             if (item.getDownloadPerSize() == null || item.getDownloadPerSize().equalsIgnoreCase("")) {
-                downloadText = Utils.humanReadableByteCount(item.getmFileSize(), true);
+                downloadText = Utils.humanReadableByteCount(item.getFileSize(), true);
             } else {
                 downloadText = item.getDownloadPerSize();
             }
@@ -147,7 +147,7 @@ public class DownloadsAdapter2 extends RecyclerView.Adapter<DownloadsAdapter2.Vi
     private void checkPauseState(FilmFile item, ViewHolder holder) {
         int index = holder.getAdapterPosition();
         log.info("check state title {} state {} isPaused {}",
-                item.getmFilmTitle(), item.getStatus().toString(), item.isPaused);
+                item.getFilmTitle(), item.getStatus().toString(), item.isPaused);
         if (item.getStatus() == DownloadService.DownloadStatuses.PAUSED
                 || item.getStatus() == DownloadService.DownloadStatuses.COMPLETE
                 || item.getStatus() == DownloadService.DownloadStatuses.FAILED) {

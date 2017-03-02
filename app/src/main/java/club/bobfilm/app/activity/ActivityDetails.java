@@ -138,14 +138,14 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
                         if (mFilmDetails != null) {
                             mFilmDetails = (FilmDetails) result;
                             if (mFilm != null) {
-                                mFilmDetails.setmPosterUrl(mFilm.getPosterUrl());
-                                mFilmDetails.setmFilmUrl(mFilm.getFilmUrl());
+                                mFilmDetails.setPosterUrl(mFilm.getPosterUrl());
+                                mFilmDetails.setFilmUrl(mFilm.getFilmUrl());
                                 mFilmDetails.setBookmarked(mFilm.isBookmarked());
                             } else {
                                 mFilm = new Film(
-                                        mFilmDetails.getmFilmTitle(),
+                                        mFilmDetails.getFilmTitle(),
                                         urlQuery,
-                                        mFilmDetails.getmBigPosterUrl().replace("?1600", "?200"),
+                                        mFilmDetails.getBigPosterUrl().replace("?1600", "?200"),
                                         false
                                 );
                             }
@@ -182,12 +182,12 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
     private void fillFilesAds() {
         mFilesLayout.removeAllViews();
         for (final FilmFile file : mFiles) {
-            if (!file.getmFileName().equalsIgnoreCase("") /*&& Utils.isVideo(file.getmFileName())*/) {
+            if (!file.getFileName().equalsIgnoreCase("") && Utils.isVideo(file.getFileName())) {
                 setParentFilmData(file);
                 final int position = mFiles.indexOf(file);
                 final View view = getLayoutInflater().inflate(R.layout.item_list_file, mFilesLayout, false);
                 TextView tvFileName = (TextView) view.findViewById(R.id.tv_file_name);
-                tvFileName.setText(file.getmFileName());
+                tvFileName.setText(file.getFileComment());
                 ImageView ivActionDone = (ImageView) view.findViewById(R.id.iv_action_done);
                 ivActionDone.setTag(position);
                 ivActionDone.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +214,7 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
                     public void onClick(View v) {
                         //Toast.makeText(ActivityDetails.this, "ic_file_play", Toast.LENGTH_SHORT).show();
 //                        changeFileState((int) v.getTag(), FILE_ACTION_PLAY);
-                        //Utils.playVideo(file.getmFileUrl(), ActivityDetails.this);
+                        //Utils.playVideo(file.getFileUrl(), ActivityDetails.this);
                         showPopup(v, (int) v.getTag(), mPopupPlayListener);
                     }
                 });
@@ -226,7 +226,7 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
                 changeFileState(position, FILE_ACTION_SET);
             } else {
                 log.debug("Video: title {}, url {}, file {} isn't match file",
-                        mFilm.getFilmTitle(), mFilm.getFilmUrl(), file.getmFileName());
+                        mFilm.getFilmTitle(), mFilm.getFilmUrl(), file.getFileName());
             }
         }
     }
@@ -239,11 +239,11 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
             changeFileState(mFileIndex, FILE_ACTION_PLAY);
             switch (item.getItemId()) {
                 case R.id.popup_normal:
-                    urlVideoFile = mFiles.get(mFileIndex).getmFileUrl();
+                    urlVideoFile = mFiles.get(mFileIndex).getFileUrl();
                     log.info("normal play {}", urlVideoFile);
                     break;
                 case R.id.popup_light:
-                    urlVideoFile = mFiles.get(mFileIndex).getmLightFileUrl();
+                    urlVideoFile = mFiles.get(mFileIndex).getLightFileUrl();
                     log.info("light play {}", urlVideoFile);
                     if (urlVideoFile == null) {
                         Toast toast = Toast.makeText(ActivityDetails.this,
@@ -272,15 +272,15 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
             changeFileState(mFileIndex, FILE_ACTION_DOWNLOAD);
             switch (item.getItemId()) {
                 case R.id.popup_normal:
-                    log.info("normal download {}\nurl: {}\n", file.getmFileName(), file.getmFileUrl());
+                    log.info("normal download {}\nurl: {}\n", file.getFileName(), file.getFileUrl());
                     break;
                 case R.id.popup_light:
 
-                    log.info("light download {}\nurl: {}\n", file.getmFileName(), file.getmLightFileUrl());
-                    if (file.getmLightFileUrl() != null) {
+                    log.info("light download {}\nurl: {}\n", file.getFileName(), file.getLightFileUrl());
+                    if (file.getLightFileUrl() != null) {
                         file.setLightVersionChoice(true);
-                        file.setmFileName(file.getmLightFileName());
-                        file.setmFileUrl(file.getmLightFileUrl());
+                        file.setFileName(file.getLightFileName());
+                        file.setFileUrl(file.getLightFileUrl());
                     } else {
                         file.setLightVersionChoice(false);
                         Toast toast = Toast.makeText(ActivityDetails.this,
@@ -318,10 +318,10 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
     }
 
     private void setParentFilmData(FilmFile file) {
-        file.setmFilmUrl(mFilm.getFilmUrl());
-        file.setmFilmLogoUrl(mFilm.getPosterUrl());
-        file.setmFilmTitle(mFilm.getFilmTitle());
-        file.setmFilmBookmarked(mFilm.isBookmarked());
+        file.setFilmUrl(mFilm.getFilmUrl());
+        file.setFilmLogoUrl(mFilm.getPosterUrl());
+        file.setFilmTitle(mFilm.getFilmTitle());
+        file.setFilmBookmarked(mFilm.isBookmarked());
     }
 
     private void changeFileState(int viewTag, int clickAction) {
@@ -417,7 +417,7 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
         for (FilmFile file : mFiles) {
             file.setViewed(false);
             for (FilmFile fileHistory : mDataFromDB) {
-                if (file.getmFileName().equalsIgnoreCase(fileHistory.getmFileName())) {
+                if (file.getFileName().equalsIgnoreCase(fileHistory.getFileName())) {
                     file.setViewed(!file.isViewed());
                 }
             }
@@ -429,7 +429,7 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
             @Override
             public void run() {
                 try {
-                    mFiles = mFilmDetails.getmFilmFiles();
+                    mFiles = mFilmDetails.getFilmFiles();
                     if (mFiles != null && mFiles.size() > 0) {
                         getDataFromDB();
                     }
@@ -447,11 +447,11 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
     }
 
     private void fillData() {
-        mFilmTitle.setText(mFilmDetails.getmFilmTitle());
-        mFilmCreateDate.setText(mFilmDetails.getmFilmCreateDate());
-        mFilmReviewsCount.setText(mFilmDetails.getmFilmReviews());
-        mFilmDetailsHTML.setText(Html.fromHtml(mFilmDetails.getmFilmDetailsHTML()));
-        String path = (mFilm.getPosterUrl() == null) ? mFilmDetails.getmBigPosterUrl() : mFilm.getPosterUrl();
+        mFilmTitle.setText(mFilmDetails.getFilmTitle());
+        mFilmCreateDate.setText(mFilmDetails.getFilmCreateDate());
+        mFilmReviewsCount.setText(mFilmDetails.getFilmReviews());
+        mFilmDetailsHTML.setText(Html.fromHtml(mFilmDetails.getFilmDetailsHTML()));
+        String path = (mFilm.getPosterUrl() == null) ? mFilmDetails.getBigPosterUrl() : mFilm.getPosterUrl();
         Utils.setImageViewBitmap(this, path, mPoster, null);
 
         if (mFilmDetails.isBookmarked()) {
@@ -468,16 +468,16 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.iv_details_poster:
                 //showDialogPreview();
-                String path = mFilmDetails.getmBigPosterUrl() != null ?
-                        mFilmDetails.getmBigPosterUrl().replace("?1600", "?400") : mFilm.getPosterUrl();
+                String path = mFilmDetails.getBigPosterUrl() != null ?
+                        mFilmDetails.getBigPosterUrl().replace("?1600", "?400") : mFilm.getPosterUrl();
                 zoomImageFromThumb(v, path);
                 break;
             case R.id.ll_share_details:
-                String shareString = mFilmDetails.getmFilmTitle() + "\n\n" + BobFilmParser.mSite + mFilmDetails.getmFilmUrl();
+                String shareString = mFilmDetails.getFilmTitle() + "\n\n" + BobFilmParser.mSite + mFilmDetails.getFilmUrl();
                 Utils.shareTextUrl(ActivityDetails.this, getString(R.string.action_send_to), shareString);
                 break;
             case R.id.ll_read_quotes:
-                ActivityDetails.this.isCommentsExists(mFilmDetails.getmFilmReviews(), mFilmDetails.getmFilmReviewsUrl());
+                ActivityDetails.this.isCommentsExists(mFilmDetails.getFilmReviews(), mFilmDetails.getFilmReviewsUrl());
                 break;
             case R.id.ll_add_bookmark:
                 setBookmark();
@@ -721,8 +721,8 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
         bigPoster.setImageDrawable(mPoster.getDrawable());
 
         String path;
-        path = mFilmDetails.getmBigPosterUrl() != null ?
-                mFilmDetails.getmBigPosterUrl().replace("?1600", "?400") : mFilm.getPosterUrl();
+        path = mFilmDetails.getBigPosterUrl() != null ?
+                mFilmDetails.getBigPosterUrl().replace("?1600", "?400") : mFilm.getPosterUrl();
         Utils.setImageViewBitmap(this, path, bigPosterExpanded, null/*vfPreviewChanger*/);
 
 

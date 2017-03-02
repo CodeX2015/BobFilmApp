@@ -18,6 +18,18 @@ public class Comment implements Serializable {
     private String mLeftOffset;
     private boolean isReplica;
 
+    public Comment() {
+
+    }
+
+    public Comment(String avatarUrl, String commentCreateDate, String userName, String commentTextHtml) {
+        mAvatarUrl = avatarUrl;
+        mUser = userName;
+        mCreateDate = commentCreateDate;
+        mCommentBodyHTML = commentTextHtml;
+    }
+
+
     public String getCommentUrl() {
         return mCommentUrl.contains("http") ?
                 mCommentUrl : BobFilmParser.mSite + mCommentUrl;

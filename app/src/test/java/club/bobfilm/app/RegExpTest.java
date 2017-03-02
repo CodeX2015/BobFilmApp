@@ -83,6 +83,13 @@ public class RegExpTest {
 //        Locale.setDefault( locale );
 //    }
 
+    @Test
+    public void getFileNameFromUrl(){
+        String fileUrl = "http://bf.vbfcdn.net/videos/21IB5Vj9O9T22A5QeJpnjw,1488510370/serial/rouzvud_02_01_NS.flv";
+        String fileName = fileUrl.substring(fileUrl.lastIndexOf("/")+1);
+        ShadowLog.d("fileName=", fileName);
+    }
+
 
     private static BufferedReader loadJsonObject(String link) throws Exception {
         String exampleBody = "{\"playlist\":[{\"comment\":\"Bobfilm\"," +

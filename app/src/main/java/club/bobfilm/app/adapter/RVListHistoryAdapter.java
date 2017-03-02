@@ -57,7 +57,7 @@ public class RVListHistoryAdapter extends RecyclerView.Adapter<RVListHistoryAdap
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final int idx = holder.getAdapterPosition();
         holder.mItem = mItems.get(position);
-        holder.mFileNameView.setText(holder.mItem.getmFileName());
+        holder.mFileNameView.setText(holder.mItem.getFileName());
         holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
