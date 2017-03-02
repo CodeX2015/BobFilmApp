@@ -24,6 +24,7 @@ import club.bobfilm.app.BuildConfig;
 import club.bobfilm.app.R;
 import club.bobfilm.app.entity.AppUpdate;
 import club.bobfilm.app.helpers.BobFilmParser;
+import club.bobfilm.app.util.TrialChecker;
 import club.bobfilm.app.util.Utils;
 
 
@@ -77,6 +78,29 @@ public class ActivitySplash extends AppCompatActivity {
         //check site available and start app
         checkSiteAndStartApp();
 //        splashAnimation();
+    }
+
+    //TODO необходимо подключить проверку триала
+    private void checkTrialPeriod() {
+        final DialogInterface.OnClickListener dialogAction = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                onBackPressed();
+            }
+        };
+
+        try {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    TrialChecker trialChecker = new TrialChecker(ActivitySplash.this, dialogAction);
+//                    if (trialChecker.isAppActualYet()) startApplication();
+                }
+            }, 1000);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void checkVersion() {

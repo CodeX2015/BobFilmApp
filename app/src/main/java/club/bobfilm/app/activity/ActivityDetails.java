@@ -182,13 +182,12 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
     private void fillFilesAds() {
         mFilesLayout.removeAllViews();
         for (final FilmFile file : mFiles) {
-            if (!file.getmFileName().equalsIgnoreCase("") && Utils.isVideo(file.getmFileName())) {
+            if (!file.getmFileName().equalsIgnoreCase("") /*&& Utils.isVideo(file.getmFileName())*/) {
                 setParentFilmData(file);
                 final int position = mFiles.indexOf(file);
                 final View view = getLayoutInflater().inflate(R.layout.item_list_file, mFilesLayout, false);
                 TextView tvFileName = (TextView) view.findViewById(R.id.tv_file_name);
                 tvFileName.setText(file.getmFileName());
-                //+ "\n" + file.getmLightFileUrl());
                 ImageView ivActionDone = (ImageView) view.findViewById(R.id.iv_action_done);
                 ivActionDone.setTag(position);
                 ivActionDone.setOnClickListener(new View.OnClickListener() {

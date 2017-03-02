@@ -114,7 +114,7 @@ public class Utils {
     private static final String PREF_LANGUAGE_ID = "LanguageId";
     private static final String PREF_DOWNLOAD_PATH = "DownloadPath";
     private static final String PREF_APP_LAUNCHES_COUNT = "AppLaunchesCount";
-    private static final String PREF_APP_INSTALL_ID = "AppInstallId";
+    public static final String PREF_APP_INSTALL_ID = "AppInstallId";
     private static String cryptoPass = "sup3rS3xy";
 
     private static final String IMAGE_PATTERN = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)";
@@ -144,27 +144,27 @@ public class Utils {
     }
 
     public static void setImageViewBitmap(final Context context,
-                                          final String imageUrl,
+                                          @NonNull final String imageUrl,
                                           final ImageView imageView,
                                           @Nullable final ViewFlipper vfProgress) {
-        if (imageUrl == null || imageUrl.equalsIgnoreCase("") || imageView == null) {
+        if (imageUrl.equalsIgnoreCase("")) {
             return;
         }
         log.info("image: {}", imageUrl);
         PicassoBigCache.INSTANCE.getPicassoBigCache(context)
                 .load(imageUrl)
-                .centerCrop()
                 .fit()
                 .priority(Picasso.Priority.HIGH)
-                /*.networkPolicy(NetworkPolicy.OFFLINE)*/
-                .placeholder(R.drawable.no_picture)
-                .error(R.drawable.no_picture)
+//                .centerCrop()
+//                .networkPolicy(NetworkPolicy.OFFLINE)
+                .placeholder(R.drawable.no_image)
+                .error(R.drawable.no_image)
 //                .resize(imageView.getWidth(), imageView.getHeight())
-                //.error(R.raw.loading)
+//                .error(R.raw.loading)
                 .into(imageView, new Callback() {
                             @Override
                             public void onSuccess() {
-                                //log.debug("Picasso, download and cached");
+                                log.debug("Picasso, download and cached");
                                 if (vfProgress != null) {
                                     new Handler().postDelayed(
                                             new Runnable() {
@@ -172,7 +172,7 @@ public class Utils {
                                                 public void run() {
                                                     vfProgress.setDisplayedChild(1);
                                                 }
-                                            }, context.getResources().getInteger(R.integer.activity_splash_time)
+                                            }, 1000
                                     );
                                 }
                             }
@@ -184,9 +184,9 @@ public class Utils {
                                         .load(imageUrl)
                                         .centerCrop()
                                         .fit()
+                                        .placeholder(R.drawable.no_image)
+                                        .error(R.drawable.no_image)
                                         .priority(Picasso.Priority.HIGH)
-                                        .placeholder(R.drawable.no_picture)
-                                        .error(R.drawable.no_picture)
                                         .into(imageView);
                                 if (vfProgress != null) {
                                     new Handler().postDelayed(
@@ -195,7 +195,7 @@ public class Utils {
                                                 public void run() {
                                                     vfProgress.setDisplayedChild(1);
                                                 }
-                                            }, context.getResources().getInteger(R.integer.activity_splash_time)
+                                            }, 1000
                                     );
                                 }
                             }

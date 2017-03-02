@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -434,9 +435,8 @@ public class BobFilmParser {
             Elements sFilmReviewsUrl = doc.select("div[class^=comm0]");
 
             String sPlaylistUrl = doc.select("param[name=flashvars]").attr("value");
-            if (sPlaylistUrl.contains("&")) {
-                sPlaylistUrl = sPlaylistUrl.substring(
-                        sPlaylistUrl.indexOf("&", sPlaylistUrl.indexOf("&") + 1) + 4);
+            if (sPlaylistUrl.contains("&pl")) {
+                sPlaylistUrl = sPlaylistUrl.substring(sPlaylistUrl.indexOf("&pl") + 4);
                 sPlaylistUrl = sPlaylistUrl.contains("http") ? sPlaylistUrl : mSite + sPlaylistUrl;
 
             } else {
@@ -889,9 +889,16 @@ public class BobFilmParser {
         return jRequest;
     }
 
+    private static int mConnectionTry = 3;
+
     private static BufferedReader openGetConnection(String link) throws Exception {
         // should be a singleton
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .build();
         Request request = new Request.Builder()
                 .header("Accept-Charset", "UTF-8")
                 .header("Content-Type", "application/json")
@@ -899,8 +906,16 @@ public class BobFilmParser {
                 .build();
         // Get a handler that can be used to post to the main thread
         Response response = client.newCall(request).execute();
+
         if (!response.isSuccessful()) {
-            throw new Exception("HTTP_RESPONSE_CODE: " + response.code());
+            if (mConnectionTry <= 0) {
+                mConnectionTry = 3;
+                throw new Exception("URL: " + link + ", HTTP_RESPONSE_CODE: " + response.code());
+            } else {
+                log.info("try number {}", 3 - mConnectionTry);
+                mConnectionTry--;
+                openGetConnection(link);
+            }
         }
         return new BufferedReader(new InputStreamReader(response.body().byteStream()));
     }

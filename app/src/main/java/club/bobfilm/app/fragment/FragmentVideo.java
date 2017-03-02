@@ -461,8 +461,8 @@ public class FragmentVideo extends Fragment
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     //super.onScrolled(mRecyclerView, dx, dy);
-                    if (dy > 0) //check for scroll down
-                    {
+                    //check for scroll down
+                    if (dy > 0) {
                         visibleItemCount = recyclerView.getLayoutManager().getChildCount();
                         totalItemCount = recyclerView.getLayoutManager().getItemCount();
                         pastVisibleItems = ((GridLayoutManager)
@@ -476,7 +476,7 @@ public class FragmentVideo extends Fragment
                                 //log.info("Last Item Wow! {}, {}, {}",
                                 // visibleItemCount[0], pastVisibleItems[0], totalItemCount[0]);
                                 if (!mCategory.getNextPageUrl().equalsIgnoreCase("")) {
-                                    mFilmsURL = BobFilmParser.mSite + mCategory.getNextPageUrl();
+                                    mFilmsURL = mCategory.getNextPageUrl();
                                     log.info("Loading: {}", mFilmsURL);
                                     mSwipeRefreshLayout.setRefreshing(true);
                                     getFilmsList();
