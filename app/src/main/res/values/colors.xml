@@ -6,8 +6,8 @@
     <color name="c_swipe_refresh_red">#d50000</color>
     <color name="c_swipe_refresh_orange">#ffa000</color>
     <color name="c_swipe_refresh_green">#00c853</color>
-    <color name="colorPrimary">#282341</color>
-    <color name="colorPrimaryDark">#211c39</color>
+    <color name="colorPrimary">#4479C2</color>
+    <color name="colorPrimaryDark">#3a75c7</color>
     <color name="colorAccent">#009688</color>
     <color name="c_tab_indicator">#F9C406</color>
     <color name="layout_background_item">#FFFFFF</color>
@@ -19,7 +19,7 @@
     <color name="main_layout_background">#e8e8e8</color>
     <color name="c_bookmark_checked">#FF673E</color>
     <color name="bookmark_unchecked">#AAB3BC</color>
-    <color name="tab_background">#282341</color>
+    <color name="tab_background">#4479C2</color>
     <color name="tab_text_selected">#FFFFFF</color>
     <color name="tab_text_unselected">#9492A0</color>
     <color name="tab_indicator">#F9C406</color>

@@ -10,6 +10,17 @@
     app:layout_scrollFlags="scroll|enterAlways"
     app:popupTheme="@style/AppTheme.PopupOverlay">
 
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_app_home"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_margin="4dp"-->
+        <!--android:background="?android:attr/selectableItemBackground"-->
+        <!--android:clickable="true"-->
+        <!--android:contentDescription="@string/toolbar_btn_home_descr"-->
+        <!--android:padding="2dp"-->
+        <!--android:scaleType="center"-->
+        <!--app:srcCompat="@drawable/toseex_home" />-->
     <ImageView
         android:id="@+id/iv_app_home"
         android:layout_width="wrap_content"
@@ -20,5 +31,5 @@
         android:contentDescription="@string/toolbar_btn_home_descr"
         android:padding="2dp"
         android:scaleType="center"
-        app:srcCompat="@drawable/toseex_home" />
+        app:srcCompat="@drawable/bobfilm_text_logo" />
 </android.support.v7.widget.Toolbar>
