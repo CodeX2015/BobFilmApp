@@ -15,7 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
         android:visibility="visible"
-        app:srcCompat="@drawable/toseex_start"
+        app:srcCompat="@drawable/bobfilm_full_logo"
         tools:ignore="ContentDescription" />
 
     <ScrollView
@@ -29,7 +29,7 @@
             android:padding="15dp"
             android:autoLink="web"
             android:clickable="true"
-            android:textAlignment="center"
+            android:textAlignment="inherit"
             android:textColor="@color/text_color_light" />
     </ScrollView>
     <!--android:text="@string/license_agreement"-->

@@ -150,7 +150,7 @@ public class ActivitySearchResult extends BaseActivity implements View.OnClickLi
     private void getSearchDataFromNetwork() {
         if (mSearchRequest != null && !mSearchRequest.equalsIgnoreCase("")) {
             String searchUrl = BobFilmParser.mSite + mSearchRequest;
-            BobFilmParser.getParsedSite(searchUrl, BobFilmParser.ACTION_SEARCH, null, new BobFilmParser.LoadListener() {
+            BobFilmParser.loadSite(searchUrl, BobFilmParser.ACTION_SEARCH, null, new BobFilmParser.LoadListener() {
                         @SuppressWarnings("unchecked")
                         @Override
                         public void OnLoadComplete(Object result) {

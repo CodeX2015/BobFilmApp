@@ -192,7 +192,7 @@ public class TestActivitySearchResult extends AppCompatActivity
     private void getSearchDataFromNetwork() {
         if (mSearchRequest != null && !mSearchRequest.equalsIgnoreCase("")) {
             String searchUrl = BobFilmParser.mSite + mSearchRequest;
-            BobFilmParser.getParsedSite(searchUrl, BobFilmParser.ACTION_SEARCH,
+            BobFilmParser.loadSite(searchUrl, BobFilmParser.ACTION_SEARCH,
                     null, new BobFilmParser.LoadListener() {
                         @SuppressWarnings("unchecked")
                         @Override
@@ -442,7 +442,7 @@ public class TestActivitySearchResult extends AppCompatActivity
     public void getSearchHints(String s) {
         String url = "http://www.ex.ua/r_search_hint?" + mCategory.getSearchId() + "&s=" + Uri.encode(s);
         log.info("getSearchHints: {}", url);
-        BobFilmParser.getParsedSite(url, BobFilmParser.ACTION_SEARCH_HINTS, s, new BobFilmParser.LoadListener() {
+        BobFilmParser.loadSite(url, BobFilmParser.ACTION_SEARCH_HINTS, s, new BobFilmParser.LoadListener() {
             @Override
             public void OnLoadComplete(Object result) {
                 String[] listHints = (String[]) result;

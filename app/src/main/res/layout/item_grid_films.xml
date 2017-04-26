@@ -48,6 +48,7 @@
         </FrameLayout>
 
         <club.bobfilm.app.MaterialRippleLayout
+            android:visibility="gone"
             android:id="@+id/ml_quote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,17 +94,18 @@
 
         <TextView
             android:id="@+id/date_create"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:layout_alignBottom="@+id/ml_quote"
             android:layout_below="@+id/fl_poster"
             android:layout_toEndOf="@id/ml_quote"
-            android:layout_toLeftOf="@+id/ml_grid_more"
             android:layout_toRightOf="@id/ml_quote"
+            android:layout_toLeftOf="@+id/ml_grid_more"
             android:layout_toStartOf="@+id/ml_grid_more"
             android:ellipsize="end"
-            android:gravity="end|center_vertical"
+            android:gravity="left|center_vertical"
             android:maxLines="1"
+            android:layout_marginLeft="5dp"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
             android:text="22.04.2016"

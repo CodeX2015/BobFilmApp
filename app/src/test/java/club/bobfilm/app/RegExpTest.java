@@ -220,7 +220,7 @@ public class RegExpTest {
 
     }
 
-    //    @Test
+    @Test
     public void splitByMask() {
         int matchesCount = 0;
         int noMatchesCount = 0;
@@ -272,7 +272,7 @@ public class RegExpTest {
 
     String VIDEO_PATTERN = "(?i).*\\.(mp4|mpg|avi|mkv|asf|mov|qt|avchd|flv|wmv|vob|ifo|dub|m4v)";
 
-    //    @Test
+    @Test
     public void isVideo() {
         int matchesCount = 0;
         int noMatchesCount = 0;
@@ -290,7 +290,7 @@ public class RegExpTest {
         ShadowLog.d("TEST_PATTERN", "matches files: " + matchesCount + " noMatchesCount: " + noMatchesCount);
     }
 
-    //    @Test
+    @Test
     public void findPattern() {
         String[] patterns = getPatterns();
         String[] files = getFiles();

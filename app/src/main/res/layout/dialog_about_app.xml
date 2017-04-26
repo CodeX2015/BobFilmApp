@@ -4,26 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_margin="60dp"
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@color/colorPrimary"
         android:scaleType="fitCenter"
         android:visibility="visible"
         android:layout_margin="20dp"
-        app:srcCompat="@drawable/toseex_start"
+        app:srcCompat="@drawable/bobfilm_full_logo"
         tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tv_app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Toseex для Android"
+        android:text="BobFilm.club для Android"
         android:textColor="@color/text_color_light"
         android:gravity="center"/>
 

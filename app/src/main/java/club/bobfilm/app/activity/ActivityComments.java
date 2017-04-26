@@ -100,7 +100,7 @@ public class ActivityComments extends BaseActivity implements View.OnClickListen
 
     private void getCommentsFromNetwork() {
         String commentsUrl = BobFilmParser.mSite + mCommentsUrl;
-        BobFilmParser.getParsedSite(commentsUrl, BobFilmParser.ACTION_COMMENTS, null, new BobFilmParser.LoadListener() {
+        BobFilmParser.loadSite(commentsUrl, BobFilmParser.ACTION_COMMENTS, null, new BobFilmParser.LoadListener() {
                     @SuppressWarnings("unchecked")
                     @Override
                     public void OnLoadComplete(Object result) {

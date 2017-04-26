@@ -272,7 +272,7 @@ public class ActivitySubCategories extends BaseActivity {
 
     private void getListOfSubCategories() {
         mSubCategoryUrl = BobFilmParser.mSite + mSubCategory.getFilmUrl();
-        BobFilmParser.getParsedSite(mSubCategoryUrl, BobFilmParser.ACTION_SUB_CATEGORIES, mCategory, new BobFilmParser.LoadListener() {
+        BobFilmParser.loadSite(mSubCategoryUrl, BobFilmParser.ACTION_SUB_CATEGORIES, mCategory, new BobFilmParser.LoadListener() {
             @SuppressWarnings("unchecked")
             @Override
             public void OnLoadComplete(final Object result) {

@@ -5,7 +5,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-2.14.1-all/8bnwg5hd3w55iofp58khbp6yv/gradle-2.14.1/bin/caches/modules-2/files-2.1/com.jakewharton.picasso/picasso2-okhttp3-downloader/1.0.2/e6bfe725afab8d3342bfe6052ab4a652ef9014a3/picasso2-okhttp3-downloader-1.0.2-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton.picasso/picasso2-okhttp3-downloader/1.0.2/e6bfe725afab8d3342bfe6052ab4a652ef9014a3/picasso2-okhttp3-downloader-1.0.2-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

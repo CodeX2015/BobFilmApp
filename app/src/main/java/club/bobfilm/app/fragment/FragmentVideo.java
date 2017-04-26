@@ -175,8 +175,7 @@ public class FragmentVideo extends Fragment
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.popup_share:
-                                String shareString = mFilm.getFilmTitle() + "\n\n" +
-                                        BobFilmParser.mSite + mFilm.getFilmUrl();
+                                String shareString = mFilm.getFilmTitle() + "\n\n" + mFilm.getFilmUrl();
                                 log.warn("share:\n{}", shareString);
                                 Utils.shareTextUrl(mContext, getString(R.string.action_send_to), shareString);
                                 return true;
@@ -301,7 +300,7 @@ public class FragmentVideo extends Fragment
     }
 
     private void getFilmsList() {
-        BobFilmParser.getParsedSite(mFilmsURL, BobFilmParser.ACTION_FILMS, mCategory,
+        BobFilmParser.loadSite(mFilmsURL, BobFilmParser.ACTION_FILMS, mCategory,
                 new BobFilmParser.LoadListener() {
                     @SuppressWarnings("unchecked")
                     @Override
@@ -591,7 +590,7 @@ public class FragmentVideo extends Fragment
     public void getSearchHints(String s) {
         String url = "http://www.ex.ua/r_search_hint?" + mCategory.getSearchId() + "&s=" + Uri.encode(s);
         log.info("getSearchHints: {}", url);
-        BobFilmParser.getParsedSite(url, BobFilmParser.ACTION_SEARCH_HINTS,
+        BobFilmParser.loadSite(url, BobFilmParser.ACTION_SEARCH_HINTS,
                 s, new BobFilmParser.LoadListener() {
                     @Override
                     public void OnLoadComplete(Object result) {

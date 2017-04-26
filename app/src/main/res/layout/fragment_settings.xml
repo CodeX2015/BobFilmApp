@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/layout_background_item"
@@ -25,8 +26,7 @@
         android:layout_height="1dp"
         android:background="@color/main_layout_background" />
 
-    <club.bobfilm.app.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <club.bobfilm.app.MaterialRippleLayout
         android:id="@+id/ll_settings_item_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,8 +75,7 @@
         android:layout_height="@dimen/settings_item_divider"
         android:background="@color/main_layout_background" />
 
-    <club.bobfilm.app.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <club.bobfilm.app.MaterialRippleLayout
         android:id="@+id/ll_settings_item_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -125,8 +124,7 @@
         android:layout_height="@dimen/settings_item_divider"
         android:background="@color/main_layout_background" />
 
-    <club.bobfilm.app.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <club.bobfilm.app.MaterialRippleLayout
         android:id="@+id/ll_settings_item_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -194,58 +192,7 @@
         android:layout_height="1dp"
         android:background="@color/main_layout_background" />
 
-    <club.bobfilm.app.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/ll_settings_item_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mrl_rippleColor="@color/c_ripple"
-        app:mrl_rippleDuration="450"
-        app:mrl_rippleOverlay="true"
-        app:mrl_rippleRoundedCorners="4dp">
-
-        <LinearLayout
-            android:id="@+id/ll_setting_bypass_blocked"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_item_height"
-            android:background="@color/layout_background_item"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:onClick="onClick"
-            android:orientation="vertical"
-            android:paddingEnd="@dimen/p_settings_item_right"
-            android:paddingLeft="@dimen/p_settings_item_left"
-            android:paddingRight="@dimen/p_settings_item_right"
-            android:paddingStart="@dimen/p_settings_item_left">
-
-            <TextView
-                android:id="@+id/tv_bypass_blocked"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/p_settings_item_title"
-                android:text="@string/activity_setting_bypass_blocked_title"
-                android:textColor="@color/c_setting_item_title"
-                android:textSize="@dimen/size_text_large" />
-
-            <TextView
-                android:id="@+id/tv_bypass_blocked_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/p_settings_item_descr"
-                android:text="@string/activity_setting_bypass_blocked_descr"
-                android:textColor="@color/c_setting_group_text"
-                android:textSize="@dimen/size_text_normal" />
-
-        </LinearLayout>
-    </club.bobfilm.app.MaterialRippleLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_item_divider"
-        android:background="@color/main_layout_background" />
-
-    <club.bobfilm.app.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <club.bobfilm.app.MaterialRippleLayout
         android:id="@+id/ll_settings_item_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -293,8 +240,7 @@
         android:layout_height="@dimen/settings_item_divider"
         android:background="@color/main_layout_background" />
 
-    <club.bobfilm.app.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <club.bobfilm.app.MaterialRippleLayout
         android:id="@+id/ll_settings_item_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -343,8 +289,7 @@
         android:layout_height="@dimen/settings_item_divider"
         android:background="@color/main_layout_background" />
 
-    <club.bobfilm.app.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <club.bobfilm.app.MaterialRippleLayout
         android:id="@+id/ll_settings_item_7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -389,6 +334,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_divider_height"
+        android:layout_height="match_parent"
         android:background="@color/main_layout_background" />
 </LinearLayout>

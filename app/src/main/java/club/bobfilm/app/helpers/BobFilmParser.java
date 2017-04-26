@@ -64,6 +64,7 @@ public class BobFilmParser {
     public static final int ACTION_COMMENTS = 14;
     public static final int ACTION_SEARCH = 15;
     public static final int ACTION_SEARCH_HINTS = 16;
+    public static final int ACTION_TEST_PARSE = 17;
 
     //sharing link
     //https://drive.google.com/file/d/0BwLqqTp54Kpwbzk2bFJrQ25rSTA/view?usp=sharing
@@ -132,10 +133,10 @@ public class BobFilmParser {
         );
     }
 
-    public static void getParsedSite(final String url,
-                                     final int action,
-                                     @Nullable final Object parent,
-                                     final LoadListener listener) {
+    public static void loadSite(final String url,
+                                final int action,
+                                @Nullable final Object parent,
+                                final LoadListener listener) {
         mExecService.submit(new Runnable() {
             Document docForParsing;
 
@@ -209,6 +210,9 @@ public class BobFilmParser {
             case ACTION_SEARCH_HINTS:
                 listener.OnLoadComplete(parseSearchHints(docForParsing, (String) parent));
                 break;
+            case ACTION_TEST_PARSE:
+                listener.OnLoadComplete(parseTestSite(docForParsing));
+                break;
         }
     }
 
@@ -230,6 +234,13 @@ public class BobFilmParser {
         String pageTitle = doc.toString().toLowerCase();
         return !pageTitle.equals("") && (pageTitle.contains("доступ ограничен".toLowerCase())
                 || pageTitle.contains("доступ закрыт".toLowerCase()));
+    }
+
+    private static String parseTestSite(Document doc) {
+        Elements video = doc.select("span.jwmain");
+        String result = video.html();
+        log.info("parseTestSite: result: {}", result);
+        return result;
     }
 
     private static String[] parseSearchHints(Document doc, String searchMask) {
@@ -546,7 +557,7 @@ public class BobFilmParser {
 
 
         Elements tableInclude = doc.select("div#dle-content");
-        Elements films = tableInclude.select("div.sh0");
+        Elements films = tableInclude.select("div.sh15");
         if (films == null || films.size() == 0) {
             return new ArrayList<>();
         }
@@ -554,55 +565,26 @@ public class BobFilmParser {
         //noinspection TryWithIdenticalCatches
         try {
             for (Element film : films) {
-                String sPosterUrl = film.select(".sh15").select(".postershortbox").select("img").attr("src");
+                String sPosterUrl = film.select(".postershort").select("img").attr("src");
                 sPosterUrl = sPosterUrl.contains("http") ? sPosterUrl : mSite + sPosterUrl;
-                String sFilmTitle = film.select(".sh15").select(".postershortbox").select("img").attr("title");
-                String sFilmUrl = film.select(".sh15").select(".postershortbox").select("a").attr("href");
+                String sFilmTitle = film.select(".postershort").select("img").attr("title");
+                String sFilmUrl = film.select(".postershort").select("a").attr("href");
                 String sFilmShortDescription = film.select("div.shortdisc").text();
 
-                String sCreateDate = film.select(".sh9").text();
-                if (sCreateDate.contains(",")) {
-                    sCreateDate = sCreateDate.substring(sCreateDate.indexOf(":") + 2);
-                } else {
-                    log.warn("Date {} not contains \',\'", sCreateDate);
-                }
+                String sCreateDate = film.select("span.sh9").text();
+//                if (sCreateDate.contains(",")) {
+//                    sCreateDate = sCreateDate.substring(sCreateDate.indexOf(":") + 2);
+//                } else {
+//                    log.debug("Date {} not contains \',\'", sCreateDate);
+//                }
 
-                String strReviews = film.select(".sh13").text();
-                String sReviews = "";
-                String sReviewsCount = "";
-                String sReviewsMask = mContext.getString(R.string.parser_films_responds_mask);
-//                    log.debug("{} sReviewsMask:{}, strReviews: {}",
-//                                          sFilmTitle, sReviewsMask, strReviews);
-                //noinspection StatementWithEmptyBody
-                if (strReviews.contains(sReviewsMask) && strReviews.contains(":")) {
-                    sReviews = strReviews.substring(0, strReviews.indexOf(":"));
-                    int indexOfColon = strReviews.indexOf(":");
-                    sReviewsCount = strReviews.substring(indexOfColon + 2 > strReviews.length()
-                            ? indexOfColon + 1 : indexOfColon + 2);
-                } else {
-                    //log.warn("string \'{}\' not contains \'{}\' and \':\'",
-                    //                                  strReviews, sReviewsMask);
-                }
-                boolean hasArticles = false;
-                String sArticlesMask = mContext.getString(R.string.parser_films_articles_mask);
-                if (strReviews.toLowerCase().contains(sArticlesMask.toLowerCase())) {
-                    hasArticles = true;
-                    log.debug("{} sArticlesMask: {}, strReviews: {}, true",
-                            sFilmTitle, sArticlesMask, strReviews);
-                }
-                sReviews = (sReviewsCount.equalsIgnoreCase("")
-                        || sReviewsCount.equalsIgnoreCase("0")) ?
-                        strReviewsDefaultValue : sReviewsCount;
-                String sReviewsUrl = film.select("a.info").attr("href");
                 String sNextPageUrl = "";
                 final Film filmObj = new Film();
                 filmObj.setPosterUrl(sPosterUrl);
                 filmObj.setFilmTitle(sFilmTitle);
                 filmObj.setFilmUrl(sFilmUrl);
                 filmObj.setCreateDate(sCreateDate);
-                filmObj.setReviews(sReviews);
-                filmObj.setHasArticle(hasArticles);
-                filmObj.setReviewsUrl(sReviewsUrl);
+                filmObj.setFilmAbout(sFilmShortDescription);
                 filmsArr.add(filmObj);
             }
         } catch (Exception ex) {

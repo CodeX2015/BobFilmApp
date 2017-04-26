@@ -5,7 +5,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-2.14.1-all/8bnwg5hd3w55iofp58khbp6yv/gradle-2.14.1/bin/caches/modules-2/files-2.1/com.github.tony19/logback-android-core/1.1.1-6/9cebefdade45f18a01226ff945e7dfaee09760bb/logback-android-core-1.1.1-6-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.tony19/logback-android-core/1.1.1-6/9cebefdade45f18a01226ff945e7dfaee09760bb/logback-android-core-1.1.1-6-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

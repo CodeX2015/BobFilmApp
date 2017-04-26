@@ -103,9 +103,6 @@ public class ActivitySettings extends BaseActivity implements View.OnClickListen
                 toast = "clear_history";
                 clearHistory();
                 break;
-            case R.id.ll_setting_bypass_blocked:
-                toast = "bypass ex.ua blocks";
-                break;
             case R.id.ll_setting_app_update:
                 //todo uncomment after paying
                 showUpdateDialog();
@@ -123,7 +120,7 @@ public class ActivitySettings extends BaseActivity implements View.OnClickListen
                 break;
         }
         if (toast != null) {
-            Toast.makeText(ActivitySettings.this, toast, Toast.LENGTH_LONG).show();
+            log.debug(toast);
         }
     }
 

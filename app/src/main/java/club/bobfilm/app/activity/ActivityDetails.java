@@ -130,7 +130,7 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
     }
 
     private void getFilmDetailsByUrl(final String urlQuery) {
-        BobFilmParser.getParsedSite(urlQuery, BobFilmParser.ACTION_FILM_DETAILS, null,
+        BobFilmParser.loadSite(urlQuery, BobFilmParser.ACTION_FILM_DETAILS, null,
                 new BobFilmParser.LoadListener() {
                     @Override
                     public void OnLoadComplete(final Object result) {
@@ -187,7 +187,7 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
                 final int position = mFiles.indexOf(file);
                 final View view = getLayoutInflater().inflate(R.layout.item_list_file, mFilesLayout, false);
                 TextView tvFileName = (TextView) view.findViewById(R.id.tv_file_name);
-                tvFileName.setText(file.getFileComment());
+                tvFileName.setText(file.getFileName());
                 ImageView ivActionDone = (ImageView) view.findViewById(R.id.iv_action_done);
                 ivActionDone.setTag(position);
                 ivActionDone.setOnClickListener(new View.OnClickListener() {
@@ -201,9 +201,16 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
                 ivDownloadFile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        changeFileState((int) v.getTag(), FILE_ACTION_DOWNLOAD);
 //                        Toast.makeText(ActivityDetails.this, R.string.notice_download_start, Toast.LENGTH_SHORT).show();
-                        showPopup(v, (int) v.getTag(), mPopupDownloadListener);
+                        FilmFile file = mFiles.get(mFileIndex);
+                        changeFileState(mFileIndex, FILE_ACTION_DOWNLOAD);
+                        if (!DownloadService.isDownloading(file)) {
+                            Toast.makeText(ActivityDetails.this, R.string.notice_download_start, Toast.LENGTH_SHORT).show();
+                            DownloadService.intentDownload(ActivityDetails.this, file);
+                        } else {
+                            Toast.makeText(ActivityDetails.this, R.string.notice_already_download, Toast.LENGTH_SHORT).show();
+                        }
+//                        showPopup(v, (int) v.getTag(), mPopupDownloadListener);
                     }
                 });
                 ImageView ivPlayFile = (ImageView) view.findViewById(R.id.iv_file_play);
@@ -213,9 +220,12 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onClick(View v) {
                         //Toast.makeText(ActivityDetails.this, "ic_file_play", Toast.LENGTH_SHORT).show();
-//                        changeFileState((int) v.getTag(), FILE_ACTION_PLAY);
-                        //Utils.playVideo(file.getFileUrl(), ActivityDetails.this);
-                        showPopup(v, (int) v.getTag(), mPopupPlayListener);
+                        String urlVideoFile;
+                        changeFileState(mFileIndex, FILE_ACTION_PLAY);
+                        urlVideoFile = mFiles.get(mFileIndex).getFileUrl();
+                        log.info("normal play {}", urlVideoFile);
+                        Utils.playVideo(urlVideoFile, ActivityDetails.this);
+//                        showPopup(v, (int) v.getTag(), mPopupPlayListener);
                     }
                 });
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -270,6 +280,7 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
         public boolean onMenuItemClick(MenuItem item) {
             FilmFile file = mFiles.get(mFileIndex);
             changeFileState(mFileIndex, FILE_ACTION_DOWNLOAD);
+
             switch (item.getItemId()) {
                 case R.id.popup_normal:
                     log.info("normal download {}\nurl: {}\n", file.getFileName(), file.getFileUrl());
@@ -473,11 +484,13 @@ public class ActivityDetails extends BaseActivity implements View.OnClickListene
                 zoomImageFromThumb(v, path);
                 break;
             case R.id.ll_share_details:
-                String shareString = mFilmDetails.getFilmTitle() + "\n\n" + BobFilmParser.mSite + mFilmDetails.getFilmUrl();
+                String shareString = mFilmDetails.getFilmTitle() + "\n\n" + mFilmDetails.getFilmUrl();
                 Utils.shareTextUrl(ActivityDetails.this, getString(R.string.action_send_to), shareString);
                 break;
             case R.id.ll_read_quotes:
-                ActivityDetails.this.isCommentsExists(mFilmDetails.getFilmReviews(), mFilmDetails.getFilmReviewsUrl());
+//                todo need update comments
+//                ActivityDetails.this.isCommentsExists(mFilmDetails.getFilmReviews(), mFilmDetails.getFilmReviewsUrl());
+                Toast.makeText(this, "Under construction", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ll_add_bookmark:
                 setBookmark();

@@ -77,6 +77,23 @@ public class ActivityTabMain extends BaseTabActivity {
             }
         }
 
+        if (BuildConfig.DEBUG) {
+            BobFilmParser.loadSite("https://sakh.tv/watch/the_expanse/02/07/baibako/",
+                    BobFilmParser.ACTION_TEST_PARSE,
+                    null, new BobFilmParser.LoadListener() {
+                        @Override
+                        public void OnLoadComplete(Object result) {
+
+                        }
+
+                        @Override
+                        public void OnLoadError(Exception ex) {
+
+                        }
+                    }
+            );
+        }
+
         mToolbar = getSupportActionBar();
         mTabs = (TabLayout) findViewById(R.id.sliding_tabs);
         if (savedInstanceState == null) {
@@ -142,7 +159,7 @@ public class ActivityTabMain extends BaseTabActivity {
     }
 
     private void getSectionsList() {
-        BobFilmParser.getParsedSite(BobFilmParser.mSite,
+        BobFilmParser.loadSite(BobFilmParser.mSite,
                 BobFilmParser.ACTION_SECTIONS,
                 null, new BobFilmParser.LoadListener() {
                     @SuppressWarnings("unchecked")
